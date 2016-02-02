@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
     <div class="row-fluid">
-    <h1 id="fb-welcome">Loading..</h1>
+    <h1 id="fb-welcome">Hurry post</h1>
     <div class="col-md-12">
         {!!  \Form::open(['url' => '', 'method' => 'post', 'class' => 'form-horizontal'])!!}
         <p>Select where You want to post.</p>
