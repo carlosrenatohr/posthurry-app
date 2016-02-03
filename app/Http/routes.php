@@ -43,7 +43,8 @@ Route::group(['middleware' => ['web']], function () {
         return redirect('/')->with('message', 'Successfully logged in with Facebook');
     });
 
-    Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.token']);
     Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
+    Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.token']);
+    Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
 });
 
