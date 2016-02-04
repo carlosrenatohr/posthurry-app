@@ -69,7 +69,8 @@ class MainController extends Controller
         //$this->fb->sendRequest('post', '/111799155842529/feed', ['message' => 'HOLA DESDE LA API'], $token); //PAGE PSM
 //         $this->fb->sendRequest('post', '/446028878930046/feed', ['message' => 'HOLA DESDE LA API'], $token); // GROUP NELgit
         $comparison = Comparison::create($input);
-        dd($comparison);
+
+        return redirect()->to('/comparison/'. $comparison->id);
 
         // GET LIKES, shares, comments
 //        $post1_post_id = $this->fb->sendRequest('get', '/446028878930046_447000985499502/likes', [], $token)->getBody();
