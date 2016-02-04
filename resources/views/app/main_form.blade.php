@@ -1,4 +1,7 @@
 @extends('layouts.main')
+@section('others-js')
+    <script src="{{ asset('js/access.js') }}"></script>
+@endsection
 @section('content')
     <div class="row-fluid">
         <h1 id="fb-welcome">Hurry post</h1>

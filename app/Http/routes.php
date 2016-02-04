@@ -27,7 +27,10 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-
+    /**
+     * @DEPRECATED
+     * Fb routes
+     */
     // Generate a login URL
     Route::match(['get', 'post'], '/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
     {
@@ -36,15 +39,22 @@ Route::group(['middleware' => ['web']], function () {
         // Obviously you'd do this in blade :)
         echo '<a href="' . $login_url . '">Login with Facebook</a>';
     });
-
     // Endpoint that is redirected to after an authentication attempt
     Route::get('/facebook/callback', function()
     {
         return redirect('/')->with('message', 'Successfully logged in with Facebook');
     });
-
+    /**
+     * Main actions routes
+     */
     Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
-    Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.token']);
+    Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.token', 'fb.user']);
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
+    /**
+     * Comparison routes
+     */
+    Route::get('/comparison', 'ComparisonController@index');
+    Route::get('/comparison/{id}', 'ComparisonController@show');
+    Route::post('/comparison/stats/{id}', 'ComparisonController@postStatsFromFb');
 });
 

@@ -49,5 +49,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'fb.token' => \App\Http\Middleware\ValidateFbTokenMiddleware::class,
+        'fb.user' => \App\Http\Middleware\VerifyUserExists::class,
     ];
 }

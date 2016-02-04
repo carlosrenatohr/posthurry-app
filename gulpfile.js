@@ -20,7 +20,9 @@ elixir(function(mix) {
     mix.scripts([
         './node_modules/jquery/dist/jquery.js',
         './node_modules/select2/dist/js/select2.js',
-        'fbinit.js',
-        'main.js',
-    ])
+        './node_modules/highcharts/highcharts.js',
+        './node_modules/highcharts/modules/exporting.js',
+        'main.js'
+        ])
+        .scripts(['fbinit.js'], './public/js/access.js');
 });

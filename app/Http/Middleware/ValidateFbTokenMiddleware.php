@@ -61,7 +61,8 @@ class ValidateFbTokenMiddleware
 //        $request->session()->flash('fb_user_access_token', (string)$token);
         // Get basic info on the user from Facebook.
         try {
-            $response = $this->fb->get('/me?fields=id,name,email');
+            $response = $this->fb->get('/me?fields=id,name,email')->getBody();
+            $request->session()->put('fb_user_data', $response);
         } catch (\Facebook\Exceptions\FacebookSDKException $e) {
             dd($e->getMessage());
         }
