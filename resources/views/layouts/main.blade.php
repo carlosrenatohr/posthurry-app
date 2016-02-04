@@ -44,7 +44,7 @@
 </header>
 <div class="main-container">
     <div class="container-fluid">
-        <img src="{{ asset('img/loading.gif') }}" alt="" class="img-responsive img-loading" style="max-width: 150px;position: absolute;right: 0;">
+        <img src="{{ asset('img/loading.gif') }}" alt="" class="img-responsive img-loading hide" style="max-width: 150px;position: absolute;right: 0;">
         @yield('content')
     </div>
     {{ Form::hidden('fb_scopes', implode(',', config('laravel-facebook-sdk.default_scope')), ['id' => 'fb_scopes']) }}
