@@ -53,8 +53,10 @@ Route::group(['middleware' => ['web']], function () {
     /**
      * Comparison routes
      */
-    Route::get('/comparison', 'ComparisonController@index');
-    Route::get('/comparison/{id}', 'ComparisonController@show');
-    Route::post('/comparison/stats/{id}', 'ComparisonController@postStatsFromFb');
+    Route::group(['prefix' => 'comparison', 'middleware' => 'isLoggedIn'], function(){
+        Route::get('/', 'ComparisonController@index');
+        Route::get('/{id}', 'ComparisonController@show');
+        Route::post('/stats/{id}', 'ComparisonController@postStatsFromFb');
+    });
 });
 
