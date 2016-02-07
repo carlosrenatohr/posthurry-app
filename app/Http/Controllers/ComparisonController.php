@@ -54,10 +54,15 @@ class ComparisonController extends Controller
         $comments2 = $fb->sendRequest('get', '/'. $comparison->post2_post_id .'/comments', [], $token)->getDecodedBody();
         $second['comments'] = count($comments2['data']);
 
-
         return response()->json([
-            'post1' => array_values($first),
-            'post2' => array_values($second),
+            'post1' => [
+                'name' => $comparison->post1_page_name,
+                'data' => array_values($first)
+            ],
+            'post2' => [
+                'name' => $comparison->post2_page_name,
+                'data' => array_values($second)
+            ],
         ]);
 
     }

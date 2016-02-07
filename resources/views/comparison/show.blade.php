@@ -1,12 +1,36 @@
 @extends('layouts.main')
 @section('content')
-    <h1>Comparison <small>Created by: {{ $comparison->user->name }}</small></h1>
     <div class="row-fluid">
-    <div id="comparison-chart-container"></div>
-    {{ Form::hidden('id', $comparison->id, ['id' => 'comparison_id']) }}
-
-    <div class="col-md-12">
-        <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right">Back</a>
+        <div class="col-md-12">
+            <h1 class="pull-left">
+                Comparison
+                <small>Created by: {{ $comparison->user->name }}</small>
+            </h1>
+            <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right">Back</a>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="panel panel-success">
+                <div class="panel-heading"> Posted on {{$comparison->post1_page_name }}</div>
+                <div class="panel-body">
+                    <p>{{$comparison->post1_text }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading"> Posted on {{$comparison->post2_page_name }}</div>
+                <div class="panel-body">
+                    <p>{{$comparison->post2_text }}</p>
+                </div>
+            </div>
+        </div>
+        {{ Form::hidden('id', $comparison->id, ['id' => 'comparison_id']) }}
     </div>
+    <div class="row-fluid">
+        <div class="col-md-12 col-xs-12">
+            <div id="comparison-chart-container" style="border: 1px solid #222;min-height: 250px;">
+                <p>Graph is generating . . .</p>
+            </div>
+        </div>
     </div>
 @endsection

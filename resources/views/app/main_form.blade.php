@@ -52,6 +52,7 @@
                         <option value="">Select a group..</option>
                     </select>
                     <input type="hidden" value="2" name="post1_sort">
+                    <input type="hidden" name="post1_page_name" id="post1_page_name">
                 </div>
             </div>
             <div class="form-group">
@@ -62,17 +63,18 @@
             <div class="form-group">
                 <div class="groups-list-container">
                     <label for="">Select a group from the list</label><br>
-                    <select name="post2_page_id" id="" class="form-control select2 select-groups">
+                    <select name="post2_page_id" id="" class="form-control select2 select-groups" required>
                         <option value="">Select a group..</option>
                     </select>
                     <input type="hidden" value="2" name="post2_sort">
                 </div>
                 <div class="pages-list-container hide">
                     <label for="">Select a page from the list</label><br>
-                    <select name="post2_page_id" id="" class="form-control select2 select-pages" disabled>
+                    <select name="post2_page_id" id="" class="form-control select2 select-pages" disabled required>
                         <option value="">Select a page..</option>
                     </select>
                     <input type="hidden" value="1" name="post2_sort">
+                    <input type="hidden" name="post2_page_name" id="post2_page_name">
                 </div>
             </div>
             <div class="form-group">
