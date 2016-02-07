@@ -14,6 +14,19 @@ $(function() {
 
     $('select.select2').select2();
 
+    $('select[name=post1_page_id]').on('change', function() {
+        if (!$(this).parents('.hide').length) {
+            $('#post1_page_name').val($(this).find("option:selected").text());
+            console.log('page 1 = ' + $(this).find("option:selected").text());
+        }
+    });
+
+    $('select[name=post2_page_id]').on('change', function() {
+        if (!$(this).parents('.hide').length) {
+            $('#post2_page_name').val($(this).find("option:selected").text());
+            console.log('page 2 = ' + $(this).find("option:selected").text());
+        }
+    });
     /**
      * Dynamic radio control selection
      */
@@ -71,13 +84,13 @@ $(function() {
                     },
                     series: [
                         {
-                            name: 'Post 1',
-                            data: data.post1,
+                            name: data.post1.name,
+                            data: data.post1.data,
                             color: '#a1ffa1'
                         },
                         {
-                            name: 'Post 2',
-                            data: data.post2,
+                            name: data.post2.name,
+                            data: data.post2.data,
                             color: '#ffa1a1'
                         }]
                 });
