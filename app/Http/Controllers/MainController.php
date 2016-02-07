@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 use App\Comparison;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 
 class MainController extends Controller
@@ -31,7 +33,6 @@ class MainController extends Controller
     public function getDataFromFB(Request $request)
     {
         $token = $request->session()->get('fb_user_access_token');
-//        $groupsManaged = $fb->get('/me/groups', $token, [])->getPaginationResult();
         $groupsManaged = $this->fb->sendRequest('get', '/me/groups', ['limit' => 100], $token)->getBody();
         $pagesLiked = $this->fb->sendRequest('get', '/me/likes', ['limit' => 100], $token)->getBody();
 
@@ -44,15 +45,31 @@ class MainController extends Controller
      * @return Comparison $comparison
      */
     public function postByUserSelected(Request $request) {
+        $post1_image = $post2_image = '';
         $token = $request->session()->get('fb_user_access_token');
-        $input = array_except($request->all(), ['_token', 'typeToPost']);
-        // POST text sent by client to respect groups
+        $input = array_except($request->all(), ['_token', 'typeToPost', 'post1_image', 'post2_image']);
+        if($request->hasFile('post1_image')){
+            $post1_image = $this->upload($request->file('post1_image'));
+        }
+        if($request->hasFile('post2_image')){
+//            $post2_image = $this->upload($request->file('post2_image'));
+        }
+         // POST text sent by client to respect groups
         $post1_post_id = $this->fb->sendRequest(
             'post',
             '/' . $input['post1_page_id'] . '/feed',
             ['message' => $input['post1_text']],
             $token
         )->getBody();
+        /**
+         * UPLOAD **
+         */
+//        $post1_post_id = $this->fb->sendRequest(
+//            'post',
+//            '/' . $input['post1_page_id'] . '/photos',
+//            ['source' => $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()))],
+//            $token
+//        )->getBody();
         $post1_post_id = json_decode($post1_post_id);
         $input['post1_post_id'] = $post1_post_id->id;
         //
@@ -66,16 +83,29 @@ class MainController extends Controller
         $input['post2_post_id'] = $post2_post_id->id;
         //
         $input['user_id'] = $request->session()->get('logged_in');
-        //$this->fb->sendRequest('post', '/111799155842529/feed', ['message' => 'HOLA DESDE LA API'], $token); //PAGE PSM
-//         $this->fb->sendRequest('post', '/446028878930046/feed', ['message' => 'HOLA DESDE LA API'], $token); // GROUP NELgit
         $comparison = Comparison::create($input);
 
         return redirect()->to('/comparison/'. $comparison->id);
+    }
 
-        // GET LIKES, shares, comments
-//        $post1_post_id = $this->fb->sendRequest('get', '/446028878930046_447000985499502/likes', [], $token)->getBody();
-//        $post1_post_id = $this->fb->sendRequest('get', '/446028878930046_447000985499502/sharedposts', [], $token)->getBody();
-//        $post1_post_id = $this->fb->sendRequest('get', '/446028878930046_447000985499502/comments', [], $token)->getBody();
+    private function upload($image) {
+        $validate = Validator::make(['image' => $image], ['image' => 'required']);
+        if(!$validate->fails() ) {
+            if($image->isValid()) {
+                try {
+                    $destinationPath = public_path('uploads');
+                    $extension = $image->getClientOriginalExtension(); // getting image extension
+                    $fileName = time().'_'.md5($image->getClientOriginalName()).'.'.$extension; // renameing image
+                    $file = $image->move($destinationPath, $fileName); // uploading file to given path
+                    return $file;
+                } catch(Exception $e) {
+                    dd($e);
+                }
+            }
+        }
+        else {
+            dd('bad');
+        }
     }
 
 }

@@ -6,7 +6,7 @@
     <div class="row-fluid">
         <h1 id="fb-welcome">Hurry post</h1>
 
-        {!! Form::open(['url' => route('postData'), 'method' => 'post', 'class' => 'form-horizontal'])!!}
+        {!! Form::open(['url' => route('postData'), 'method' => 'post', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data'])!!}
         <div class="col-md-12">
             <p>Select where You post</p>
 
@@ -58,6 +58,9 @@
             <div class="form-group">
                 {!! Form::textarea('post1_text', null, ['class'=> 'form-control', 'id' => '', 'rows' => '5', 'cols' => '5', 'placeholder' => 'Type the post that you need..']) !!}
             </div>
+            <div class="form-group">
+                {{ Form::file('post1_image', []) }}
+            </div>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12" id="post2-container">
             <div class="form-group">
@@ -79,6 +82,9 @@
             </div>
             <div class="form-group">
                 {!! Form::textarea('post2_text', null, ['class'=> 'form-control', 'id' => '', 'rows' => '5', 'cols' => '5', 'placeholder' => 'Type the post that you need..']) !!}
+            </div>
+            <div class="form-group">
+                {{ Form::file('post2_image[]', ['class' => '']) }}
             </div>
         </div>
     </div>

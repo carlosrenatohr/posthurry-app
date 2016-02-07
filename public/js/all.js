@@ -15823,6 +15823,15 @@ $(function() {
     });
 
     /**
+     * upload image
+     */
+    $('.upload-image').on('click', function(e) {
+        e.preventDefault();
+        console.log($(this).siblings());
+        $(this).siblings('form[type=file]').click();
+    });
+
+    /**
      * Graph
      */
     if ($('#comparison-chart-container').length) {
@@ -15863,9 +15872,6 @@ $(function() {
                 $('.img-loading').addClass('hide');
             }
         });
-
-
-
     }
 
 });

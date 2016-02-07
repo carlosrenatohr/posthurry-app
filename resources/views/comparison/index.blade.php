@@ -7,8 +7,8 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Post 1 in</th>
-                    <th>Post 2 in</th>
+                    <th>Post 1 on</th>
+                    <th>Post 2 on</th>
                     <th>Created at</th>
                 </tr>
                 </thead>
@@ -16,9 +16,9 @@
                 @foreach($user->comparisons as $comparison)
                     <tr>
                         <td><a href="{{ url('comparison/'. $comparison->id) }}">Link</a></td>
-                        <td>{{ $comparison->post1_page_id }}</td>
-                        <td>{{ $comparison->post2_page_id }}</td>
-                        <td>{{ $comparison->created_at }}</td>
+                        <td>{{ $comparison->post1_page_name }}</td>
+                        <td>{{ $comparison->post2_page_name }}</td>
+                        <td>{{ date('m-d-Y  h:i A', strtotime($comparison->created_at)) }}</td>
                     </tr>
                 @endforeach
                 </tbody>
