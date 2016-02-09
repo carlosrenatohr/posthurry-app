@@ -1,2 +1,11 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+nav.navbar.main-navbar {
+  min-height: 100px;
+  .navbar-brand img {
+    width: 200px;
+  };
+  .navbar-nav li {
+    padding: 3%;
+  }
+}

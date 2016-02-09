@@ -5749,4 +5749,11 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+nav.navbar.main-navbar {
+  min-height: 100px; }
+  nav.navbar.main-navbar .navbar-brand img {
+    width: 200px; }
+  nav.navbar.main-navbar .navbar-nav li {
+    padding: 3%; }
+
 /*# sourceMappingURL=app.css.map */
