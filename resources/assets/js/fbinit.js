@@ -44,6 +44,13 @@ window.fbAsyncInit = function() {
                     $('.img-loading').addClass('hide');
                 }
             });
+            var uid = response.authResponse.userID;
+            var accessToken = response.authResponse.accessToken;
+        } else if (response.status === 'not_authorized') {
+            // the user is logged in to Facebook,
+            // but has not authenticated your app
+            console.log('not auth');
+
         } else {
             // Otherwise, show Login dialog first.
             FB.login(function(response) {
