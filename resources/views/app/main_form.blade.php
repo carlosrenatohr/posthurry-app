@@ -3,95 +3,91 @@
     <script src="{{ asset('js/access.js') }}"></script>
 @endsection
 @section('content')
-    <div class="row-fluid">
-        <h1 id="fb-welcome">Hurry post</h1>
+    {{--<div class="row-fluid">--}}
+        {!! Form::open(['url' => route('postData'), 'method' => 'post', 'class' => '', 'enctype' => 'multipart/form-data'])!!}
+        <div class="col-md-12" style="height:74%;margin-bottom:4%;margin-top:4%;">
+            <div class="cd-form floating-labels">
+                <h4>Choose one of the following</h4>
 
-        {!! Form::open(['url' => route('postData'), 'method' => 'post', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data'])!!}
-        <div class="col-md-12">
-            <p>Select where You post</p>
+                <ul class="cd-form-list">
+                    <li>
+                        <input type="radio" name="typeToPost" id="cd-radio-1" value="0" checked>
+                        <label  for="cd-radio-1">Each Group and Page</label>
+                    </li>
 
-            <div class="col-md-4">
-                <div class="radio">
-                    <label>
-                        <input type="radio" value="0" name="typeToPost" checked>
-                        Each group and page
-                    </label>
-                </div>
+                    <li>
+                        <input type="radio" name="typeToPost" id="cd-radio-2" value="1">
+                        <label for="cd-radio-2">Two Pages</label>
+                    </li>
+
+                    <li>
+                        <input type="radio" name="typeToPost" id="cd-radio-3" value="2">
+                        <label for="cd-radio-3">Two Groups</label>
+                    </li>
+                </ul>
             </div>
-            <div class="col-md-4">
-                <div class="radio">
-                    <label>
-                        <input type="radio" value="1" name="typeToPost">
-                        Two pages
-                    </label>
-                </div>
+            <div class="col-md-6" id="post1-container">
+                    <fieldset class="cd-form floating-labels">
+
+                        <div>
+                            <h4>Select a Page from List</h4>
+                            <p class="cd-select icon pages-list-container">
+                                <select class="budget select-pages" name="post1_page_id">
+                                    <option value="">Select Page</option>
+                                </select>
+                                <input type="hidden" value="1" name="post1_sort">
+                            </p>
+                            <p class="cd-select icon groups-list-container hide">
+                                <select class="budget select-groups" name="post1_page_id" disabled>
+                                    <option value="0">Select Page</option>
+                                    <option value="1">Page 1</option>
+                                    <option value="2">Page 2</option>
+                                </select>
+                                <input type="hidden" value="2" name="post1_sort">
+                                <input type="hidden" name="post1_page_name" id="post1_page_name">
+                            </p>
+                        </div>
+
+                        <div class="icon">
+                            <label class="cd-label" for="cd-textarea">Type a Post you Need</label>
+                            {!! Form::textarea('post1_text', null, ['class'=> 'message', 'id' => 'cd-textarea', 'required']) !!}
+                        </div>
+
+                    </fieldset>
             </div>
-            <div class="col-md-4">
-                <div class="radio">
-                    <label>
-                        <input type="radio" value="2" name="typeToPost">
-                        Two Groups
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="col-md-6 col-sm-6 col-xs-12" id="post1-container">
-            <div class="form-group">
-                <div class="pages-list-container">
-                    <label for="">Select a page from the list</label><br>
-                    <select name="post1_page_id" id="" class="form-control select2 select-pages">
-                        <option value="">Select a page..</option>
-                    </select>
-                    <input type="hidden" value="1" name="post1_sort">
-                </div>
-                <div class="groups-list-container hide">
-                    <label for="">Select a group from the list</label><br>
-                    <select name="post1_page_id" id="" class="form-control select2 select-groups" disabled>
-                        <option value="">Select a group..</option>
-                    </select>
-                    <input type="hidden" value="2" name="post1_sort">
-                    <input type="hidden" name="post1_page_name" id="post1_page_name">
-                </div>
-            </div>
-            <div class="form-group">
-                {!! Form::textarea('post1_text', null, ['class'=> 'form-control', 'id' => '', 'rows' => '5', 'cols' => '5', 'placeholder' => 'Type the post that you need..']) !!}
-            </div>
-            <div class="form-group">
-                {{ Form::file('post1_image', []) }}
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-12" id="post2-container">
-            <div class="form-group">
-                <div class="groups-list-container">
-                    <label for="">Select a group from the list</label><br>
-                    <select name="post2_page_id" id="" class="form-control select2 select-groups" required>
-                        <option value="">Select a group..</option>
-                    </select>
-                    <input type="hidden" value="2" name="post2_sort">
-                </div>
-                <div class="pages-list-container hide">
-                    <label for="">Select a page from the list</label><br>
-                    <select name="post2_page_id" id="" class="form-control select2 select-pages" disabled required>
-                        <option value="">Select a page..</option>
-                    </select>
-                    <input type="hidden" value="1" name="post2_sort">
-                    <input type="hidden" name="post2_page_name" id="post2_page_name">
-                </div>
-            </div>
-            <div class="form-group">
-                {!! Form::textarea('post2_text', null, ['class'=> 'form-control', 'id' => '', 'rows' => '5', 'cols' => '5', 'placeholder' => 'Type the post that you need..']) !!}
-            </div>
-            <div class="form-group">
-                {{ Form::file('post2_image[]', ['class' => '']) }}
+            <div class="col-md-6" id="post2-container">
+                <fieldset class="cd-form floating-labels">
+
+                    <div>
+                        <h4>Select a Group from List</h4>
+
+                        <p class="cd-select icon groups-list-container">
+                            <select class="budget select-groups" name="post2_page_id" required>
+                                <option value="0">Select Group</option>
+                            </select>
+                            <input type="hidden" value="2" name="post2_sort">
+                        </p>
+                        <p class="cd-select icon pages-list-container hide">
+                            <select class="budget select-pages" name="post2_page_id" required disabled>
+                                <option value="0">Select Group</option>
+                            </select>
+                            <input type="hidden" value="1" name="post2_sort">
+                            <input type="hidden" name="post2_page_name" id="post2_page_name">
+                        </p>
+                    </div>
+
+                    <div class="icon">
+                        <label class="cd-label" for="cd-textarea">Type a Post you Need</label>
+                        {!! Form::textarea('post2_text', null, ['class'=> 'message', 'id' => 'cd-textarea', 'required']) !!}
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Submit">
+                    </div>
+                </fieldset>
             </div>
         </div>
-    </div>
-    <div class="row-fluid">
-        <div class="col-md-12 pull-right">
-            <button class="btn btn-lg btn-info" type="submit">Submit</button>
-        </div>
-    </div>
+    {{--</div>--}}
+
     {{ Form::close() }}
 @endsection

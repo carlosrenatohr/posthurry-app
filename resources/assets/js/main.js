@@ -17,14 +17,14 @@ $(function() {
     $('select[name=post1_page_id]').on('change', function() {
         if (!$(this).parents('.hide').length) {
             $('#post1_page_name').val($(this).find("option:selected").text());
-            console.log('page 1 = ' + $(this).find("option:selected").text());
+            //console.log('page 1 = ' + $(this).find("option:selected").text());
         }
     });
 
     $('select[name=post2_page_id]').on('change', function() {
         if (!$(this).parents('.hide').length) {
             $('#post2_page_name').val($(this).find("option:selected").text());
-            console.log('page 2 = ' + $(this).find("option:selected").text());
+            //console.log('page 2 = ' + $(this).find("option:selected").text());
         }
     });
     /**

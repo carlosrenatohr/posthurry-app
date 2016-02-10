@@ -9,3 +9,10 @@ nav.navbar.main-navbar {
     padding: 3%;
   }
 }
+
+//
+.cd-form .cd-form-list li {
+  input[type="radio"], label {
+    cursor: pointer;
+  }
+} 

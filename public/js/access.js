@@ -33,12 +33,12 @@ window.fbAsyncInit = function() {
                 dataType: 'json',
                 success: function(data) {
                     $.each(data.pages.data, function(i, val) {
-                        //$('select#select-pages').select2('val', val.id);
-                        $('.select-pages').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name).select2();
+                        //$('.select-pages').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name).select2();
+                        $('.select-pages').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name);
                     });
                     $.each(data.groups.data, function(i, val) {
-                        //$('select#select-groups').select2('data', {id: val.id, text: val.name});
-                        $('.select-groups').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name).select2();
+                        //$('.select-groups').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name).select2();
+                        $('.select-groups').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name);
                     });
                     //
                     $('.img-loading').addClass('hide');

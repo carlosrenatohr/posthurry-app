@@ -5756,4 +5756,7 @@ nav.navbar.main-navbar {
   nav.navbar.main-navbar .navbar-nav li {
     padding: 3%; }
 
+.cd-form .cd-form-list li input[type="radio"], .cd-form .cd-form-list li label {
+  cursor: pointer; }
+
 /*# sourceMappingURL=app.css.map */

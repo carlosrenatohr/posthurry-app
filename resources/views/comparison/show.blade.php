@@ -2,11 +2,11 @@
 @section('content')
     <div class="row-fluid">
         <div class="col-md-12">
-            <h1 class="pull-left">
+            <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
                 Comparison
                 <small>Created by: {{ $comparison->user->name }}</small>
             </h1>
-            <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right">Back</a>
+            <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right" style="margin: 15px;">Back</a>
         </div>
         <div class="col-md-6 col-xs-12">
             <div class="panel panel-success">

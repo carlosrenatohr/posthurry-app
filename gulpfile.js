@@ -14,15 +14,19 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('app.scss');
     mix.styles([
+       'reset.css',
+       'style.css',
        './node_modules/select2/dist/css/select2.css',
        './node_modules/select2-bootstrap-css/select2-bootstrap.css'
     ]);
     mix.scripts([
         './node_modules/jquery/dist/jquery.js',
+        'modernizr.js',
         './node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
         './node_modules/select2/dist/js/select2.js',
         './node_modules/highcharts/highcharts.js',
         './node_modules/highcharts/modules/exporting.js',
+        'main_design.js',
         'main.js'
         ])
         .scripts(['fbinit.js'], './public/js/access.js');
