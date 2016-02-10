@@ -18,8 +18,10 @@
                 @foreach($user->comparisons as $comparison)
                     <tr>
                         <td><a href="{{ url('comparison/'. $comparison->id) }}">Link</a></td>
-                        <td>{{ $comparison->post1_page_name }} <span style="font-weight: 800;">({{ $comparison->post1_sort == 1 ? 'Group' : 'Page' }})</span></td>
-                        <td>{{ $comparison->post2_page_name }} <span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Group' : 'Page' }})</span></td>
+                        {{--<span style="font-weight: 800;">({{ $comparison->post1_sort == 1 ? 'Page' : 'Group' }})</span>--}}
+                        <td>{{ $comparison->post1_page_name }} </td>
+                        {{--<span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Page' : 'Group' }})</span>--}}
+                        <td>{{ $comparison->post2_page_name }} </td>
                         <td>{{ date('m-d-Y  h:i A', strtotime($comparison->created_at)) }}</td>
                     </tr>
                 @endforeach

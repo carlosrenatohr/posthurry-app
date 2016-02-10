@@ -32,7 +32,9 @@
         <center>
             <div class="" style="margin-top:10px">
                 <div class="pull-left col-md-6 col-sm-5 col-xs-7">
-                    <img src="{{ asset('img/logo2.png') }}" class="pull-left"/>
+                    <a href="/">
+                        <img src="{{ asset('img/logo2.png') }}" class="pull-left"/>
+                    </a>
                 </div>
             </div>
         </center>
