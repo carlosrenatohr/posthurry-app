@@ -19,6 +19,11 @@
             border: 1px solid #2b4170;
             text-shadow: 0 -1px -1px #1f2f52;
         }
+        @media only screen and (max-width: 600px) {
+            .header2.footer {
+                position:inherit!important;
+            }
+        }
 
     </style>
     {{--JS--}}
@@ -38,33 +43,33 @@
                 </div>
             </div>
         </center>
-        <ul class="nav navbar-nav">
-            <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
-                        href="{{ url('comparison') }}">List of comparisons </a></li>
-        </ul>
+        {{--<ul class="nav navbar-nav">--}}
+
+        {{--</ul>--}}
 
     </div>
     {{--<header>--}}
     {{--<nav class="navbar navbar-default main-navbar">--}}
     {{--<div class="container-fluid">--}}
     {{--<!-- Brand and toggle get grouped for better mobile display -->--}}
-    {{--<div class="navbar-header">--}}
-    {{--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">--}}
-    {{--<span class="sr-only">Toggle navigation</span>--}}
-    {{--<span class="icon-bar"></span>--}}
-    {{--<span class="icon-bar"></span>--}}
-    {{--<span class="icon-bar"></span>--}}
-    {{--</button>--}}
+    <div class="navbar-header" style="background-color: #2B416D">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
+        style="background-color: lightgray!important;">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar" style="background-color: #222;"></span>
+    <span class="icon-bar" style="background-color: #222;"></span>
+    <span class="icon-bar" style="background-color: #222;"></span>
+    </button>
     {{--<a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('img/posthurry_logo.jpg') }}"></a>--}}
-    {{--</div>--}}
+    </div>
 
     {{--<!-- Collect the nav links, forms, and other content for toggling -->--}}
-    {{--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">--}}
-    {{--<ul class="nav navbar-nav">--}}
-    {{--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>--}}
-    {{--<li><a href="{{ url('comparison') }}">List of comparisons </a></li>--}}
-    {{--</ul>--}}
-    {{--</div><!-- /.navbar-collapse -->--}}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: #2B416D">
+    <ul class="nav navbar-nav">
+        <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
+        href="{{ url('comparison') }}">List of comparisons </a></li>
+    </ul>
+    </div><!-- /.navbar-collapse -->
     {{--</div><!-- /.container-fluid -->--}}
     {{--</nav>--}}
     {{--</header>--}}
@@ -78,7 +83,7 @@
     </div>
 </div>
 
-<div class="header2" style="height:55px;width:100%;text-align:left;position: absolute;bottom: 0;">
+<div class="header2 footer" style="height:55px;width:100%;text-align:left;position:absolute;bottom: 0;">
 	<span style="color:white;display: inline-block;margin:15px 10px 0 0;padding:5px 10px" class="">
 	Terms of Service, Privacy Policy, Copyright 2016 Booth LLC
 	</span>
