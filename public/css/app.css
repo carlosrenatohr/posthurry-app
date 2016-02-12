@@ -5759,4 +5759,18 @@ nav.navbar.main-navbar {
 .cd-form .cd-form-list li input[type="radio"], .cd-form .cd-form-list li label {
   cursor: pointer; }
 
+.divider-img-post {
+  border-top: #222 solid 1px;
+  width: 100%;
+  height: 5px;
+  position: relative;
+  margin: 20px; }
+
+.img-container-post {
+  max-width: 350px;
+  left: 175px;
+  position: relative; }
+  .img-container-post img {
+    width: 100%; }
+
 /*# sourceMappingURL=app.css.map */

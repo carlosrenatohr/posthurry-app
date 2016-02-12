@@ -15,4 +15,21 @@ nav.navbar.main-navbar {
   input[type="radio"], label {
     cursor: pointer;
   }
-} 
+}
+
+.divider-img-post {
+  border-top: #222 solid 1px;
+  width: 100%;
+  height: 5px;
+  position: relative;
+  margin: 20px;
+}
+
+.img-container-post {
+  max-width: 350px;
+  left: 175px;
+  position: relative;
+  img {
+    width: 100%;
+  }
+}

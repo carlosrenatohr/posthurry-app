@@ -13,8 +13,9 @@
                 <div class="panel-heading"> Posted on {{$comparison->post1_page_name }}</div>
                 <div class="panel-body">
                     <p>{{$comparison->post1_text }}</p>
+                    <div class="divider-img-post"></div>
                     @if(!is_null($comparison->post1_img_url))
-                    <div class="img-container">
+                    <div class="img-container-post">
                         <img src="{{ $comparison->post1_img_url }}"alt="">
                     </div>
                     @endif
@@ -25,10 +26,12 @@
             <div class="panel panel-danger">
                 <div class="panel-heading"> Posted on {{$comparison->post2_page_name }}</div>
                 <div class="panel-body">
-                    <p>{{$comparison->post2_text }}</p>
+                    <p>{{ $comparison->post2_text }}</p>
+                    <div class="divider-img-post"></div>
                     @if(!is_null($comparison->post2_img_url))
-                        <div class="img-container">
-                            <img src="{{ $comparison->post2_img_url }}"alt="">
+                        <div class="divider-img-post"></div>
+                        <div class="img-container-post">
+                            <img src="{{ $comparison->post2_img_url }}">
                         </div>
                     @endif
                 </div>
