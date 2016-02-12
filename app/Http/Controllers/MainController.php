@@ -54,13 +54,25 @@ class MainController extends Controller
         if($request->hasFile('post2_image')){
 //            $post2_image = $this->upload($request->file('post2_image'));
         }
+        /////////////
+        $post1_image_upload = $this->fb->sendRequest(
+            'post',
+            '/' . $input['post1_page_id'] . '/photos',
+            ['source' => $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()))],
+            $token
+        )->getBody();
+        dd($post1_image_upload);
+        /////////////////
          // POST text sent by client to respect groups
         $post1_post_id = $this->fb->sendRequest(
             'post',
             '/' . $input['post1_page_id'] . '/feed',
-            ['message' => $input['post1_text']],
+            ['message' => $input['post1_text'],
+            'link' => asset('uploads/'. $post1_image->getFileName()),
+            'picture' => asset('uploads/'. $post1_image->getFileName())],
             $token
         )->getBody();
+        dd($post1_image);
         /**
          * UPLOAD **
          */
@@ -70,6 +82,7 @@ class MainController extends Controller
 //            ['source' => $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()))],
 //            $token
 //        )->getBody();
+
         $post1_post_id = json_decode($post1_post_id);
         $input['post1_post_id'] = $post1_post_id->id;
         //

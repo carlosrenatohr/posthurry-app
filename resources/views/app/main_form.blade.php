@@ -49,6 +49,9 @@
                                     <input type="hidden" name="post1_page_name" id="post1_page_name">
                                 </p>
                             </div>
+                            <div class="form-group">
+                                {{ Form::file('post1_image', []) }}
+                            </div>
                         </div>
 
                         <div class="icon">
@@ -81,6 +84,9 @@
                                 <input type="hidden" value="1" name="post2_sort" class="page_sort" disabled>
                                 <input type="hidden" name="post2_page_name" id="post2_page_name">
                             </p>
+                        </div>
+                        <div class="form-group">
+                            {{ Form::file('post2_image', []) }}
                         </div>
                     </div>
 
