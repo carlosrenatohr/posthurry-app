@@ -19,11 +19,6 @@
             border: 1px solid #2b4170;
             text-shadow: 0 -1px -1px #1f2f52;
         }
-        @media only screen and (max-width: 600px) {
-            .header2.footer {
-                position:inherit!important;
-            }
-        }
 
     </style>
     {{--JS--}}

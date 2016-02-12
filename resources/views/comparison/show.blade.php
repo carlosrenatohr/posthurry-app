@@ -29,7 +29,6 @@
                     <p>{{ $comparison->post2_text }}</p>
                     <div class="divider-img-post"></div>
                     @if(!is_null($comparison->post2_img_url))
-                        <div class="divider-img-post"></div>
                         <div class="img-container-post">
                             <img src="{{ $comparison->post2_img_url }}">
                         </div>
@@ -41,7 +40,7 @@
     </div>
     <div class="row-fluid">
         <div class="col-md-12 col-xs-12">
-            <div id="comparison-chart-container" style="border: 1px solid #222;min-height: 250px;">
+            <div id="comparison-chart-container">
                 <p>Graph is generating . . .</p>
             </div>
         </div>
