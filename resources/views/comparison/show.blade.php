@@ -13,6 +13,11 @@
                 <div class="panel-heading"> Posted on {{$comparison->post1_page_name }}</div>
                 <div class="panel-body">
                     <p>{{$comparison->post1_text }}</p>
+                    @if(!is_null($comparison->post1_img_url))
+                    <div class="img-container">
+                        <img src="{{ $comparison->post1_img_url }}"alt="">
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -21,6 +26,11 @@
                 <div class="panel-heading"> Posted on {{$comparison->post2_page_name }}</div>
                 <div class="panel-body">
                     <p>{{$comparison->post2_text }}</p>
+                    @if(!is_null($comparison->post2_img_url))
+                        <div class="img-container">
+                            <img src="{{ $comparison->post2_img_url }}"alt="">
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

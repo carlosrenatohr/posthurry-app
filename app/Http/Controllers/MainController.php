@@ -45,62 +45,63 @@ class MainController extends Controller
      * @return Comparison $comparison
      */
     public function postByUserSelected(Request $request) {
-        $post1_image = $post2_image = '';
+        $post1_has_image = $post2_has_image = false;
         $token = $request->session()->get('fb_user_access_token');
         $input = array_except($request->all(), ['_token', 'typeToPost', 'post1_image', 'post2_image']);
+        // Creating params array for request
+        $params1 = array(
+            'message' => $input['post1_text']
+        );
+        $params2 = array(
+            'message' => $input['post2_text']
+        );
         if($request->hasFile('post1_image')){
             $post1_image = $this->upload($request->file('post1_image'));
+            $post1_has_image = true;
+            $params1['source'] = $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()));
+            $input['post1_img_url'] = asset('uploads/'. $post1_image->getFileName());
         }
         if($request->hasFile('post2_image')){
-//            $post2_image = $this->upload($request->file('post2_image'));
+            $post2_image = $this->upload($request->file('post2_image'));
+            $post2_has_image = true;
+            $params2['source'] = $this->fb->fileToUpload(asset('uploads/'. $post2_image->getFileName()));
+            $input['post2_img_url'] = asset('uploads/'. $post2_image->getFileName());
         }
-        /////////////
-        $post1_image_upload = $this->fb->sendRequest(
-            'post',
-            '/' . $input['post1_page_id'] . '/photos',
-            ['source' => $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName())),
-            'message' => $input['post1_text'],
-            'caption' => 'asdasdasdas'],
-            $token
-        )->getBody();
-        dd($post1_image_upload);
-        /////////////////
+
          // POST text sent by client to respect groups
+        /**
+         * 1st Post
+         */
         $post1_post_id = $this->fb->sendRequest(
             'post',
-            '/' . $input['post1_page_id'] . '/feed',
-            ['message' => $input['post1_text'],
-            'link' => asset('uploads/'. $post1_image->getFileName()),
-            'picture' => asset('uploads/'. $post1_image->getFileName())],
+            '/' . $input['post1_page_id'] . '/' . ($post1_has_image ? 'photos' : 'feed'),
+            $params1,
             $token
         )->getBody();
-        dd($post1_image);
-        /**
-         * UPLOAD **
-         */
-//        $post1_post_id = $this->fb->sendRequest(
-//            'post',
-//            '/' . $input['post1_page_id'] . '/photos',
-//            ['source' => $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()))],
-//            $token
-//        )->getBody();
 
         $post1_post_id = json_decode($post1_post_id);
-        $input['post1_post_id'] = $post1_post_id->id;
-        //
+//        $input['post1_post_id'] = $post1_post_id->id;
+        $input['post1_post_id'] = ($post1_has_image) ? $post1_post_id->post_id : $post1_post_id->id;
+        /**
+         * 2nd Post
+         */
         $post2_post_id = $this->fb->sendRequest(
             'post',
-            '/' . $input['post2_page_id'] . '/feed',
-            ['message' => $input['post2_text']],
+            '/' . $input['post2_page_id'] . '/'. ($post2_has_image ? 'photos' : 'feed'),
+            $params2,
             $token
         )->getBody();
         $post2_post_id = json_decode($post2_post_id);
-        $input['post2_post_id'] = $post2_post_id->id;
-        //
+        $input['post2_post_id'] = ($post2_has_image) ? $post2_post_id->post_id : $post2_post_id->id;
+        // Getting user id to store
         $input['user_id'] = $request->session()->get('logged_in');
         $comparison = Comparison::create($input);
+        if (!is_null($comparison)) {
+            return redirect()->to('/comparison/'. $comparison->id);
+        } else {
+            return redirect()->back();
+        }
 
-        return redirect()->to('/comparison/'. $comparison->id);
     }
 
     private function upload($image) {

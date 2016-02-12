@@ -8,21 +8,21 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Show</th>
                     <th>First post on</th>
                     <th>Second post on</th>
                     <th>Created at</th>
+                    <th>Link</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($user->comparisons as $comparison)
                     <tr>
-                        <td><a href="{{ url('comparison/'. $comparison->id) }}">Link</a></td>
                         {{--<span style="font-weight: 800;">({{ $comparison->post1_sort == 1 ? 'Page' : 'Group' }})</span>--}}
                         <td>{{ $comparison->post1_page_name }} </td>
                         {{--<span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Page' : 'Group' }})</span>--}}
                         <td>{{ $comparison->post2_page_name }} </td>
                         <td>{{ date('m-d-Y  h:i A', strtotime($comparison->created_at)) }}</td>
+                        <td><a href="{{ url('comparison/'. $comparison->id) }}">View Chart</a></td>
                     </tr>
                 @endforeach
                 </tbody>
