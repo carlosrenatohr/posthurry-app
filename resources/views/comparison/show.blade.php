@@ -16,7 +16,7 @@
                     <div class="divider-img-post"></div>
                     @if(!is_null($comparison->post1_img_url))
                     <div class="img-container-post">
-                        <img src="{{ $comparison->post1_img_url }}"alt="">
+                        <img src="{{ $comparison->post1_img_url }}">
                     </div>
                     @endif
                 </div>
