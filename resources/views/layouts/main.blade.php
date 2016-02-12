@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<div class="header2 footer" style="height:55px;width:100%;text-align:left;position:absolute;bottom: 0;">
+<div class="header2 footer" style="height:55px;width:100%;text-align:left;position:relative;bottom: 0;">
 	<span style="color:white;display: inline-block;margin:15px 10px 0 0;padding:5px 10px" class="">
 	Terms of Service, Privacy Policy, Copyright 2016 Booth LLC
 	</span>
