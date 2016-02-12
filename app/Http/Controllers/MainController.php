@@ -57,7 +57,7 @@ class MainController extends Controller
         /////////////
         $post1_image_upload = $this->fb->sendRequest(
             'post',
-            '/' . $input['post1_page_id'] . '/feed',
+            '/' . $input['post1_page_id'] . '/photos',
             ['source' => $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName())),
             'message' => $input['post1_text'],
             'caption' => 'asdasdasdas'],
