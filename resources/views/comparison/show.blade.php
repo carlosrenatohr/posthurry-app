@@ -8,6 +8,17 @@
             </h1>
             <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right" style="margin: 15px;">Back</a>
         </div>
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+            <h2 class="" style="font-size: 18px;">
+                @if($isExpired)
+                    Comparison is expired!
+                @else
+                    Comparison during {{  $comparison->limitDaysDuration }} days from {{ date('M d, Y', strtotime($comparison->created_at)) }}
+                @endif
+            </h2>
+            </div>
+        </div>
         <div class="col-md-6 col-xs-12">
             <div class="panel panel-success">
                 <div class="panel-heading"> Posted on {{$comparison->post1_page_name }}</div>

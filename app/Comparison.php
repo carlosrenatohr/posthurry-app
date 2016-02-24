@@ -12,4 +12,9 @@ class Comparison extends Model
     {
         return $this->belongsTo('\App\User', 'user_id', 'id');
     }
+
+    public function data_row()
+    {
+        return $this->hasOne('\App\Comparison_data', 'comparison_id', 'id');
+    }
 }

@@ -26,6 +26,7 @@ class CreateComparisonTable extends Migration
             $table->string('post2_post_id')->index()->comment = 'id of new post created by user';
             $table->text('post2_text');
             $table->text('post2_img_url')->nullable();
+            $table->integer('limitDaysDuration', false, true);
             $table->integer('user_id')->index();
             $table->timestamps();
         });
