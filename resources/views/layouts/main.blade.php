@@ -63,6 +63,8 @@
     <ul class="nav navbar-nav">
         <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
         href="{{ url('comparison') }}">List of comparisons </a></li>
+        <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
+        href="{{ url('/comparison/winners') }}">Winners groups/pages</a></li>
     </ul>
     </div><!-- /.navbar-collapse -->
     {{--</div><!-- /.container-fluid -->--}}

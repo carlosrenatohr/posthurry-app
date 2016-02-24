@@ -37,6 +37,13 @@ class ComparisonController extends Controller
         return view('comparison.show', ['comparison' => $comparison, 'isExpired' => $isExpired]);
     }
 
+
+    public function getWinners(Request $request) {
+        $user_id = $request->session()->get('logged_in');
+        $winners = $this->comparison->where('user_id', $user_id)->whereNotNull('winner')->get();
+        return view('comparison.winners', ['comparison' => $winners]);
+    }
+
     public function postStatsFromFb($id, Request $request, LaravelFacebookSdk $fb)
     {
         $comparison = $this->comparison->find($id);
@@ -68,6 +75,9 @@ class ComparisonController extends Controller
                    'post2_comments' => $collection['second']['comments'],
                 ]);
                 $comparison->data_row()->save($row);
+                // set winner
+                $winner = $this->setWinnerByComparison($row);
+                $comparison->fill(['winner' => $winner])->save();
 //                $result = $comparison->data_row;
             }
         } else {
@@ -113,9 +123,40 @@ class ComparisonController extends Controller
 
     private function comparisonIsExpired($date, $days) {
         $limit = new \Carbon\Carbon($date);
-        $limit = $limit->addDays($days);
+        $expiration = $limit->addDays($days);
+        $expiration->hour(0);
+        $expiration->minute(0);
         $now = \Carbon\Carbon::now();
-        return $limit->gte($now);
 
+        return $now->gt($expiration);
+    }
+
+    private function setWinnerByComparison($row) {
+        $item1 = $item2 = 0;
+        if ($row->post1_likes > $row->post2_likes) {
+            $item1++;
+        } elseif ($row->post1_likes < $row->post2_likes) {
+            $item2++;
+        } else {
+
+        }
+        // check shares
+        if ($row->post1_shares > $row->post2_shares) {
+            $item1++;
+        } elseif ($row->post1_shares < $row->post2_shares) {
+            $item2++;
+        } else {
+
+        }
+        // check shares
+        if ($row->post1_comments > $row->post2_comments) {
+            $item1++;
+        } elseif ($row->post1_comments < $row->post2_comments) {
+            $item2++;
+        } else {
+
+        }
+
+        return ($item1 > $item2) ? 1 : ($item1 < $item2) ? 2 : 3;
     }
 }

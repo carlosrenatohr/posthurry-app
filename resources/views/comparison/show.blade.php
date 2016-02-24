@@ -12,7 +12,8 @@
             <div class="alert alert-warning">
             <h2 class="" style="font-size: 18px;">
                 @if($isExpired)
-                    Comparison is expired!
+                    Comparison is expired!<br>
+                    Winner was {{ $comparison->{'post'. $comparison->winner .'_page_name'} }}
                 @else
                     Comparison during {{  $comparison->limitDaysDuration }} days from {{ date('M d, Y', strtotime($comparison->created_at)) }}
                 @endif

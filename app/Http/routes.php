@@ -55,6 +55,7 @@ Route::group(['middleware' => ['web']], function () {
      */
     Route::group(['prefix' => 'comparison', 'middleware' => 'isLoggedIn'], function(){
         Route::get('/', 'ComparisonController@index');
+        Route::get('/winners', 'ComparisonController@getWinners');
         Route::get('/{id}', 'ComparisonController@show');
         Route::post('/stats/{id}', 'ComparisonController@postStatsFromFb');
     });

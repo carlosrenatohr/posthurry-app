@@ -27,6 +27,7 @@ class CreateComparisonTable extends Migration
             $table->text('post2_text');
             $table->text('post2_img_url')->nullable();
             $table->integer('limitDaysDuration', false, true);
+            $table->unsignedSmallInteger('winner')->nullable()->comment = '1 and 2 for them, 3 means both are winners, a tie';
             $table->integer('user_id')->index();
             $table->timestamps();
         });
