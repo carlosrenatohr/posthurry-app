@@ -42,6 +42,9 @@ window.fbAsyncInit = function() {
                     });
                     //
                     $('.img-loading').addClass('hide');
+                },
+                error: function(xhr, text, errorThrown) {
+                    console.log(xhr, text, errorThrown);
                 }
             });
             var uid = response.authResponse.userID;

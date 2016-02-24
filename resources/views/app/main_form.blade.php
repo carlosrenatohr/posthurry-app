@@ -26,6 +26,10 @@
                     </li>
                 </ul>
             </div>
+            <div class="cd-form floating-labels">
+                <h4>Duration of comparison on days</h4>
+                <input type="number" name="limitDaysDuration" id="" min="0" step="1" max="5" value="5">
+            </div>
             <div class="col-md-6" id="post1-container">
                     <fieldset class="cd-form floating-labels">
 
