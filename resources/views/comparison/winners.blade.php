@@ -26,7 +26,10 @@
                     <?php $winner_n = $page->winner;?>
                     @if($winner_n < 3)
                     <tr>
-                        <td>{{ $page->{'post'. $winner_n .'_page_name'} }} ({{ $page->{'post'. $winner_n .'_sort'} == 1 ? "Page" : "Group" }}) </td>
+                        <td>
+                            <b>({{ $page->{'post'. $winner_n .'_sort'} == 1 ? "Page" : "Group" }})</b>
+                            {{ $page->{'post'. $winner_n .'_page_name'} }}
+                        </td>
                         <td>{{ $page->{'post'. $winner_n .'_text'} }} </td>
                         <td>{{ date('m-d-Y  h:i A', strtotime($page->created_at)) }}</td>
                         <td>
@@ -38,7 +41,10 @@
                     </tr>
                     @else
                         <tr>
-                            <td>{{ $page->post1_page_name }} ({{ $page->post1_sort == 1 ? "Page" : "Group" }}) </td>
+                            <td>
+                                <b>({{ $page->post1_sort == 1 ? "Page" : "Group" }})</b>
+                                {{ $page->post1_page_name }}
+                            </td>
                             <td>{{ $page->post1_text }} </td>
                             <td>{{ date('m-d-Y  h:i A', strtotime($page->created_at)) }}</td>
                             <td>
@@ -49,7 +55,10 @@
                             <td><a href="{{ url('comparison/'. $page->id) }}"><i class="fa fa-area-chart"></i>Chart</a></td>
                         </tr>
                         <tr>
-                            <td>{{ $page->post2_page_name }} ({{ $page->post2_sort == 1 ? "Page" : "Group" }}) </td>
+                            <td>
+                                <b>({{ $page->post2_sort == 1 ? "Page" : "Group" }})</b>
+                                {{ $page->post2_page_name }}
+                            </td>
                             <td>{{ $page->post2_text }} </td>
                             <td>{{ date('m-d-Y  h:i A', strtotime($page->created_at)) }}</td>
                             <td>

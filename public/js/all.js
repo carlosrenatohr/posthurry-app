@@ -18186,24 +18186,37 @@ $(function() {
     $('[name=typeToPost]').on('change', function(e) {
         var selected = this.value;
         if (selected == '0') {
-            $('#post1-container .pages-list-container').removeClass('hide').find('.select-pages, .page-sort').attr('disabled', false);
-            $('#post1-container .groups-list-container').addClass('hide').find('.select-groups, .group-sort').attr('disabled', true);
-            $('#post2-container .pages-list-container').addClass('hide').find('.select-pages, .page-sort').attr('disabled', true);
-            $('#post2-container .groups-list-container').removeClass('hide').find('.select-groups, .group-sort').attr('disabled', false);
+            $('#post1-container .pages-list-container').removeClass('hide').find('.select-pages').attr('disabled', false);
+            $('#post1-container .pages-list-container').find('input.page_sort').attr('disabled', false);
+            //
+            $('#post1-container .groups-list-container').addClass('hide').find('.select-groups').attr('disabled', true);
+            $('#post1-container .groups-list-container').find('input.group_sort').attr('disabled', true);
+            //
+            $('#post2-container .pages-list-container').addClass('hide').find('.select-pages').attr('disabled', true);
+            $('#post2-container .pages-list-container').find('input.page_sort').attr('disabled', true);
+            //
+            $('#post2-container .groups-list-container').removeClass('hide').find('.select-groups').attr('disabled', false);
+            $('#post2-container .groups-list-container').find('input.group_sort').attr('disabled', false);
         }
         /**
          * If 2 pages selected
          */
         else if (selected == '1') {
-            $('.groups-list-container').addClass('hide').find('.select-groups, .group-sort').attr('disabled', true);
-            $('.pages-list-container').removeClass('hide').find('.select-pages, .page-sort').attr('disabled', false);
+            $('.groups-list-container').addClass('hide').find('.select-groups').attr('disabled', true);
+            $('.groups-list-container').find('input.group_sort').attr('disabled', true);
+            //
+            $('.pages-list-container').removeClass('hide').find('.select-pages').attr('disabled', false);
+            $('.pages-list-container').find('input.page_sort').attr('disabled', false);
         }
         /**
          * If 2 groups selected
          */
         else if (selected == '2') {
-            $('.pages-list-container').addClass('hide').find('.select-pages, .page-sort').attr('disabled', true);
-            $('.groups-list-container').removeClass('hide').find('.select-groups, .group-sort').attr('disabled', false);
+            $('.pages-list-container').addClass('hide').find('.select-pages').attr('disabled', true);
+            $('.pages-list-container').find('input.page_sort').attr('disabled', true);
+            //
+            $('.groups-list-container').removeClass('hide').find('.select-groups').attr('disabled', false);
+            $('.groups-list-container').find('input.group_sort').attr('disabled', false);
         } else {
             console.log('error, no checkbox selected');
         }

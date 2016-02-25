@@ -12,7 +12,7 @@
                 <ul class="cd-form-list">
                     <li>
                         <input type="radio" name="typeToPost" id="cd-radio-1" value="0" checked>
-                        <label  for="cd-radio-1">Each Group and Page</label>
+                        <label  for="cd-radio-1">Each Page and Group</label>
                     </li>
 
                     <li>
