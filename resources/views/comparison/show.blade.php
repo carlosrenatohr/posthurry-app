@@ -13,7 +13,7 @@
             <h2 class="" style="font-size: 18px;">
                 @if($isExpired)
                     Comparison is expired!<br>
-                    Winner was {{ $comparison->{'post'. $comparison->winner .'_page_name'} }}
+                    @if(!is_null($comparison->winner))Winner was {{ $comparison->{'post'. $comparison->winner .'_page_name'} }} @endif
                 @else
                     Comparison during {{  $comparison->limitDaysDuration }} days from {{ date('M d, Y', strtotime($comparison->created_at)) }}
                 @endif

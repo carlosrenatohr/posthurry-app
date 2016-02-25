@@ -1,12 +1,17 @@
 @extends('layouts.main')
 @section('content')
+    <style>
+        .table-winners td label {
+            margin-right: 5px;
+        }
+    </style>
     <div class="row-fluid">
         <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
             List of winners
             <small>By {{ $comparison->first()->user->name }}</small>
         </h1>
         <div class="col-md-12">
-            <table class="table table-striped">
+            <table class="table table-striped table-winners">
                 <thead>
                 <tr>
                     <th>Page/group located</th>
@@ -25,11 +30,11 @@
                         <td>{{ $page->{'post'. $winner_n .'_text'} }} </td>
                         <td>{{ date('m-d-Y  h:i A', strtotime($page->created_at)) }}</td>
                         <td>
-                            <b>Likes</b><label for="" class="badge">{{ $page->data_row->{'post'. $winner_n .'_likes'} }}</label>
-                            Shares<label for="" class="badge">{{ $page->data_row->{'post'. $winner_n .'_shares'} }}</label>
-                            Comments<label for="" class="badge">{{ $page->data_row->{'post'. $winner_n .'_comments'} }}</label>
+                            <label title="Likes"><i class="fa fa-thumbs-o-up"></i><span class="badge">{{ $page->data_row->{'post'. $winner_n .'_likes'} }}</span></label>
+                            <label title="Shares"><i class="fa fa-share-alt"></i><span class="badge">{{ $page->data_row->{'post'. $winner_n .'_shares'} }}</span></label>
+                            <label title="Comments"><i class="fa fa-comment"></i><span class="badge">{{ $page->data_row->{'post'. $winner_n .'_comments'} }}</span></label>
                         </td>
-                        <td><a href="{{ url('comparison/'. $page->id) }}">View Chart</a></td>
+                        <td><a href="{{ url('comparison/'. $page->id) }}"><i class="fa fa-area-chart"></i>Chart</a></td>
                     </tr>
                     @else
                         <tr>
@@ -37,22 +42,22 @@
                             <td>{{ $page->post1_text }} </td>
                             <td>{{ date('m-d-Y  h:i A', strtotime($page->created_at)) }}</td>
                             <td>
-                                <b>Likes</b><label for="" class="badge">{{ $page->data_row->post1_likes }}</label>
-                                Shares<label for="" class="badge">{{ $page->data_row->post1_shares }}</label>
-                                Comments<label for="" class="badge">{{ $page->data_row->post1_comments }}</label>
+                                <label title="Likes"><i class="fa fa-thumbs-o-up"></i><span class="badge">{{ $page->data_row->post1_likes }}</span></label>
+                                <label title="Shares"><i class="fa fa-share-alt"></i><span  class="badge">{{ $page->data_row->post1_shares }}</span></label>
+                                <label title="Comments"><i class="fa fa-comment"></i><span  class="badge">{{ $page->data_row->post1_comments }}</span></label>
                             </td>
-                            <td><a href="{{ url('comparison/'. $page->id) }}">View Chart</a></td>
+                            <td><a href="{{ url('comparison/'. $page->id) }}"><i class="fa fa-area-chart"></i>Chart</a></td>
                         </tr>
                         <tr>
                             <td>{{ $page->post2_page_name }} ({{ $page->post2_sort == 1 ? "Page" : "Group" }}) </td>
                             <td>{{ $page->post2_text }} </td>
                             <td>{{ date('m-d-Y  h:i A', strtotime($page->created_at)) }}</td>
                             <td>
-                                <b>Likes</b><label for="" class="badge">{{ $page->data_row->post2_likes }}</label>
-                                Shares<label for="" class="badge">{{ $page->data_row->post2_shares }}</label>
-                                Comments<label for="" class="badge">{{ $page->data_row->post2_comments }}</label>
+                                <label title="Likes"><i class="fa fa-thumbs-o-up"></i><span  class="badge">{{ $page->data_row->post2_likes }}</span></label>
+                                <label title="Shares"><i class="fa fa-share-alt"></i><span  class="badge">{{ $page->data_row->post2_shares }}</span></label>
+                                <label title="Comments"><i class="fa fa-comment"></i><span  class="badge">{{ $page->data_row->post2_comments }}</span></label>
                             </td>
-                            <td><a href="{{ url('comparison/'. $page->id) }}">View Chart</a></td>
+                            <td><a href="{{ url('comparison/'. $page->id) }}"><i class="fa fa-area-chart"></i>Chart</a></td>
                         </tr>
                     @endif
                 @endforeach

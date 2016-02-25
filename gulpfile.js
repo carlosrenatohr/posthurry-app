@@ -17,7 +17,8 @@ elixir(function(mix) {
        'reset.css',
        'style.css',
        './node_modules/select2/dist/css/select2.css',
-       './node_modules/select2-bootstrap-css/select2-bootstrap.css'
+       './node_modules/select2-bootstrap-css/select2-bootstrap.css',
+       './node_modules/font-awesome/css/font-awesome.min.css'
     ]);
     mix.scripts([
         './node_modules/jquery/dist/jquery.js',
