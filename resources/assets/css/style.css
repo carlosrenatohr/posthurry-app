@@ -232,7 +232,7 @@ Form
   resize: vertical;
   overflow: auto;
 }
-.cd-form input[type="submit"] {
+.cd-form input[type="submit"], .submit-btn {
   /* button style */
   border: none;
   background: #2c97de;

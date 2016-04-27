@@ -104,13 +104,53 @@
                         {!! Form::textarea('post2_text', null, ['class'=> 'message', 'id' => 'cd-textarea', 'required']) !!}
                     </div>
 
-                    <div>
-                        <input type="submit" value="Submit" style="margin: 10px 0;">
-                    </div>
                 </fieldset>
             </div>
+            <div class="col-md-12">
+                <div class="cd-form" style="max-width: 100%;">
+
+                <div class="alert alert-info">
+                    <div class="cd-form" style="margin: 0!important;">
+                        <h4>Post to mass groups the winner</h4>
+                        <div>
+                            <input type="checkbox" id="blastMass">
+                            <label for="blastMass">Do you want to blast out in mass groups?</label>
+                        </div>
+                    </div>
+                    You are able to add up to 25 groups to post the winner ad
+                </div>
+                    <style>
+                        .below-container div :not(.cd-form){
+                            margin: 0!important;
+                        }
+                    </style>
+                    <div class="below-container">
+                        <div class="col-md-6">
+                            <div class="panel panel-info" >
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Groups</h3>
+                                </div>
+                                <div class="panel-body groups" style="max-height:400px;overflow-y: scroll;"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-info " >
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Pages</h3>
+                                </div>
+                                <div class="panel-body pages" style="max-height:400px;overflow-y: scroll;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div>
+                    <input type="submit" value="Submit" style="margin: 10px 0;" class="submit-btn">
+                </div>
+                </div>
+            {{--</div>--}}
         </div>
-    {{--</div>--}}
+    </div>
 
     {{ Form::close() }}
 @endsection
