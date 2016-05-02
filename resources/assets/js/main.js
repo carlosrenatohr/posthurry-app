@@ -28,6 +28,35 @@ $(function() {
         }
     });
     /**
+     * Post to Mass groups/pages after comparison
+     */
+    $('#blastMassChkbox').on('change', function(e) {
+        if (this.checked) {
+            $('.massCheckbox').prop('disabled', false);
+            $('.below-container .col-md-6 .panel').removeClass('panel-default').addClass('panel-info');
+            $('.below-container .col-md-6 .panel-body').removeClass('disabled-on');
+            console.info('User APPROVES to blast the winner post out on mass groups/pages!');
+        } else {
+            $('.massCheckbox').prop('disabled', true);
+            $('.below-container .col-md-6 .panel').removeClass('panel-info').addClass('panel-default');
+            $('.below-container .col-md-6 .panel-body').addClass('disabled-on');
+            //$('.massCheckbox').prop('checked', false);
+            console.info('User DOES NOT APPROVE to blast the winner post out on mass groups/pages!');
+        }
+    });
+
+    $('body').on('change', '.massCheckbox', function(e) {
+        var len = $('body .massCheckbox:checked').length;
+        if (len >= 5) {
+            if (this.checked) {
+                this.checked = false;
+            }
+            alert('You are able to add up to 25 groups to post the winner ad');
+            //e.preventDefault();
+        }
+    });
+
+    /**
      * Dynamic radio control selection
      */
     $('[name=typeToPost]').on('change', function(e) {

@@ -47,7 +47,11 @@ class MainController extends Controller
     public function postByUserSelected(Request $request) {
         $post1_has_image = $post2_has_image = false;
         $token = $request->session()->get('fb_user_access_token');
-        $input = array_except($request->all(), ['_token', 'typeToPost', 'post1_image', 'post2_image']);
+        $input = array_except($request->all(), ['_token', 'typeToPost', 'post1_image', 'post2_image', 'blastMassChkbox']);
+        if ($request->has('blastMassChkbox')) {
+            $blastMass = array_pull($input, 'massPosts');
+        }
+
         // Creating params array for request
         $params1 = array(
             'message' => $input['post1_text']
@@ -96,6 +100,14 @@ class MainController extends Controller
         // Getting user id to store
         $input['user_id'] = $request->session()->get('logged_in');
         $comparison = Comparison::create($input);
+        if ($request->has('blastMassChkbox')) {
+            $blastMassJson = [];
+            $blastMassJson['groups'] = json_encode($blastMass['groups'], true);
+            $blastMassJson['pages'] = json_encode($blastMass['pages'], true);
+
+            $massPostRow = \App\MassPost::create($blastMassJson);
+            $comparison->massPosts()->save($massPostRow);
+        }
         if (!is_null($comparison)) {
             return redirect()->to('/comparison/'. $comparison->id);
         } else {

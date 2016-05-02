@@ -17,4 +17,9 @@ class Comparison extends Model
     {
         return $this->hasOne('\App\Comparison_data', 'comparison_id', 'id');
     }
+
+    public function massPosts()
+    {
+        return $this->hasOne('\App\MassPost', 'comparison_id', 'id');
+    }
 }

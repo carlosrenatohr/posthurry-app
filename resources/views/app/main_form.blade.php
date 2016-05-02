@@ -113,8 +113,8 @@
                     <div class="cd-form" style="margin: 0!important;">
                         <h4>Post to mass groups the winner</h4>
                         <div>
-                            <input type="checkbox" id="blastMass">
-                            <label for="blastMass">Do you want to blast out in mass groups?</label>
+                            <input type="checkbox" id="blastMassChkbox" name="blastMassChkbox">
+                            <label for="blastMassChkbox">Do you want to blast out in mass groups?</label>
                         </div>
                     </div>
                     You are able to add up to 25 groups to post the winner ad
@@ -123,10 +123,15 @@
                         .below-container div :not(.cd-form){
                             margin: 0!important;
                         }
+                        .below-container .disabled-on
+                        {
+                            /*background-color: rgba(204,204,204, 0.65);*/
+                            cursor: not-allowed!important;
+                        }
                     </style>
                     <div class="below-container">
                         <div class="col-md-6">
-                            <div class="panel panel-info" >
+                            <div class="panel panel-default" >
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Groups</h3>
                                 </div>
@@ -134,7 +139,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="panel panel-info " >
+                            <div class="panel panel-default" >
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Pages</h3>
                                 </div>
