@@ -10,7 +10,7 @@ use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 
 class ComparisonController extends Controller
 {
-    protected $comparison;
+    protected $comparison, $fb;
 
     public function __construct(Comparison $comparison)
     {
@@ -49,7 +49,7 @@ class ComparisonController extends Controller
         $comparison = $this->comparison->find($id);
         $token = $request->session()->get('fb_user_access_token');
         // Validation. If time of compare is expired
-        if($this->comparisonIsExpired($comparison->created_at, $comparison->limitDaysDuration)){
+        if($this->comparisonIsExpired($comparison->created_at, $comparison->limitDaysDuration)) {
             $row_saved = $comparison->data_row;
             if (!is_null($row_saved)) {
                 $collection = [
@@ -78,6 +78,12 @@ class ComparisonController extends Controller
                 // set winner
                 $winner = $this->setWinnerByComparison($row);
                 $comparison->fill(['winner' => $winner])->save();
+                // Blast it out on mass groups selected if was chosen by user
+                if (!is_null($comparison->massPosts)) {
+                    // If post 1 or was a tie, post 1 will be post in mass, else post 2 will be posted
+                    $winnerNum = ($winner == 1) ? 1 : 2;
+                    $this->postInMass($comparison, $winnerNum, $fb, $token);
+                }
 //                $result = $comparison->data_row;
             }
         } else {
@@ -123,9 +129,11 @@ class ComparisonController extends Controller
 
     private function comparisonIsExpired($date, $days) {
         $limit = new \Carbon\Carbon($date);
-        $expiration = $limit->addDays($days);
-        $expiration->hour(0);
-        $expiration->minute(0);
+//        $expiration = $limit->addDays($days);
+        $expiration = $limit->addMinutes($days);
+//        $expiration->hour(0);
+//        $expiration->minute(0);
+//        $expiration->minute($days);
         $now = \Carbon\Carbon::now();
 
         return $now->gt($expiration);
@@ -157,6 +165,43 @@ class ComparisonController extends Controller
 
         }
 
-        return ($item1 > $item2) ? 1 : ($item1 < $item2) ? 2 : 3;
+//        return ($item1 > $item2) ? 1 : ($item1 < $item2) ? 2 : 3;
+        return ($item1 >= $item2) ? 1 : 2;
+    }
+
+
+    private function postInMass($comparison, $numberOfWinnerPost, $fb, $token) {
+        $post = 'post' . $numberOfWinnerPost;
+        $post_has_image = false;
+        $params = array(
+            'message' => $comparison->{$post . '_text'}
+        );
+        $msg = $comparison->{$post . '_text'};
+
+        // Getting pages/posts ids selected by user
+        $groups = json_decode($comparison->massPosts->groups);
+        $pages = json_decode($comparison->massPosts->pages);
+        $all_pages_selected = array_merge($groups, $pages);
+        // POSTING on fb
+        $posts_id = [];
+        foreach($all_pages_selected as $count => $page_id) {
+            $params['message'] = $msg . "\n\n[{$count}]";
+            // Execute fileToUpload on every Page to post
+            if (!is_null($comparison->{$post . '_img_url'})) {
+                $post_has_image = true;
+                $params['source'] = $fb->fileToUpload($comparison->{$post . '_img_url'});
+            }
+            $post_return = $fb->sendRequest(
+                'post',
+                '/' . $page_id . '/' . ($post_has_image ? 'photos' : 'feed'),
+                $params,
+                $token
+            )->getBody();
+
+            $post_return = json_decode($post_return);
+            $posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
+        }
+        $posts_id_string = implode(',', $posts_id);
+        $comparison->massPosts->fill(['posts_published' => $posts_id_string])->save();
     }
 }

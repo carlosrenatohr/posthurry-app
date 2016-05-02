@@ -37,7 +37,7 @@ window.fbAsyncInit = function() {
                         $('.select-pages').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name);
                         // groups to blast in mass
                         var form = $('<div class="cd-form"/>');
-                        $('<input/>', {type: 'checkbox', value: val.name, id: val.id, class: 'massCheckbox massPagesCheckbox', name: 'massPosts[pages][]'})
+                        $('<input/>', {type: 'checkbox', value: val.id, id: val.id, class: 'massCheckbox massPagesCheckbox', name: 'massPosts[pages][]'})
                             .appendTo(form);
                         $('<label/>').html(val.name).attr('for', val.id).appendTo(form);
                         form.appendTo('.below-container .pages');
@@ -47,7 +47,7 @@ window.fbAsyncInit = function() {
                         $('.select-groups').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name);
                         // groups to blast in mass
                         var form = $('<div class="cd-form"/>');
-                        $('<input/>', {type: 'checkbox', value: val.name, id: val.id, class: 'massCheckbox massGroupsCheckbox', name: 'massPosts[groups][]'})
+                        $('<input/>', {type: 'checkbox', value: val.id, id: val.id, class: 'massCheckbox massGroupsCheckbox', name: 'massPosts[groups][]'})
                             .appendTo(form);
                         $('<label/>').html(val.name).attr('for', val.id).appendTo(form);
                         form.appendTo('.below-container .groups');

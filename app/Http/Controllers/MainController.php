@@ -100,6 +100,7 @@ class MainController extends Controller
         // Getting user id to store
         $input['user_id'] = $request->session()->get('logged_in');
         $comparison = Comparison::create($input);
+        // Multiple groups/pages selected by user to post after comparison
         if ($request->has('blastMassChkbox')) {
             $blastMassJson = [];
             $blastMassJson['groups'] = json_encode($blastMass['groups'], true);
@@ -108,6 +109,7 @@ class MainController extends Controller
             $massPostRow = \App\MassPost::create($blastMassJson);
             $comparison->massPosts()->save($massPostRow);
         }
+        // REDIRECTING...
         if (!is_null($comparison)) {
             return redirect()->to('/comparison/'. $comparison->id);
         } else {

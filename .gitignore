@@ -6,3 +6,4 @@ Homestead.json
 .idea
 /public/js/*.map
 /public/css/*.map
+composer.lock

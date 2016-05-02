@@ -16,6 +16,7 @@ class CreateMassPostsTable extends Migration
             $table->increments('id');
             $table->text('groups');
             $table->text('pages');
+            $table->text('posts_published')->nullable();
             $table->integer('comparison_id')->index();
             $table->timestamps();
         });
