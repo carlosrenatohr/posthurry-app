@@ -33,10 +33,13 @@ class MainController extends Controller
     public function getDataFromFB(Request $request)
     {
         $token = $request->session()->get('fb_user_access_token');
-        $groupsManaged = $this->fb->sendRequest('get', '/me/groups', ['limit' => 100], $token)->getBody();
-        $pagesLiked = $this->fb->sendRequest('get', '/me/likes', ['limit' => 100], $token)->getBody();
+        $groupsManaged = $this->fb->sendRequest('get', '/me/groups', ['limit' => 500], $token)->getBody();
+        $pagesLiked = $this->fb->sendRequest('get', '/me/likes', ['limit' => 500], $token)->getBody();
 
-        return response()->json(['groups' => json_decode($groupsManaged), 'pages' => json_decode($pagesLiked)]);
+
+        $allPagesGot = ['groups' => json_decode($groupsManaged), 'pages' => json_decode($pagesLiked)];
+
+        return response()->json($allPagesGot);
     }
 
     /**

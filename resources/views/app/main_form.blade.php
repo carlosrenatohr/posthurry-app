@@ -129,26 +129,26 @@
                             cursor: not-allowed!important;
                         }
                     </style>
-                    <div class="below-container">
-                        <div class="col-md-6">
-                            <div class="panel panel-default" >
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Groups</h3>
-                                </div>
-                                <div class="panel-body groups" style="max-height:400px;overflow-y: scroll;"></div>
+                <div class="below-container">
+                    <div class="col-md-6">
+                        <div class="panel panel-default" >
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Groups</h3>
                             </div>
+                            <div class="panel-body groups" style="max-height:400px;overflow-y: scroll;"></div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="panel panel-default" >
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Pages</h3>
-                                </div>
-                                <div class="panel-body pages" style="max-height:400px;overflow-y: scroll;">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default" >
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Pages</h3>
+                            </div>
+                            <div class="panel-body pages" style="max-height:400px;overflow-y: scroll;">
 
-                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 <div>
                     <input type="submit" value="Submit" style="margin: 10px 0;" class="submit-btn">
                 </div>
