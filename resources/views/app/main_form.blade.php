@@ -148,6 +148,8 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="pagesNamesSelected" id="pagesNamesSelected">
+                    <input type="hidden" name="groupsNamesSelected" id="groupsNamesSelected">
                 </div>
                 <div>
                     <input type="submit" value="Submit" style="margin: 10px 0;" class="submit-btn">

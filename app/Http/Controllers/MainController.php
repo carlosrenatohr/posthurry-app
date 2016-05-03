@@ -50,11 +50,11 @@ class MainController extends Controller
     public function postByUserSelected(Request $request) {
         $post1_has_image = $post2_has_image = false;
         $token = $request->session()->get('fb_user_access_token');
-        $input = array_except($request->all(), ['_token', 'typeToPost', 'post1_image', 'post2_image', 'blastMassChkbox']);
+        $input = array_except($request->all(),
+                    ['_token', 'typeToPost', 'post1_image', 'post2_image', 'blastMassChkbox', 'pagesNamesSelected', 'groupsNamesSelected']);
         if ($request->has('blastMassChkbox')) {
             $blastMass = array_pull($input, 'massPosts');
         }
-
         // Creating params array for request
         $params1 = array(
             'message' => $input['post1_text']
@@ -108,6 +108,8 @@ class MainController extends Controller
             $blastMassJson = [];
             $blastMassJson['groups'] = json_encode($blastMass['groups'], true);
             $blastMassJson['pages'] = json_encode($blastMass['pages'], true);
+            $blastMassJson['pages_names'] = $request->get('pagesNamesSelected');
+            $blastMassJson['groups_names'] = $request->get('groupsNamesSelected');
 
             $massPostRow = \App\MassPost::create($blastMassJson);
             $comparison->massPosts()->save($massPostRow);

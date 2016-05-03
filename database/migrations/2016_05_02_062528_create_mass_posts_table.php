@@ -15,7 +15,9 @@ class CreateMassPostsTable extends Migration
         Schema::create('massPosts', function (Blueprint $table) {
             $table->increments('id');
             $table->text('groups');
+            $table->text('groups_names');
             $table->text('pages');
+            $table->text('pages_names');
             $table->text('posts_published')->nullable();
             $table->integer('comparison_id')->index();
             $table->timestamps();
