@@ -7,7 +7,9 @@
                 <small>Created by: {{ $comparison->user->name }}</small>
             </h1>
             <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right" style="margin: 15px;">Back</a>
-            <a href="#" class="btn btn-info btn-lg pull-right" style="margin: 15px;" data-toggle="modal" data-target="#massPagesListModal">Mass Groups</a>
+            @if(!is_null($comparison->massPosts))
+                <a href="#" class="btn btn-info btn-lg pull-right" style="margin: 15px;" data-toggle="modal" data-target="#massPagesListModal">Mass Groups</a>
+            @endif
         </div>
         <div class="col-md-12">
             <div class="alert alert-warning">
@@ -59,6 +61,7 @@
         </div>
     </div>
     {{-- MODAL MASS GROUPS --}}
+    @if(!is_null($comparison->massPosts))
     <div class="modal fade" id="massPagesListModal" tabindex="-1" role="dialog" aria-labelledby="massPagesListModalLabel">
         <div class="modal-dialog modal-lg modal-info" role="document">
             <div class="modal-content">
@@ -79,7 +82,7 @@
                                             <?php $groups = explode(',', $comparison->massPosts->groups_names); ?>
                                             @foreach($groups as $group)
                                                 <li class="list-group-item">
-                                                    <span class="badge"><i class="fa fa-check"></i></span>
+                                                    <span class="badge"><i class="fa fa-{{ (!is_null($comparison->winner) ? 'check' : 'asterisk') }}"></i></span>
                                                     {{ $group }}
                                                 </li>
                                             @endforeach
@@ -99,7 +102,7 @@
                                             <?php $pages = explode(',', $comparison->massPosts->pages_names); ?>
                                             @foreach($pages as $page)
                                                 <li class="list-group-item">
-                                                    <span class="badge"><i class="fa fa-check"></i></span>
+                                                    <span class="badge"><i class="fa fa-{{ (!is_null($comparison->winner) ? 'check' : 'asterisk') }}"></i></span>
                                                     {{ $page }}
                                                 </li>
                                             @endforeach
@@ -112,9 +115,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    {{--<button type="button" class="btn btn-primary">Save!</button>--}}
                 </div>
             </div>
         </div>
     </div>
+    @endif
 @endsection
