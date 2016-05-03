@@ -18222,8 +18222,9 @@ $(function() {
         $('#pagesNamesSelected').val(pagesNamesSelected);
         $('#groupsNamesSelected').val(groupsNamesSelected);
 
-        console.log(pagesNamesSelected);
-        console.log(groupsNamesSelected);
+        $('.below-container .panel .groups .alert-warning p').html(groupsNamesSelected.join(',  '));
+        $('.below-container .panel .pages .alert-warning p').html(pagesNamesSelected.join(',  '));
+
         if (len >= 25) {
             if (this.checked) {
                 this.checked = false;

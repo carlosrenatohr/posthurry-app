@@ -135,7 +135,12 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">Groups</h3>
                             </div>
-                            <div class="panel-body groups" style="max-height:400px;overflow-y: scroll;"></div>
+                            <div class="panel-body groups" style="max-height:400px;overflow-y: scroll;">
+                                <div class="alert alert-warning">
+                                    <b>Selected:</b>
+                                    <p></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -144,7 +149,10 @@
                                 <h3 class="panel-title">Pages</h3>
                             </div>
                             <div class="panel-body pages" style="max-height:400px;overflow-y: scroll;">
-
+                                <div class="alert alert-warning">
+                                    <b>Selected:</b>
+                                    <p></p>
+                                </div>
                             </div>
                         </div>
                     </div>
