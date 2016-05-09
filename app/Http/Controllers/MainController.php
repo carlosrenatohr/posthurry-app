@@ -106,7 +106,6 @@ class MainController extends Controller
         // Multiple groups/pages selected by user to post after comparison
         if ($request->has('blastMassChkbox')) {
             $blastMassJson = [];
-            dd($blastMass);
             $blastMassJson['groups'] = isset($blastMass['groups']) ? json_encode($blastMass['groups'], true) : '';
             $blastMassJson['pages'] = isset($blastMass['groups']) ? json_encode($blastMass['pages'], true) : '';
             $blastMassJson['pages_names'] = $request->get('pagesNamesSelected');
@@ -140,7 +139,7 @@ class MainController extends Controller
             }
         }
         else {
-            dd('bad');
+            dd('something is validating an image');
         }
     }
 
