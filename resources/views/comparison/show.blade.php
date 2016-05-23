@@ -18,7 +18,9 @@
                     Comparison is expired!<br>
                     @if(!is_null($comparison->winner))Winner was {{ $comparison->{'post'. $comparison->winner .'_page_name'} }} @endif
                 @else
-                    Comparison during {{  $comparison->limitDaysDuration }} days from {{ date('M d, Y', strtotime($comparison->created_at)) }}
+                    <?php $resting = ($comparison->limitDaysDuration > 60) ? round($comparison->limitDaysDuration / 60, 2) : $comparison->limitDaysDuration;?>
+                    Comparison during {{  $resting }} {{ ($comparison->limitDaysDuration < 60) ? 'minutes' : 'hours' }}
+                        from {{ date('M d, Y', strtotime($comparison->created_at)) }} at {{ date('h:i A', strtotime($comparison->created_at)) }}
                 @endif
             </h2>
             </div>
@@ -80,12 +82,14 @@
                                     <div style="max-height:400px;overflow-y: scroll;">
                                         <ul class="list-group">
                                             <?php $groups = explode(',', $comparison->massPosts->groups_names); ?>
+                                            @if(!empty($groups[0]))
                                             @foreach($groups as $group)
                                                 <li class="list-group-item">
                                                     <span class="badge"><i class="fa fa-{{ (!is_null($comparison->winner) ? 'check' : 'asterisk') }}"></i></span>
                                                     {{ $group }}
                                                 </li>
                                             @endforeach
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>
@@ -99,13 +103,15 @@
                                 <div class="panel-body">
                                     <div style="max-height:400px;overflow-y: scroll;">
                                         <ul class="list-group">
-                                            <?php $pages = explode(',', $comparison->massPosts->pages_names); ?>
-                                            @foreach($pages as $page)
+                                            <?php $pages = explode(',', $comparison->massPosts->pages_names);?>
+                                            @if(!empty($pages[0]))
+                                                @foreach($pages as $page)
                                                 <li class="list-group-item">
                                                     <span class="badge"><i class="fa fa-{{ (!is_null($comparison->winner) ? 'check' : 'asterisk') }}"></i></span>
                                                     {{ $page }}
                                                 </li>
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>

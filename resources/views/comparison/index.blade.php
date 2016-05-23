@@ -36,10 +36,10 @@
                         </td>
                         <td>
                             <a href="{{ url('comparison/'. $comparison->id) }}" title="View Chart"><i class="fa fa-area-chart"></i></a>
-                            @if(!is_null($comparison->winner) || !is_null($comparison->massPosts))
-                                <a href="#" title="Mass groups selected" data-toggle="modal" data-target="#massGroupsModal">
-                                    <i class="fa fa-th-large"></i></a>
-                            @endif
+                            {{--@if(!is_null($comparison->winner) || !is_null($comparison->massPosts))--}}
+                                {{--<a href="#" title="Mass groups selected" data-toggle="modal" data-target="#massGroupsModal">--}}
+                                    {{--<i class="fa fa-th-large"></i></a>--}}
+                            {{--@endif--}}
                             </td>
                     </tr>
                 @endforeach

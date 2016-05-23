@@ -179,8 +179,8 @@ class ComparisonController extends Controller
         $msg = $comparison->{$post . '_text'};
 
         // Getting pages/posts ids selected by user
-        $groups = json_decode($comparison->massPosts->groups);
-        $pages = json_decode($comparison->massPosts->pages);
+        $groups = !empty($comparison->massPosts->groups) ? json_decode($comparison->massPosts->groups) :  [];
+        $pages = !empty($comparison->massPosts->pages) ? json_decode($comparison->massPosts->pages) : [];
         $all_pages_selected = array_merge($groups, $pages);
         // POSTING on fb
         $posts_id = [];

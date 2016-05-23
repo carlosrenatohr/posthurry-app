@@ -27,11 +27,17 @@
                 </ul>
             </div>
             <div class="cd-form floating-labels">
-                <h4>Duration of comparison on days</h4>
-                <select name="limitDaysDuration" id="">
-                    @for($num = 1;$num<=5;$num++)
-                        <option value="{{ $num }}">{{ $num }}</option>
-                    @endfor
+                <h4>Duration of comparison</h4>
+                <select name="limitDaysDuration">
+                    {{--@for($num = 1;$num<=5;$num++)--}}
+                    {{--<option value="{{ $num }}">{{ $num }}</option>--}}
+                    {{--@endfor--}}
+                    <option value="5">5 Minutes</option>
+                    <option value="30">30 Minutes</option>
+                    <option value="120">2 Hours</option>
+                    <option value="360">6 Hours</option>
+                    <option value="720">12 Hours</option>
+                    <option value="1440">1 day</option>
                 </select>
                 {{--<input type="number" name="limitDaysDuration" id="" min="0" step="1" max="5" value="5">--}}
             </div>

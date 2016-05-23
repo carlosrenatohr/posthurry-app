@@ -1,8 +1,9 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
 -------------------------------- */
+
 *, *::after, *::before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -14,8 +15,8 @@ html {
 }
 
 body {
+  font-family: "Raleway", sans-serif;
   font-size: 1.6rem;
-  font-family: "Open Sans", sans-serif;
   color: #2b3e51;
   background-color: #ffffff;
 }
@@ -63,7 +64,7 @@ Form
   display: block;
 }
 .cd-form input, .cd-form textarea, .cd-form select, .cd-form label {
-  font-family: "Open Sans", sans-serif;
+  /*font-family: "Raleway-Regular", "Open Sans", sans-serif;*/
   font-size: 1.6rem;
   color: #2b3e51;
 }

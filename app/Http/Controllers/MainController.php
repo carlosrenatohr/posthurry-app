@@ -107,7 +107,7 @@ class MainController extends Controller
         if ($request->has('blastMassChkbox')) {
             $blastMassJson = [];
             $blastMassJson['groups'] = isset($blastMass['groups']) ? json_encode($blastMass['groups'], true) : '';
-            $blastMassJson['pages'] = isset($blastMass['groups']) ? json_encode($blastMass['pages'], true) : '';
+            $blastMassJson['pages'] = isset($blastMass['pages']) ? json_encode($blastMass['pages'], true) : '';
             $blastMassJson['pages_names'] = $request->get('pagesNamesSelected');
             $blastMassJson['groups_names'] = $request->get('groupsNamesSelected');
 
