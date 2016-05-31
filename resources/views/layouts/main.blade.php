@@ -20,7 +20,17 @@
             border: 1px solid #2b4170;
             text-shadow: 0 -1px -1px #1f2f52;
         }
-
+        .footer .item a{
+            color: #ffffff!important;
+        }
+        .footer .item {
+            color: #ffffff;
+            display: inline-block;
+            /*margin: 15px 10px 0 0;*/
+            margin: 15px 0 10px 0;
+            padding: 5px 10px;
+            text-align: center;
+        }
     </style>
     {{--JS--}}
     <script src="{{ asset('js/all.js') }}"></script>
@@ -81,10 +91,20 @@
     </div>
 </div>
 
-<div class="header2 footer" style="height:55px;width:100%;text-align:left;position:relative;bottom: 0;">
-	<span style="color:white;display: inline-block;margin:15px 10px 0 0;padding:5px 10px" class="">
-	Terms of Service, Privacy Policy, Copyright 2016 Booth LLC
-	</span>
+{{--<div class="header2 footer" style="height:55px;width:100%;text-align:left;position:relative;bottom: 0;">--}}
+<div class="header2 footer">
+	<div  class="col-md-3 item">
+        <a href="javascript:void(0)">Terms of Service</a>
+	</div>
+    <div class="col-md-3 item">
+        <a href="javascript:void(0)">Privacy Policy</a>
+	</div>
+    <div  class="col-md-3 item">
+        <a href="javascript:void(0)">FAQ</a>
+	</div>
+    <div  class="col-md-3 item">
+        Copyright 2016 Booth LLC
+	</div>
 </div>
 </body>
 {{--<div id="loading-image" style="position: fixed;width: 100%; height: 100%; top:0;left: 0; background-color: #222;z-index: 999;"></div>--}}
