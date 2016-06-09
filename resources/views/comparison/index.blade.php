@@ -8,9 +8,9 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>First post on</th>
-                    <th>Second post on</th>
-                    <th>Created at</th>
+                    <th>Post 1</th>
+                    <th>Post 2</th>
+                    <th>Created</th>
                     <th>Is active?</th>
                     <th>Actions</th>
                 </tr>

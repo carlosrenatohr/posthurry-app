@@ -16,7 +16,7 @@
             <table class="table table-striped table-winners">
                 <thead>
                 <tr>
-                    <th>Page/group located</th>
+                    <th>Page/group</th>
                     <th>Content</th>
                     <th>Created at</th>
                     <th>Stats</th>

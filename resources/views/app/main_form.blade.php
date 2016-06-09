@@ -48,7 +48,7 @@
 
                         <div>
                             <div class="pages-list-container">
-                                <h4>Select a Page from List</h4>
+                                <h4>Select a Post</h4>
                                 <p class="cd-select icon">
                                     <select class="budget select-pages" name="post1_page_id">
                                         <option value="">Select Page</option>
@@ -57,7 +57,7 @@
                                 </p>
                             </div>
                             <div class="groups-list-container hide">
-                                <h4>Select a Group from List</h4>
+                                <h4>Select a Group</h4>
                                 <p class="cd-select icon">
                                     <select class="budget select-groups" name="post1_page_id" disabled>
                                         <option value="">Select Group</option>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="icon">
-                            <label class="cd-label" for="cd-textarea">Type a Post you Need</label>
+                            <label class="cd-label" for="cd-textarea">Type your Status</label>
                             {!! Form::textarea('post1_text', null, ['class'=> 'message', 'id' => 'cd-textarea', 'required']) !!}
                         </div>
 
@@ -83,7 +83,7 @@
 
                     <div>
                         <div class="groups-list-container">
-                            <h4>Select a Group from List</h4>
+                            <h4>Select a Group</h4>
 
                             <p class="cd-select icon">
                                 <select class="budget select-groups" name="post2_page_id" required>
@@ -93,7 +93,7 @@
                             </p>
                         </div>
                         <div class="pages-list-container hide">
-                            <h4>Select a Page from List</h4>
+                            <h4>Select a Post</h4>
                             <p class="cd-select icon">
                                 <select class="budget select-pages" name="post2_page_id" required disabled>
                                     <option value="">Select Page</option>
@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="icon">
-                        <label class="cd-label" for="cd-textarea">Type a Post you Need</label>
+                        <label class="cd-label" for="cd-textarea">Type your Status</label>
                         {!! Form::textarea('post2_text', null, ['class'=> 'message', 'id' => 'cd-textarea', 'required']) !!}
                     </div>
 
@@ -117,15 +117,14 @@
             <div class="col-md-12">
                 <div class="cd-form" style="max-width: 100%;">
 
-                <div class="alert alert-info">
+                <div class="">
                     <div class="cd-form" style="margin: 0!important;">
-                        <h4>Post to mass groups the winner</h4>
                         <div>
                             <input type="checkbox" id="blastMassChkbox" name="blastMassChkbox">
                             <label for="blastMassChkbox">Do you want to blast out in mass groups?</label>
                         </div>
                     </div>
-                    You are able to add up to 25 groups to post the winner ad
+                    Add up to 25 Groups or Pages
                 </div>
                     <style>
                         .below-container div :not(.cd-form){

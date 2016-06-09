@@ -73,9 +73,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: #2B416D">
     <ul class="nav navbar-nav">
         <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
-        href="{{ url('comparison') }}">List of comparisons </a></li>
+        href="{{ url('comparison') }}">Comparisons</a></li>
         <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
-        href="{{ url('/comparison/winners') }}">Winners groups/pages</a></li>
+        href="{{ url('/comparison/winners') }}">Winners</a></li>
     </ul>
     </div><!-- /.navbar-collapse -->
     {{--</div><!-- /.container-fluid -->--}}
@@ -103,7 +103,7 @@
         <a href="javascript:void(0)">FAQ</a>
 	</div>
     <div  class="col-md-3 item">
-        Copyright 2016 Booth LLC
+        Copyright 2016 Post Hurry
 	</div>
 </div>
 </body>
