@@ -18188,13 +18188,13 @@ $(function() {
             $('.massCheckbox').prop('disabled', false);
             $('.below-container .col-md-6 .panel').removeClass('panel-default').addClass('panel-info');
             $('.below-container .col-md-6 .panel-body').removeClass('disabled-on');
-            console.info('User APPROVES to blast the winner post out on mass groups/pages!');
+            //console.info('User APPROVES to blast the winner post out on mass groups/pages!');
         } else {
             $('.massCheckbox').prop('disabled', true);
             $('.below-container .col-md-6 .panel').removeClass('panel-info').addClass('panel-default');
             $('.below-container .col-md-6 .panel-body').addClass('disabled-on');
             //$('.massCheckbox').prop('checked', false);
-            console.info('User DOES NOT APPROVE to blast the winner post out on mass groups/pages!');
+            //console.info('User DOES NOT APPROVE to blast the winner post out on mass groups/pages!');
         }
     });
 

@@ -51,6 +51,7 @@ return [
         'email',
         'public_profile',
         'user_groups',
+        'user_managed_groups',
         'publish_pages',
         'user_likes',
         'manage_pages',
