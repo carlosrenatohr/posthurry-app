@@ -167,6 +167,7 @@
                     <input type="hidden" name="groupsNamesSelected" id="groupsNamesSelected">
                 </div>
                 <div>
+                    <input type="hidden" name="_token" value="{!!csrf_token()!!}">
                     <input type="submit" value="Submit" style="margin: 10px 0;" class="submit-btn">
                 </div>
                 </div>
