@@ -44,7 +44,8 @@ window.fbAsyncInit = function() {
                     });
                     $.each(data.groups.data, function(i, val) {
                         //$('.select-groups').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name).select2();
-                        $('.select-groups').append($('<option/>').html(val.name).val(val.id)).data('pgName', val.name);
+                        var isPublic = (val.privacy != 'OPEN');
+                        $('.select-groups').append($('<option/>').html(val.name + "  (" + val.privacy + ") ").val(val.id).prop('disabled', isPublic).data('pgName', val.name));
                         // groups to blast in mass
                         var form = $('<div class="cd-form"/>');
                         $('<input/>', {type: 'checkbox', value: val.id, id: val.id, 'data-name': val.name, class: 'massCheckbox massGroupsCheckbox', name: 'massPosts[groups][]'})

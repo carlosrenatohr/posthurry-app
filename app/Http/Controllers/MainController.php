@@ -43,8 +43,9 @@ class MainController extends Controller
                 $newGroups[] = $group;
             }
         }
+        $newGroups = ['data' => $newGroups];
 
-        $allPagesGot = ['groups' => (['data' => $newGroups]), 'pages' => json_decode($pagesLiked)];
+        $allPagesGot = ['groups' => ($decodingGroups), 'pages' => json_decode($pagesLiked)];
 
         return response()->json($allPagesGot);
     }
