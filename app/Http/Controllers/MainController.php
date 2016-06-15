@@ -39,9 +39,19 @@ class MainController extends Controller
         $newGroups = [];
         $decodingGroups = json_decode($groupsManaged);
         foreach($decodingGroups->data as $group) {
-            if($group->privacy == 'OPEN'){
-                $newGroups[] = $group;
+//            $group->label = '';
+            if($group->privacy == 'OPEN') {
+                $group->_privacy = 'Public';
             }
+            elseif($group->privacy == 'CLOSED'){
+                $group->_privacy = 'Closed';
+            }
+
+            elseif($group->privacy == 'SECRET'){
+                $group->_privacy = 'Secret';
+            }
+            $group->label = $group->name. ' (' . $group->_privacy . ')';
+            $newGroups[] = $group;
         }
         $newGroups = ['data' => $newGroups];
 

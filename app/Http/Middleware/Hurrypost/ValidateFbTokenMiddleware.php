@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\HurryPost;
+namespace App\Http\Middleware\Hurrypost;
 
 use Closure;
 use \SammyK\LaravelFacebookSdk\LaravelFacebookSdk;

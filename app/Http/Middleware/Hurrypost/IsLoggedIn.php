@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Middleware\HurryPost;
+namespace App\Http\Middleware\Hurrypost;
 
 use Closure;
 
-class isLoggedIn
+class IsLoggedIn
 {
     /**
      * Handle an incoming request.

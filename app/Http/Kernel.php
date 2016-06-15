@@ -48,8 +48,8 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'fb.token' => \App\Http\Middleware\HurryPost\ValidateFbTokenMiddleware::class,
-        'fb.user' => \App\Http\Middleware\HurryPost\VerifyUserExists::class,
-        'isLoggedIn' => \App\Http\Middleware\HurryPost\isLoggedIn::class,
+        'fb.token' => \App\Http\Middleware\Hurrypost\ValidateFbTokenMiddleware::class,
+        'fb.user' => \App\Http\Middleware\Hurrypost\VerifyUserExists::class,
+        'isLoggedIn' => \App\Http\Middleware\Hurrypost\IsLoggedIn::class,
     ];
 }
