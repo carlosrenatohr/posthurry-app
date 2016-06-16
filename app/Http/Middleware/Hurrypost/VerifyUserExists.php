@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Middleware\HurryPost;
+namespace App\Http\Middleware\Hurrypost;
 use App\User;
 use Closure;
 

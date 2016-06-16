@@ -26,5 +26,11 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('inspire')
                  ->hourly();
+
+        $schedule->call(function () {
+            \DB::table('TESTING')->truncate();
+            dd('TRUNCATED');
+        })->appendOutputTo('/home/carlosrenato/htdocs/gethurrypost/log.txt')
+        ->everyMinute();
     }
 }
