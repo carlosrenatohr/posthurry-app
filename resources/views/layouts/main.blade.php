@@ -35,7 +35,7 @@
     {{--JS--}}
     <script src="{{ asset('js/all.js') }}"></script>
     @yield('others-js')
-    <title>POST HURRY</title>
+    <title>POST HURRY @yield('pageTitle', '')</title>
 </head>
 <body style="height:100%;width:100%;padding:0;margin:0">
 <div>
@@ -97,7 +97,7 @@
         <a href="javascript:void(0)">Terms of Service</a>
 	</div>
     <div class="col-md-3 item">
-        <a href="javascript:void(0)">Privacy Policy</a>
+        <a href="{{ url('privacy') }}">Privacy Policy</a>
 	</div>
     <div  class="col-md-3 item">
         <a href="javascript:void(0)">FAQ</a>

@@ -59,5 +59,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/{id}', 'ComparisonController@show');
         Route::post('/stats/{id}', 'ComparisonController@postStatsFromFb');
     });
+
+    Route::get('/privacy', function() {
+        return view('layouts.privacy-policy');
+    });
 });
 
