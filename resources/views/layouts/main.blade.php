@@ -100,7 +100,7 @@
         <a href="{{ url('privacy') }}">Privacy Policy</a>
 	</div>
     <div  class="col-md-3 item">
-        <a href="javascript:void(0)">FAQ</a>
+        <a href="{{ url('faq') }}">FAQ</a>
 	</div>
     <div  class="col-md-3 item">
         Copyright 2016 Post Hurry

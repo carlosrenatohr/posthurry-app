@@ -5,53 +5,10 @@
 @section('pageTitle')
     | Privacy Policy
 @endsection
-<style>
-    #privacy-content {
-        width: 100%;
-        height: 100%;
-        max-height: 900px;
-        overflow-y: scroll;
-        padding: 5%;
-        margin: 5% 0;
-        font-family: "Times New Roman";
-    }
-
-    h1.h1-simplepage {
-        /*font-size: 50px;*/
-        /*padding:25px 0;*/
-        /*text-align: center;*/
-        font-size: 30px;
-        padding: 30px 10px;
-    }
-    #privacy-content h2 {
-        font-size: 32px;
-        /*font-weight: 600;*/
-        margin: 10px 0;
-    }
-    #privacy-content h3 {
-        font-size: 24px;
-        font-weight: 600;
-        margin: 15px 0;
-    }
-
-    #privacy-content p {
-        font-size: 15px;
-        margin: 20px 0;
-        text-align: justify;
-    }
-
-    #privacy-content ol li, #privacy-content ul li {
-        margin: 10px 0;
-        padding-left: 8px;
-    }
-    #privacy-content ol ul li {
-        padding-left: 50px;
-    }
-</style>
 @section('content')
     <div class="col-md-8 col-md-offset-2">
         <h1 class="h1-simplepage pull-left">Privacy Policy</h1>
-        <div class="" id="privacy-content">
+        <div class="simplepage-content" id="privacy-content">
             <h2>Read our Privacy Policy to see how we protect your information.</h2>
 
             <h3>What information do we collect?</h3>

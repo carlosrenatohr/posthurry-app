@@ -63,5 +63,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/privacy', function() {
         return view('layouts.privacy-policy');
     });
+
+    Route::get('/faq', function() {
+        return view('layouts.faq');
+    });
 });
 
