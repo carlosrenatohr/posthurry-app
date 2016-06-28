@@ -1,5 +1,13 @@
 @extends('layouts.main')
 @section('content')
+    <?php $blastAt = new \Carbon\Carbon($comparison->massPosts->blastAt);?>
+    <style>
+        .blastTimeTitle {
+            padding: 12px 0;
+            font-size: 18px;
+            font-weight: 800;
+        }
+    </style>
     <div class="row-fluid">
         <div class="col-md-12">
             <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
@@ -21,6 +29,17 @@
                     <?php $resting = ($comparison->limitDaysDuration > 60) ? round($comparison->limitDaysDuration / 60, 2) : $comparison->limitDaysDuration;?>
                     Comparison during {{  $resting }} {{ ($comparison->limitDaysDuration < 60) ? 'minutes' : 'hours' }}
                         from {{ date('M d, Y', strtotime($comparison->created_at)) }} at {{ date('h:i A', strtotime($comparison->created_at)) }}
+                @endif
+                @if(!is_null($comparison->massPosts))
+                    <h4 class="blastTimeTitle">
+                        <? var_dump(\Carbon\Carbon::now()->toDateTimeString()) ?>
+                        @if(is_null($comparison->massPosts->posts_published))
+                        Blast out at {{ $blastAt->format('d-m-Y h:iA') }}
+                        @else
+                            Blasted Out!
+                        @endif
+                    </h4>
+
                 @endif
             </h2>
             </div>
@@ -73,6 +92,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="blastTimeTitle">
+                                Blast out at {{ $blastAt->format('d-m-Y h:iA') }}
+                            </h4>
+                        </div>
                         <div class="col-md-6">
                             <div class="panel panel-info" >
                                 <div class="panel-heading">

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Comparison;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Exception;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
@@ -56,7 +57,9 @@ class MainController extends Controller
         $newGroups = ['data' => $newGroups];
 
         $allPagesGot = ['groups' => ($decodingGroups), 'pages' => json_decode($pagesLiked)];
+        $response = new Response('Hello World');
 
+        $response->withCookie('token', cookie('token33', $token, 60));
         return response()->json($allPagesGot);
     }
 
@@ -69,7 +72,9 @@ class MainController extends Controller
         $post1_has_image = $post2_has_image = false;
         $token = $request->session()->get('fb_user_access_token');
         $input = array_except($request->all(),
-                    ['_token', 'typeToPost', 'post1_image', 'post2_image', 'blastMassChkbox', 'pagesNamesSelected', 'groupsNamesSelected']);
+                    ['_token', 'typeToPost', 'post1_image', 'post2_image',
+                        'blastMassChkbox', 'pagesNamesSelected', 'groupsNamesSelected',
+                        'blastDatetime']);
         if ($request->has('blastMassChkbox')) {
             $blastMass = array_pull($input, 'massPosts');
         }
@@ -128,6 +133,8 @@ class MainController extends Controller
             $blastMassJson['pages'] = isset($blastMass['pages']) ? json_encode($blastMass['pages'], true) : '';
             $blastMassJson['pages_names'] = $request->get('pagesNamesSelected');
             $blastMassJson['groups_names'] = $request->get('groupsNamesSelected');
+            $blastOutTime = new \Carbon\Carbon($request->get('blastDatetime'));
+            $blastMassJson['blastAt'] = $blastOutTime->toDateTimeString();
 
             $massPostRow = \App\MassPost::create($blastMassJson);
             $comparison->massPosts()->save($massPostRow);
