@@ -54,14 +54,14 @@ class ComparisonController extends Controller
             if (!is_null($row_saved)) {
                 $collection = [
                     'first' => [
-                        'likes' => $row_saved->post1_likes,
-                        'shared' => $row_saved->post1_shares,
-                        'comments' => $row_saved->post1_comments,
+                        'likes' => (int)$row_saved->post1_likes,
+                        'shared' => (int)$row_saved->post1_shares,
+                        'comments' => (int)$row_saved->post1_comments,
                     ],
                     'second' => [
-                        'likes' => $row_saved->post2_likes,
-                        'shared' => $row_saved->post2_shares,
-                        'comments' => $row_saved->post2_comments,
+                        'likes' => (int)$row_saved->post2_likes,
+                        'shared' => (int)$row_saved->post2_shares,
+                        'comments' => (int)$row_saved->post2_comments,
                     ]
                 ];
             } else {
@@ -79,11 +79,11 @@ class ComparisonController extends Controller
                 $winner = $this->setWinnerByComparison($row);
                 $comparison->fill(['winner' => $winner])->save();
                 // Blast it out on mass groups selected if was chosen by user
-                if (!is_null($comparison->massPosts)) {
+//                if (!is_null($comparison->massPosts)) {
                     // If post 1 or was a tie, post 1 will be post in mass, else post 2 will be posted
                     $winnerNum = ($winner == 1) ? 1 : 2;
-                    $this->postInMass($comparison, $winnerNum, $fb, $token);
-                }
+//                    $this->postInMass($comparison, $winnerNum, $fb, $token);
+//                }
 //                $result = $comparison->data_row;
             }
         } else {

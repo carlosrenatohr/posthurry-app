@@ -1,5 +1,13 @@
 @extends('layouts.main')
 @section('content')
+    <?php $blastAt = new \Carbon\Carbon($comparison->massPosts->blastAt);?>
+    <style>
+        .blastTimeTitle {
+            padding: 12px 0;
+            font-size: 18px;
+            font-weight: 800;
+        }
+    </style>
     <div class="row-fluid">
         <div class="col-md-12">
             <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
@@ -22,6 +30,17 @@
                     Comparison during {{  $resting }} {{ ($comparison->limitDaysDuration < 60) ? 'minutes' : 'hours' }}
                         from {{ date('M d, Y', strtotime($comparison->created_at)) }} at {{ date('h:i A', strtotime($comparison->created_at)) }}
                 @endif
+                @if(!is_null($comparison->massPosts))
+                    <h4 class="blastTimeTitle">
+                        <?php //var_dump(\Carbon\Carbon::now()->toDateTimeString()) ?>
+                        @if(is_null($comparison->massPosts->posts_published))
+                        will blast out at {{ $blastAt->format('d-m-Y h:iA') }}
+                        @else
+                            Blasted Out!
+                        @endif
+                    </h4>
+
+                @endif
             </h2>
             </div>
         </div>
@@ -30,6 +49,7 @@
                 <div class="panel-heading"> Posted on {{$comparison->post1_page_name }}</div>
                 <div class="panel-body">
                     <p>{{$comparison->post1_text }}</p>
+                    <a href="https://fb.com/{{ $comparison->post1_post_id }}" target="_blank" class="btn btn-info" style="background-color: #3B5998;margin: 5px 0;">See on facebook</a>
                     <div class="divider-img-post"></div>
                     @if(!is_null($comparison->post1_img_url))
                     <div class="img-container-post">
@@ -44,6 +64,7 @@
                 <div class="panel-heading"> Posted on {{$comparison->post2_page_name }}</div>
                 <div class="panel-body">
                     <p>{{ $comparison->post2_text }}</p>
+                    <a href="https://fb.com/{{ $comparison->post2_post_id }}" target="_blank" class="btn btn-info" style="background-color: #3B5998;margin: 5px 0;">See on facebook</a>
                     <div class="divider-img-post"></div>
                     @if(!is_null($comparison->post2_img_url))
                         <div class="img-container-post">
@@ -73,6 +94,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="blastTimeTitle">
+                                @if(is_null($comparison->massPosts->posts_published))
+                                    Will blast out at {{ $blastAt->format('d-m-Y h:iA') }}
+                                @else
+                                    Blasted Out! ({{ $blastAt->format('d-m-Y h:iA') }})
+                                @endif
+                            </h4>
+                            <p>When winner post on contest was blasted out, you will go to fb for checking post on every page/group.</p>
+                            <br>
+                        </div>
                         <div class="col-md-6">
                             <div class="panel panel-info" >
                                 <div class="panel-heading">
@@ -81,12 +113,20 @@
                                 <div class="panel-body">
                                     <div style="max-height:400px;overflow-y: scroll;">
                                         <ul class="list-group">
-                                            <?php $groups = explode(',', $comparison->massPosts->groups_names); ?>
-                                            @if(!empty($groups[0]))
-                                            @foreach($groups as $group)
+                                            <?php
+                                                $groups_names = explode(',', $comparison->massPosts->groups_names);
+                                                $published = explode(',', $comparison->massPosts->posts_published);
+                                            ?>
+                                            @if(!empty($groups_names[0]))
+                                            @foreach($groups_names as $index => $group)
                                                 <li class="list-group-item">
                                                     <span class="badge"><i class="fa fa-{{ (!is_null($comparison->winner) ? 'check' : 'asterisk') }}"></i></span>
+                                                    @if(is_null($comparison->massPosts->posts_published))
                                                     {{ $group }}
+                                                    @else
+                                                        <?php ?>
+                                                        <a href="https://fb.com/{{$published[$index]}}" target="_blank">{{ $group }}</a>
+                                                    @endif
                                                 </li>
                                             @endforeach
                                             @endif
@@ -103,12 +143,18 @@
                                 <div class="panel-body">
                                     <div style="max-height:400px;overflow-y: scroll;">
                                         <ul class="list-group">
-                                            <?php $pages = explode(',', $comparison->massPosts->pages_names);?>
-                                            @if(!empty($pages[0]))
-                                                @foreach($pages as $page)
+                                            <?php $pages_names = explode(',', $comparison->massPosts->pages_names);
+
+                                            ?>
+                                            @if(!empty($pages_names[0]))
+                                                @foreach($pages_names as $index => $page)
                                                 <li class="list-group-item">
                                                     <span class="badge"><i class="fa fa-{{ (!is_null($comparison->winner) ? 'check' : 'asterisk') }}"></i></span>
-                                                    {{ $page }}
+                                                    @if(is_null($comparison->massPosts->posts_published))
+                                                        {{ $page }}
+                                                    @else
+                                                        <a href="https://fb.com/{{$published[$index + count($groups_names)]}}" target="_blank">{{ $page }}</a>
+                                                    @endif
                                                 </li>
                                                 @endforeach
                                             @endif

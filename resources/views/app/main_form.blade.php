@@ -4,6 +4,7 @@
 @endsection
 @section('content')
     {{--<div class="row-fluid">--}}
+    <? //format('Y-m-d H:i:s')); ?>
         {!! Form::open(['url' => route('postData'), 'method' => 'post', 'class' => '', 'enctype' => 'multipart/form-data'])!!}
         <div class="col-md-12" style="height:74%;margin-bottom:4%;margin-top:4%;">
             <div class="cd-form floating-labels">
@@ -123,6 +124,14 @@
                             <input type="checkbox" id="blastMassChkbox" name="blastMassChkbox">
                             <label for="blastMassChkbox">Do you want to blast out in mass groups?</label>
                         </div>
+                        <div>
+                            <label for="">When?</label>
+                            <input type="date" id="blastDate" name="" disabled>
+                            <input type="time" id="blastTime" name="" disabled>
+                        </div>
+                    </div>
+                    <div class="cd-form" style="margin: 0!important;">
+
                     </div>
                     Add up to 25 Groups or Pages
                 </div>
@@ -165,6 +174,7 @@
                     </div>
                     <input type="hidden" name="pagesNamesSelected" id="pagesNamesSelected">
                     <input type="hidden" name="groupsNamesSelected" id="groupsNamesSelected">
+                    <input type="hidden" name="blastDatetime" id="blastTimeInput">
                 </div>
                 <div>
                     <input type="hidden" name="_token" value="{!!csrf_token()!!}">

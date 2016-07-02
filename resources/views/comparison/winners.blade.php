@@ -17,10 +17,13 @@
                 <thead>
                 <tr>
                     <th>Page/group</th>
-                    <th>Content</th>
+                    <th width="30%">Content</th>
                     <th>Created at</th>
-                    <th>Stats</th>
-                    <th>Link</th>
+                    <th>Likes</th>
+                    <th>Shares</th>
+                    <th>Comments</th>
+                    <th>Link to Chart</th>
+                    <th>Blast Date Time</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,10 +40,20 @@
                             <td>{{ date('m-d-Y  h:i A', strtotime($page->created_at)) }}</td>
                             <td>
                                 <label title="Likes"><i class="fa fa-thumbs-o-up"></i><span class="badge">{{ $page->data_row->{'post'. $winner_n .'_likes'} }}</span></label>
+                            </td>
+                            <td>
                                 <label title="Shares"><i class="fa fa-share-alt"></i><span class="badge">{{ $page->data_row->{'post'. $winner_n .'_shares'} }}</span></label>
+                            </td>
+                            <td>
                                 <label title="Comments"><i class="fa fa-comment"></i><span class="badge">{{ $page->data_row->{'post'. $winner_n .'_comments'} }}</span></label>
                             </td>
                             <td><a href="{{ url('comparison/'. $page->id) }}"><i class="fa fa-area-chart"></i>Chart</a></td>
+                            <td>
+                                @if(isset($page->massPosts))
+                                    {{ date('m-d-Y  h:i A', strtotime($page->massPosts->blastAt)) }}
+                                @endif
+                            </td>
+                            <td></td>
                         </tr>
                         @else
                             <tr>

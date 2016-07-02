@@ -18189,13 +18189,27 @@ $(function() {
             $('.below-container .col-md-6 .panel').removeClass('panel-default').addClass('panel-info');
             $('.below-container .col-md-6 .panel-body').removeClass('disabled-on');
             //console.info('User APPROVES to blast the winner post out on mass groups/pages!');
+            $('#blastDate').prop('disabled', false);
+            $('#blastTime').prop('disabled', false);
         } else {
             $('.massCheckbox').prop('disabled', true);
             $('.below-container .col-md-6 .panel').removeClass('panel-info').addClass('panel-default');
             $('.below-container .col-md-6 .panel-body').addClass('disabled-on');
             //$('.massCheckbox').prop('checked', false);
             //console.info('User DOES NOT APPROVE to blast the winner post out on mass groups/pages!');
+            $('#blastDate').prop('disabled', true);
+            $('#blastTime').prop('disabled', true);
         }
+    });
+
+    $('#blastDate, #blastTime').on('change', function(){
+        var blastDate = $('#blastDate').val();
+        var blastTime = $('#blastTime').val();
+        var datetimeValue = (blastDate != '' && blastTime != '')
+                            ? blastDate + ' ' + blastTime + ':00'
+                            : null;
+        console.log(datetimeValue);
+        $('#blastTimeInput').val(datetimeValue);
     });
 
     var pagesNamesSelected = [], groupsNamesSelected = [];
@@ -18294,10 +18308,13 @@ $(function() {
                         type: 'column',
                     },
                     title: {
-                        text: 'Comparison between posts'
+                        text: 'Contest between posts'
                     },
                     xAxis: {
-                        categories: ['Likes', 'Shared', 'Comments']
+                        categories: ['Likes', 'Shared', 'Comments'],
+                    },
+                    yAxis: {
+
                     },
                     credits: {
                         enabled: false

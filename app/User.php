@@ -27,12 +27,18 @@ class User extends Authenticatable
      */
     public static function existsUser($data)
     {
+        // FIX set a salt
+        $token = session('fb_user_access_token');
         $user = self::where('facebook_user_id', $data->id)->first();
         if (!count($user)) {
             $new_user = (array)$data;
             $new_user['facebook_user_id'] = $new_user['id'];
+            $new_user['access_token'] = $token;
             $new_user = array_except($new_user, ['id']);
             $user = self::create($new_user);
+        }
+        else {
+            $user->fill(['access_token' => $token])->save();
         }
         return $user;
     }
