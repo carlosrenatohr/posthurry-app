@@ -52,11 +52,14 @@ class MainController extends Controller
                 $group->_privacy = 'Secret';
             }
             $group->label = $group->name. ' (' . $group->_privacy . ')';
-            $newGroups[] = $group;
+            if ($group->_privacy == 'Public') {
+                $newGroups[] = $group;
+            }
         }
         $newGroups = ['data' => $newGroups];
 
-        $allPagesGot = ['groups' => ($decodingGroups), 'pages' => json_decode($pagesLiked)];
+//        $allPagesGot = ['groups' => ($decodingGroups), 'pages' => json_decode($pagesLiked)];
+        $allPagesGot = ['groups' => ($newGroups), 'pages' => json_decode($pagesLiked)];
         $response = new Response('Hello World');
 
         $response->withCookie('token', cookie('token33', $token, 60));
