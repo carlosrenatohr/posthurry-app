@@ -69,10 +69,11 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-        )->appendOutputTo('/home/carlosrenato/htdocs/gethurrypost/log.txt')
-//            ->everyFiveMinutes();
+        )
+//        ->everyMinute();
+        ->everyFiveMinutes();
 //        ->hourly();
-        ->everyMinute();
+
     }
 
     private function comparisonIsExpired($date, $days)
