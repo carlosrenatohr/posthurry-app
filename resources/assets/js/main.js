@@ -35,28 +35,66 @@ $(function() {
             $('.massCheckbox').prop('disabled', false);
             $('.below-container .col-md-6 .panel').removeClass('panel-default').addClass('panel-info');
             $('.below-container .col-md-6 .panel-body').removeClass('disabled-on');
-            //console.info('User APPROVES to blast the winner post out on mass groups/pages!');
-            $('#blastDate').prop('disabled', false);
-            $('#blastTime').prop('disabled', false);
+            //$('#blastDate').prop('disabled', false);
+            //$('#blastTime').prop('disabled', false);
+            $('#blastDateTime').prop('disabled', false);
         } else {
             $('.massCheckbox').prop('disabled', true);
             $('.below-container .col-md-6 .panel').removeClass('panel-info').addClass('panel-default');
             $('.below-container .col-md-6 .panel-body').addClass('disabled-on');
             //$('.massCheckbox').prop('checked', false);
-            //console.info('User DOES NOT APPROVE to blast the winner post out on mass groups/pages!');
-            $('#blastDate').prop('disabled', true);
-            $('#blastTime').prop('disabled', true);
+            //$('#blastDate').prop('disabled', true);
+            //$('#blastTime').prop('disabled', true);
+            $('#blastDateTime').prop('disabled', true);
         }
     });
 
-    $('#blastDate, #blastTime').on('change', function(){
-        var blastDate = $('#blastDate').val();
-        var blastTime = $('#blastTime').val();
-        var datetimeValue = (blastDate != '' && blastTime != '')
-                            ? blastDate + ' ' + blastTime + ':00'
-                            : null;
-        $('#blastTimeInput').val(datetimeValue);
+    $("#blastDateTimePlugin").DateTimePicker({
+        defaultDate: new Date(),
+        //maxDate: new Date(2016, 7 - 1, 8),
+        titleContentDateTime: 'Set blasting out datetime',
+        dateTimeFormat: "MM-dd-yyyy hh:mm AA",
+        buttonsToDisplay: ["HeaderCloseButton", "SetButton"], //, "ClearButton"
     });
+    $("#blastDateTime").on('change', function(e){
+        console.log($(this).val());
+    });
+
+    $('#createContestSubmitBtn').on('click', function(e) {
+        var needvalidation = false;
+        $('.cd-form .post-textarea').each(function(i, el){
+             if (el.value == '') {
+                 needvalidation = true;
+                 $(el).css({'border-color': '#F00'});
+                 // alertify.notify( message, 'error', [wait, callback]);
+                 alertify.notify($(el).data('control') + " can't be blank!", 'error', [2000, function(){}]);
+             } else {
+                 $(el).css({'border-color': '#CCC'});
+             }
+        });
+        $('.cd-form .select-groups:not(:disabled), .cd-form .select-pages:not(:disabled)').each(function(i, el){
+             if (el.value == '') {
+                 needvalidation = true;
+                 $(el).css({'border-color': '#F00'});
+                 alertify.notify("Please select an item on " + $(el).data('control'), 'error', [2000, function(){}]);
+             } else {
+                 $(el).css({'border-color': '#CCC'});
+             }
+        });
+        if (needvalidation) {
+            e.preventDefault();
+        }
+    });
+
+
+    //$('#blastDate, #blastTime').on('change', function(){
+    //    var blastDate = $('#blastDate').val();
+    //    var blastTime = $('#blastTime').val();
+    //    var datetimeValue = (blastDate != '' && blastTime != '')
+    //                        ? blastDate + ' ' + blastTime + ':00'
+    //                        : null;
+    //    $('#blastTimeInput').val(datetimeValue);
+    //});
 
     var pagesNamesSelected = [], groupsNamesSelected = [];
     $('body').on('change', '.massCheckbox', function(e) {

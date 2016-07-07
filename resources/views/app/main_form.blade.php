@@ -51,7 +51,7 @@
                             <div class="pages-list-container">
                                 <h4>Select a Post</h4>
                                 <p class="cd-select icon">
-                                    <select class="budget select-pages" name="post1_page_id">
+                                    <select class="budget select-pages" name="post1_page_id" data-control="Page combobox">
                                         <option value="">Select Page</option>
                                     </select>
                                     <input type="hidden" value="1" name="post1_sort" class="page_sort">
@@ -60,7 +60,7 @@
                             <div class="groups-list-container hide">
                                 <h4>Select a Group</h4>
                                 <p class="cd-select icon">
-                                    <select class="budget select-groups" name="post1_page_id" disabled>
+                                    <select class="budget select-groups" name="post1_page_id" disabled data-control="Group combobox">
                                         <option value="">Select Group</option>
                                     </select>
                                     <input type="hidden" value="2" name="post1_sort" class="group_sort" disabled>
@@ -74,7 +74,7 @@
 
                         <div class="icon">
                             <label class="cd-label" for="cd-textarea">Type your Status</label>
-                            {!! Form::textarea('post1_text', null, ['class'=> 'message', 'id' => 'cd-textarea', 'required']) !!}
+                            {!! Form::textarea('post1_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post1', 'required', 'data-control' => 'First Post Status']) !!}
                         </div>
 
                     </fieldset>
@@ -87,7 +87,7 @@
                             <h4>Select a Group</h4>
 
                             <p class="cd-select icon">
-                                <select class="budget select-groups" name="post2_page_id" required>
+                                <select class="budget select-groups" name="post2_page_id" required data-control="Group combobox">
                                     <option value="">Select Group</option>
                                 </select>
                                 <input type="hidden" value="2" name="post2_sort" class="group_sort">
@@ -96,7 +96,7 @@
                         <div class="pages-list-container hide">
                             <h4>Select a Post</h4>
                             <p class="cd-select icon">
-                                <select class="budget select-pages" name="post2_page_id" required disabled>
+                                <select class="budget select-pages" name="post2_page_id" required disabled data-control="Page combobox">
                                     <option value="">Select Page</option>
                                 </select>
                                 <input type="hidden" value="1" name="post2_sort" class="page_sort" disabled>
@@ -110,7 +110,7 @@
 
                     <div class="icon">
                         <label class="cd-label" for="cd-textarea">Type your Status</label>
-                        {!! Form::textarea('post2_text', null, ['class'=> 'message', 'id' => 'cd-textarea', 'required']) !!}
+                        {!! Form::textarea('post2_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post2', 'required', 'data-control' => 'Second Post Status']) !!}
                     </div>
 
                 </fieldset>
@@ -124,10 +124,15 @@
                             <input type="checkbox" id="blastMassChkbox" name="blastMassChkbox">
                             <label for="blastMassChkbox">Do you want to blast out in mass groups?</label>
                         </div>
-                        <div>
+                        {{--<div>--}}
+                            {{--<label for="">When?</label>--}}
+                            {{--<input type="date" id="blastDate" name="" disabled>--}}
+                            {{--<input type="time" id="blastTime" name="" disabled>--}}
+                        {{--</div>--}}
+                        <div class="">
                             <label for="">When?</label>
-                            <input type="date" id="blastDate" name="" disabled>
-                            <input type="time" id="blastTime" name="" disabled>
+                            <input type="text" id="blastDateTime" name="blastDatetime" data-field="datetime" readonly disabled>
+                            <div id="blastDateTimePlugin"></div>
                         </div>
                     </div>
                     <div class="cd-form" style="margin: 0!important;">
@@ -143,6 +148,23 @@
                         {
                             /*background-color: rgba(204,204,204, 0.65);*/
                             cursor: not-allowed!important;
+                        }
+                        /* datetime picker custom styles*/
+                        #blastDateTimePlugin div {
+                            margin: 5px auto!important;
+                        }
+                        .dtpicker-content {
+                            padding: 0!important;
+                        }
+                        .dtpicker-overlay {
+                            background: rgba(0, 0, 0, 0) !important;
+                        }
+                        .dtpicker-subcontent {
+                            border: solid 2px #2b3e51 !important;
+                            padding: 3px!important;
+                        }
+                        .dtpicker-buttonCont .dtpicker-button {
+                            background: #2b4170;
                         }
                     </style>
                 <div class="below-container">
@@ -174,11 +196,11 @@
                     </div>
                     <input type="hidden" name="pagesNamesSelected" id="pagesNamesSelected">
                     <input type="hidden" name="groupsNamesSelected" id="groupsNamesSelected">
-                    <input type="hidden" name="blastDatetime" id="blastTimeInput">
+                    {{--<input type="hidden" name="blastDatetime" id="blastTimeInput">--}}
                 </div>
                 <div>
                     <input type="hidden" name="_token" value="{!!csrf_token()!!}">
-                    <input type="submit" value="Submit" style="margin: 10px 0;" class="submit-btn">
+                    <input type="submit" value="Submit" style="margin: 10px 0;" class="submit-btn" id="createContestSubmitBtn">
                 </div>
                 </div>
             {{--</div>--}}
