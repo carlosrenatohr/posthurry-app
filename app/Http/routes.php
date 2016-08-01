@@ -71,5 +71,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/terms', function() {
         return view('layouts.terms');
     });
+
+    Route::get('/temp', function() {
+        return view('layouts.new-index');
+    });
 });
 

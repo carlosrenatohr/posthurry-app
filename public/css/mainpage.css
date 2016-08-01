@@ -1,0 +1,306 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {font-size:16px !important; font-family:sans-serif !important;}
+.newsty {
+    border-bottom: 1px solid #ccc;
+    padding: 30px 0;
+}
+
+.logosec {padding-left:30px;}
+.logosec span {font-size: 25px;
+    text-transform: uppercase;
+	color:#2EBFEE;
+	font-weight:bold;
+}
+
+.logosec span a {color:#2EBFEE;}
+.logosec span a:hover, .logosec span a:active, .logosec span a:focus {text-decoration:none;}
+
+.newsty header {width: 35%; float: left;}
+
+.naving {
+    float: left;
+    margin-top: 6px;
+    width: 65%;
+}
+
+.naving ul {padding: 0; margin: 0; float:right;}
+
+.naving ul li {
+    float: left;
+    list-style: outside none none;
+    margin-right: 10px;
+}
+
+.naving ul li a {
+    border: 1px solid;
+    border-radius: 5px;
+    color: #2ebfee;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 15px;
+    text-transform: uppercase;
+}
+
+.naving ul li a:hover {text-decoration:none; color:#2EBFEE;}
+
+
+.naving ul li:last-child {margin-right:0;}
+
+.foot {padding:40px 0; border-top:1px solid #ccc;}
+
+
+.copyright {text-align:right; }
+
+.copyleft a {font-size: 14px;
+    padding: 0 10px;
+    text-transform: uppercase;
+    color:#000;
+}
+
+.copyleft a:hover{color:#2EBFEE; text-decoration:none;}
+
+.pricer {text-align:center; padding:30px 0;}
+
+
+.boxprice {width: 375px;
+    margin: 0 auto;
+}
+
+.boxprice h4 {text-transform: capitalize;
+    font-size: 22px;
+    padding-bottom: 5px;
+	color:#2EBFEE;
+}
+.boxprice span {    font-size: 18px;
+    display: block;
+	color:#2EBFEE;
+}
+.boxprice a {display: block;
+    margin: 15px auto;
+    background: #2EBFEE;
+    color: #fff;
+    padding: 8px 50px;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 5px;
+	border:1px solid #2EBFEE;
+}
+
+.boxprice a:hover {background:#fff; color:#2EBFEE; text-decoration:none; border:1px solid #2EBFEE;}
+.boxprice ul {list-style:none; padding:0 0 0 15px; text-align:left; margin-left: 10px;}
+
+.boxprice p span {text-transform: uppercase;}
+.boxprice ul li::before {
+	color: #2ebfee;
+    content: "-";
+    font-size: 30px;
+    font-weight: bold;
+    left: -10px;
+    line-height: 28px;
+    margin-left: -10px;
+    position: relative;
+    vertical-align: bottom;
+}
+	
+.cntban{background:url(../img/slider.jpg) no-repeat center center / cover; padding:30px 0;}
+
+.cntbanin{color:#fff;}
+
+.cntleft p {line-height:30px;}
+
+.cntleft h3 {padding-bottom:20px;}
+
+.cntright {    padding-top: 50px; font-size:20px;
+    text-align: center;
+}
+.cntright a {    display: block;
+    margin-top: 25px;
+    background: #fff;
+    width: 200px;
+    text-align: center;
+    padding: 10px 25px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 25px auto 0;
+	border:1px solid #fff;
+	font-size:16px;
+}
+
+.cntright a:hover {text-decoration:none; background:#000; color:#fff;}
+
+
+.pric {padding:30px 0;}
+
+.pric h3 {text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+}
+
+.pric ul {    padding: 0;
+    text-align: center;
+    list-style: none;
+    line-height: 30px;
+}
+
+.teoprise a:first-child {float: left;
+    padding: 8px 10px;
+    width: 48%;
+	font-size:13px;
+}
+
+.teoprise a:last-child {float: right;
+    padding: 8px 10px;
+    width: 48%;
+	pointer-events: none;
+	font-size:13px;
+}
+
+.teoprise a:last-child:hover {background:#2ebfee; color:#fff;}
+.teoprise a:first-child:hover, .limit a:hover, .ofer a:hover { background:#000; color:#fff; text-decoration:none;}
+
+.logosec a img {width:180px;}
+.closed  {display:none;}
+
+.logosec span {
+    color: #2ebfee;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.limit {clear: both;}
+.limit a {padding: 8px;}
+
+.limit a span {color: #fff;
+    display: block;
+    font-size: 14px;
+}
+
+.limitoff {position:fixed; top:0; bottom:0; left:0; right:0; background:rgba(0,0,0,0.5); visibility:hidden; z-index:2;}
+.limit {
+    background: #fff none repeat scroll 0 0;
+    clear: both;
+    margin: 0 auto;
+    padding: 25px;
+    position: relative;
+    top: 30%;
+    width: 300px;
+    word-wrap: break-word;
+}
+
+.closed2 {background: #2ebfef none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 30px;
+    position: relative;
+    width: 30px;
+}
+
+.ofer {clear:both; }
+.ofer a{font-size:13px; background:#14AB08;}
+
+@media only screen and (max-width:640px) {
+	
+	.boxprice ul li {font-size:15px;}
+	.copyleft {text-align:center;}
+	.copyright {text-align:center; margin-top:10px;}
+	
+	.newsty header {
+    float: left;
+    width: 100%;
+}
+
+.naving {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+	visibility:hidden;
+}
+
+.naving ul{
+background: #fff none repeat scroll 0 0;
+    bottom: 0;
+    margin-top: 0;
+    padding: 40px 25px 25px;
+    position: fixed;
+    right: -300px;
+    top: 0;
+    width: 300px;
+	
+	}
+	
+	.naving ul li {line-height:45px;}
+
+.naving ul, .naving ul li {float:none;}
+
+.navbar-toggle {border: 1px solid #2ebfee !important; margin-top:-20px !important;}
+
+.navbar-toggle .icon-bar {background:#2ebfee;}
+
+	.ulactive {right:0 !important; transition:all 0.4s;}
+	.ulinactive {right:-300px !important; transition:all 0.4s;}
+	
+	.logosec a img {
+    margin-top: 10px;
+    width: 150px;
+}
+
+.closed { background: #2ebfee none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+    line-height: 30px;
+    margin-bottom: 30px;
+    margin-left: 15px;
+    text-align: center;
+    width: 30px;
+	display:block;
+	cursor:pointer;
+}
+
+.boxprice {
+    margin: 0 auto;
+    width: 300px;
+}
+
+.teoprise a:first-child, .teoprise a:last-child {width:100%; float:none;}
+
+.logosec span {
+    color: #2ebfee;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+}
+
+
+@media only screen and (max-width:480px) {
+.copyleft a {
+    color: #000;
+    font-size: 12px;
+    padding: 0 6px;
+    text-transform: uppercase;
+}
+
+}
+@media only screen and (max-width:360px) {
+
+.copyleft a {display:block; margin:10px 0;}
+.navbar-toggle {margin-right:0 !important;}
+.logosec {padding-left: 0px;}
+.newsty {padding-left:0 !important; padding-right:0 !important;}
+
+}

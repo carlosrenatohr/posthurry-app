@@ -7,9 +7,11 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,500,700" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
     <meta name="author" content="Syed Ammar Haider Rizvi">
-    {{--CSSS--}}
+    {{--CSS--}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.css') }}">
+    {{-- new main page --}}
+    <link rel="stylesheet" href="{{ asset('css/mainpage.css') }}">
     <style>
         .header2 {
             overflow: hidden;
@@ -76,6 +78,7 @@
         href="{{ url('comparison') }}">Comparisons</a></li>
         <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
         href="{{ url('/comparison/winners') }}">Winners</a></li>
+        <li><a href="{{ url('/temp') }}"><i class="fa fa-plus"></i> New main page</a></li>
     </ul>
     </div><!-- /.navbar-collapse -->
     {{--</div><!-- /.container-fluid -->--}}
