@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-            ->hourly();
+//        $schedule->command('inspire')
+//            ->hourly();
         $schedule->call(
             function (Request $request, LaravelFacebookSdk $fb) {
                 foreach (User::all() as $user) {
@@ -62,7 +62,7 @@ class Kernel extends ConsoleKernel
                                     // If post 1 or was a tie, post 1 will be post in mass, else post 2 will be posted
                                     $winnerNum = ($winner == 1) ? 1 : 2;
                                     $this->publishInMass($contest, $winnerNum, $token, $fb);
-                                    var_dump('MASSED ' . date('d-m-Y h:i:s'));
+                                    var_dump('MASSED ' . date('d-m-Y h:i:s'). '\n\n');
                                 }
                             }
                         }
@@ -70,8 +70,8 @@ class Kernel extends ConsoleKernel
                 }
             }
         )
-//        ->everyMinute();
-        ->everyFiveMinutes();
+        ->everyMinute();
+//        ->everyFiveMinutes();
 //        ->hourly();
 
     }

@@ -53,8 +53,8 @@ $(function() {
         defaultDate: new Date(),
         //maxDate: new Date(2016, 7 - 1, 8),
         titleContentDateTime: 'Set blasting out datetime',
-        dateTimeFormat: "MM-dd-yyyy hh:mm AA",
-        buttonsToDisplay: ["HeaderCloseButton", "SetButton"], //, "ClearButton"
+        dateTimeFormat: "dd-MM-yyyy hh:mm AA", // MM-dd-yyyy hh:mm AA
+        buttonsToDisplay: ["HeaderCloseButton", "SetButton"] //, "ClearButton"
     });
     $("#blastDateTime").on('change', function(e){
         console.log($(this).val());

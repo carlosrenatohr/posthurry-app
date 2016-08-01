@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Comparison;
 use App\Http\Requests;
+use Faker\Provider\zh_TW\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -136,9 +137,9 @@ class MainController extends Controller
             $blastMassJson['pages'] = isset($blastMass['pages']) ? json_encode($blastMass['pages'], true) : '';
             $blastMassJson['pages_names'] = $request->get('pagesNamesSelected');
             $blastMassJson['groups_names'] = $request->get('groupsNamesSelected');
+            // BlastAt date
             $blastOutTime = new \Carbon\Carbon($request->get('blastDatetime'));
             $blastMassJson['blastAt'] = $blastOutTime->toDateTimeString();
-
             $massPostRow = \App\MassPost::create($blastMassJson);
             $comparison->massPosts()->save($massPostRow);
         }

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-    <?php $blastAt = new \Carbon\Carbon($comparison->massPosts->blastAt);?>
+    <?php $blastAt = (!is_null($comparison->massPosts)) ? new \Carbon\Carbon($comparison->massPosts->blastAt) : null;?>
     <style>
         .blastTimeTitle {
             padding: 12px 0;
