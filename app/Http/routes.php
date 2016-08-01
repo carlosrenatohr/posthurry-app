@@ -67,5 +67,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/faq', function() {
         return view('layouts.faq');
     });
+
+    Route::get('/terms', function() {
+        return view('layouts.terms');
+    });
 });
 

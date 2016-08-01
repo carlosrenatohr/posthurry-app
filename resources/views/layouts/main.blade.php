@@ -94,7 +94,7 @@
 {{--<div class="header2 footer" style="height:55px;width:100%;text-align:left;position:relative;bottom: 0;">--}}
 <div class="header2 footer">
 	<div  class="col-md-3 item">
-        <a href="javascript:void(0)">Terms of Service</a>
+        <a href="{{ url('terms') }}">Terms of Service</a>
 	</div>
     <div class="col-md-3 item">
         <a href="{{ url('privacy') }}">Privacy Policy</a>
