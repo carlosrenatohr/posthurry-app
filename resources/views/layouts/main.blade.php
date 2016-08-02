@@ -78,7 +78,6 @@
         href="{{ url('comparison') }}">Comparisons</a></li>
         <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
         href="{{ url('/comparison/winners') }}">Winners</a></li>
-        <li><a href="{{ url('/temp') }}"><i class="fa fa-plus"></i> New main page</a></li>
     </ul>
     </div><!-- /.navbar-collapse -->
     {{--</div><!-- /.container-fluid -->--}}
