@@ -33,7 +33,8 @@ class Kernel extends ConsoleKernel
             function (Request $request, LaravelFacebookSdk $fb) {
                 foreach (User::all() as $user) {
                     $token = $user->access_token;
-                    foreach ($user->comparisons as $contest) {
+                    if(!is_null($token)) {
+                        foreach ($user->comparisons as $contest) {
                         if ($this->comparisonIsExpired($contest->created_at, $contest->limitDaysDuration)) {
                             $row_saved = $contest->data_row;
                             if (is_null($row_saved)) {
@@ -66,6 +67,7 @@ class Kernel extends ConsoleKernel
                                 }
                             }
                         }
+                    }
                     }
                 }
             }
