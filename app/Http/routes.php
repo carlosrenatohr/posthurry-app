@@ -32,16 +32,14 @@ Route::group(['middleware' => ['web']], function () {
      * Fb routes
      */
     // Generate a login URL
-    Route::match(['get', 'post'], '/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
-    {
+    Route::match(['get', 'post'], '/login', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
         // Send an array of permissions to request
         $login_url = $fb->getLoginUrl();
         // Obviously you'd do this in blade :)
         echo '<a href="' . $login_url . '">Login with Facebook</a>';
     });
     // Endpoint that is redirected to after an authentication attempt
-    Route::get('/facebook/callback', function()
-    {
+    Route::get('/facebook/callback', function () {
         return redirect('/')->with('message', 'Successfully logged in with Facebook');
     });
     /**
@@ -53,26 +51,32 @@ Route::group(['middleware' => ['web']], function () {
     /**
      * Comparison routes
      */
-    Route::group(['prefix' => 'comparison', 'middleware' => 'isLoggedIn'], function(){
+    Route::group(['prefix' => 'comparison', 'middleware' => 'isLoggedIn'], function () {
         Route::get('/', 'ComparisonController@index');
         Route::get('/winners', 'ComparisonController@getWinners');
         Route::get('/{id}', 'ComparisonController@show');
         Route::post('/stats/{id}', 'ComparisonController@postStatsFromFb');
     });
 
-    Route::get('/privacy', function() {
+    Route::get('/privacy', function () {
         return view('layouts.privacy-policy');
     });
 
-    Route::get('/faq', function() {
+    Route::get('/faq', function () {
         return view('layouts.faq');
     });
 
-    Route::get('/terms', function() {
+    Route::get('/terms', function () {
         return view('layouts.terms');
     });
 
-    Route::get('/temp', function() {
+    Route::group(['prefix' => 'plans'], function () {
+        Route::get('/monthly', ['as' => 'plans.monthly', 'uses' => 'PlansController@getMonthly']);
+        Route::get('/yearly', ['as' => 'plans.yearly', 'uses' => 'PlansController@getYearly']);
+        Route::get('/', ['as' => 'plans', 'uses' => 'PlansController@getIndex']);
+    });
+
+    Route::get('/temp', function () {
         return view('layouts.new-index');
     });
 });

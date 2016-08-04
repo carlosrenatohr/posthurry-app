@@ -105,7 +105,7 @@ body {font-size:16px !important; font-family:sans-serif !important;}
     position: relative;
     vertical-align: bottom;
 }
-	
+
 .cntban{background:url(../img/slider.jpg) no-repeat center center / cover; padding:30px 0;}
 
 .cntbanin{color:#fff;}
@@ -207,11 +207,11 @@ body {font-size:16px !important; font-family:sans-serif !important;}
 .ofer a{font-size:13px; background:#14AB08;}
 
 @media only screen and (max-width:640px) {
-	
+
 	.boxprice ul li {font-size:15px;}
 	.copyleft {text-align:center;}
 	.copyright {text-align:center; margin-top:10px;}
-	
+
 	.newsty header {
     float: left;
     width: 100%;
@@ -239,9 +239,9 @@ background: #fff none repeat scroll 0 0;
     right: -300px;
     top: 0;
     width: 300px;
-	
+
 	}
-	
+
 	.naving ul li {line-height:45px;}
 
 .naving ul, .naving ul li {float:none;}
@@ -252,7 +252,7 @@ background: #fff none repeat scroll 0 0;
 
 	.ulactive {right:0 !important; transition:all 0.4s;}
 	.ulinactive {right:-300px !important; transition:all 0.4s;}
-	
+
 	.logosec a img {
     margin-top: 10px;
     width: 150px;

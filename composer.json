@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "sammyk/laravel-facebook-sdk": "~3.0",
         "laravelcollective/html": "5.2.*",
-        "doctrine/dbal": ">=2.4"
+        "doctrine/dbal": ">=2.4",
+        "vinkla/hashids": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

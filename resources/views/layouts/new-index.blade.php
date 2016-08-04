@@ -7,24 +7,28 @@
                 $(".naving ul").addClass("ulactive");
                 $(".naving ul").removeClass("ulinactive");
             });
-        });
-        $(document).ready(function (e) {
+
             $(".closed").click(function (e) {
                 $(".naving").css("visibility", "hidden");
                 $(".naving ul").removeClass("ulactive");
                 $(".naving ul").addClass("ulinactive");
             });
-        });
 
-        $(document).ready(function (e) {
             $(".ofer a").click(function (e) {
                 $(".limitoff").css("visibility", "visible");
             });
-        });
-        $(document).ready(function (e) {
+
             $(".closed2").click(function (e) {
                 $(".limitoff").css("visibility", "hidden");
             });
+
+            $(".monthly-payment-button").on('click', function () {
+                $(".monthly-payment-form").submit();
+            })
+
+            $(".yearly-payment-button").on('click', function () {
+                $(".yearly-payment-form").submit();
+            })
         });
     </script>
 @endsection
@@ -33,7 +37,15 @@
 @endsection
 
 @section('content')
+    <style>
+        .teoprise a:last-child {
+            pointer-events: auto;
+        }
 
+        .yearly-payment-form, .monthly-payment-form {
+            display: none;
+        }
+    </style>
     <div class="container-fluid newsty">
         <div class="container">
             <header>
@@ -73,7 +85,13 @@
                     <li>Unlimited Contests per month.</li>
                 </ul>
                 <div class="teoprise">
-                    <a href="#">$9 per month</a><a href="#">$79 per year</a>
+                    @if(Auth::check())
+                        <a href="#" class="monthly-payment-button">$9 per month</a>
+                        <a href="#" class="yearly-payment-button">$79 peryear</a>
+                    @else
+                        <a href="{{ url('login?package=monthly') }}">$9 per month</a>
+                        <a href="{{ url('login?package=yearly') }}">$79 peryear</a>
+                    @endif
                 </div>
                 <div class="ofer"><a href="#">Limited Time Offer Here!!!</a></div>
                 <div class="limitoff">
@@ -89,6 +107,10 @@
             </div>
         </div>
     </div>
+
+    @include('payment.monthly')
+    @include('payment.yearly')
+
 
     {{--<div class="container-fluid foot">--}}
     {{--<div class="container">--}}
