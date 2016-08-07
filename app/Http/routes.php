@@ -47,7 +47,9 @@ Route::group(['middleware' => ['web']], function () {
     /**
      * Main actions routes
      */
-    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
+    Route::get('/', 'AccessController@index');
+    Route::match(['get', 'post'], '/posting', 'MainController@index'); //->middleware(['fb.token']);
+//    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
     Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.token', 'fb.user']);
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
     /**

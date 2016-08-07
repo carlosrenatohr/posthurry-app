@@ -41,6 +41,7 @@
 </head>
 <body style="height:100%;width:100%;padding:0;margin:0">
 <div>
+    @if(!isset($withoutHeader))
     <div class="col-md-12 header2" style="height:110px;width:100%;">
         <center>
             <div class="" style="margin-top:10px">
@@ -60,29 +61,30 @@
     {{--<nav class="navbar navbar-default main-navbar">--}}
     {{--<div class="container-fluid">--}}
     {{--<!-- Brand and toggle get grouped for better mobile display -->--}}
-    <div class="navbar-header" style="background-color: #2B416D">
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
-        style="background-color: lightgray!important;">
-    <span class="sr-only">Toggle navigation</span>
-    <span class="icon-bar" style="background-color: #222;"></span>
-    <span class="icon-bar" style="background-color: #222;"></span>
-    <span class="icon-bar" style="background-color: #222;"></span>
-    </button>
-    {{--<a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('img/posthurry_logo.jpg') }}"></a>--}}
-    </div>
+        <div class="navbar-header" style="background-color: #2B416D">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
+                    style="background-color: lightgray!important;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar" style="background-color: #222;"></span>
+                <span class="icon-bar" style="background-color: #222;"></span>
+                <span class="icon-bar" style="background-color: #222;"></span>
+            </button>
+            {{--<a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('img/posthurry_logo.jpg') }}"></a>--}}
+        </div>
 
-    {{--<!-- Collect the nav links, forms, and other content for toggling -->--}}
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: #2B416D">
-    <ul class="nav navbar-nav">
-        <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
-        href="{{ url('comparison') }}">Comparisons</a></li>
-        <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
-        href="{{ url('/comparison/winners') }}">Winners</a></li>
-    </ul>
-    </div><!-- /.navbar-collapse -->
+        {{--<!-- Collect the nav links, forms, and other content for toggling -->--}}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: #2B416D">
+            <ul class="nav navbar-nav">
+                <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
+                            href="{{ url('comparison') }}">Comparisons</a></li>
+                <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
+                            href="{{ url('/comparison/winners') }}">Winners</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
     {{--</div><!-- /.container-fluid -->--}}
     {{--</nav>--}}
     {{--</header>--}}
+    @endif
     <div class="main-container">
         <div class="container-fluid">
             <img src="{{ asset('img/loading.gif') }}" alt="" class="img-responsive img-loading hide"
@@ -93,7 +95,7 @@
     </div>
 </div>
 
-{{--<div class="header2 footer" style="height:55px;width:100%;text-align:left;position:relative;bottom: 0;">--}}
+@if(!isset($withoutHeader))
 <div class="header2 footer">
 	<div  class="col-md-3 item">
         <a href="{{ url('terms') }}">Terms of Service</a>
@@ -108,6 +110,6 @@
         Copyright 2016 Post Hurry
 	</div>
 </div>
+@endif
 </body>
-{{--<div id="loading-image" style="position: fixed;width: 100%; height: 100%; top:0;left: 0; background-color: #222;z-index: 999;"></div>--}}
 </html>
