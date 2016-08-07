@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Vinkla\Hashids\Facades\Hashids;
 
 class PlansController extends Controller
@@ -35,6 +36,7 @@ class PlansController extends Controller
 
     public function postIpn()
     {
+        Log::info('1');
         // Read POST data
         $raw_post_data = file_get_contents('php://input');
 
@@ -53,10 +55,10 @@ class PlansController extends Controller
             $req .= "&$key=$value";
         }
 
-        if (env('PAYPAL_ENV') == 'local') {
-            $paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-        } else {
+        if (env('PAYPAL_ENV') == 'production') {
             $paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
+        } else {
+            $paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
         }
 
         $ch = curl_init($paypal_url);
@@ -112,15 +114,18 @@ class PlansController extends Controller
         }
 
         // Split response headers and payload, a better way for strcmp
+        Log::info('2');
         $tokens = explode("\r\n\r\n", trim($res));
         $res = trim(end($tokens));
         if (strcmp($res, 'VERIFIED') == 0) {
+            Log::info('3');
             // check whether the payment_status is Completed
             // @TODO: below validation
             // check that txn_id has not been previously processed
             // check that receiver_email is your PayPal email
             // check that payment_amount/payment_currency are correct
             if (Input::get('payment_status') == 'Completed') {
+                Log::info('4');
                 // assign posted variables to local variables
                 $payment = new Payment();
                 $payment->txn_id = Input::get('txn_id');
@@ -134,12 +139,6 @@ class PlansController extends Controller
                 $payment->type = 'posthurry';
                 $payment->status = Input::get('payment_status');
                 $payment->save();
-
-                // update users quota
-                $package = explode(" ", Input::get('option_selection1'));
-                $user = User::find($payment->user_id);
-                $user->quota = $user->quota + $package[0];
-                $user->save();
             }
 
             error_log(
@@ -154,10 +153,12 @@ class PlansController extends Controller
                 base_path('storage/logs/error.log')
             );
         }
+
+        Log::info('5');
     }
 
     public function getDir()
     {
-        return base_path('public/uploads/cacert.pem');
+        return base_path('public/cacert.pem');
     }
 }
