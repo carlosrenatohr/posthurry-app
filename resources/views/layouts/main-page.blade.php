@@ -7,25 +7,34 @@
                 $(".naving ul").addClass("ulactive");
                 $(".naving ul").removeClass("ulinactive");
             });
-        });
-        $(document).ready(function (e) {
+
+            $(".ofer a").click(function (e) {
+                $(".limitoff").css("visibility", "visible");
+            });
+
+            $(".closed2").click(function (e) {
+                $(".limitoff").css("visibility", "hidden");
+            });
+
             $(".closed").click(function (e) {
                 $(".naving").css("visibility", "hidden");
                 $(".naving ul").removeClass("ulactive");
                 $(".naving ul").addClass("ulinactive");
             });
+
+            $('.fb-login-btn').on('click', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/gettingUrl',
+                    method: 'post',
+                    dataType: 'json',
+                    success: function(data) {
+                        window.location.href = data.url;
+                    }
+                });
+            });
         });
 
-        $(document).ready(function (e) {
-            $(".ofer a").click(function (e) {
-                $(".limitoff").css("visibility", "visible");
-            });
-        });
-        $(document).ready(function (e) {
-            $(".closed2").click(function (e) {
-                $(".limitoff").css("visibility", "hidden");
-            });
-        });
     </script>
 @endsection
 
@@ -46,10 +55,11 @@
                 </div>
             </header>
             <div class="naving">
-                <ul>
-                    <div class="closed">X</div>
-                    <li><a href="#">login</a></li>
-                </ul>
+                {{--<ul>--}}
+                    {{--<div class="closed">X</div>--}}
+                    {{--<li><a href="#">login</a></li>--}}
+                {{--</ul>--}}
+                <button class="fb-login-btn">Login</button>
             </div>
         </div>
     </div>
@@ -70,15 +80,15 @@
                     <li>Unlimited Contests per month.</li>
                 </ul>
                 <div class="teoprise">
-                    <a href="#">$9 per month</a><a href="#">$79 per year</a>
+                    <a href="#">$19 per month</a><a href="#">$189 per year</a>
                 </div>
                 <div class="ofer"><a href="#">Limited Time Offer Here!!!</a></div>
                 <div class="limitoff">
                     <div class="limit">
                         <div class="closed2">X</div>
-                        <a href="#">
+                        <a href="#" disabled="">
                             <span>Limited Time only!!! </span>
-                            <span>$49 per year!</span>
+                            <span>$149 per year!</span>
                             <span>First 100 sign ups only </span>
                         </a>
                     </div>

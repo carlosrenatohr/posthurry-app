@@ -40,17 +40,29 @@ Route::group(['middleware' => ['web']], function () {
         echo '<a href="' . $login_url . '">Login with Facebook</a>';
     });
     // Endpoint that is redirected to after an authentication attempt
-    Route::get('/facebook/callback', function()
-    {
+    Route::get('/facebook/callback', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
+        try {
+            $token = $fb->getAccessTokenFromRedirect();
+            dd($token->getValue());
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+            // Failed to obtain access token
+            dd($e->getMessage());
+        }
+        // $token will be null if the user denied the request
+        if (! $token) {
+            // User denied the request
+        }
         return redirect('/')->with('message', 'Successfully logged in with Facebook');
     });
     /**
      * Main actions routes
      */
     Route::get('/', 'AccessController@index');
-    Route::match(['get', 'post'], '/posting', 'MainController@index'); //->middleware(['fb.token']);
+    Route::post('/gettingUrl', 'AccessController@getLoginUrl');
+    Route::get('/authenticating', 'AccessController@fbCallback');
+    Route::match(['get', 'post'], '/posting', 'MainController@index')->middleware(['isLoggedIn']);
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
-    Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.token', 'fb.user']);
+    Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.user']); //['fb.token', 'fb.user']
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
     /**
      * Comparison routes
