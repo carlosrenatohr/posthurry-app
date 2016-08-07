@@ -16,5 +16,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/',
         '/data',
         '/receiveData',
+        '/plans/ipn'
     ];
 }
