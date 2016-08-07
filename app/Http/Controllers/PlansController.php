@@ -126,7 +126,7 @@ class PlansController extends Controller
                 $payment->txn_id = Input::get('txn_id');
                 $payment->ipn_track_id = Input::get('ipn_track_id');
                 $payment->code = Input::get('custom');
-                $payment->user_id = Hashids::decode(Input::get('custom'))[0];
+                $payment->user_id = !empty(Input::get('custom')) ? Hashids::decode(Input::get('custom'))[0] : '0';
                 $payment->buyer_email = Input::get('payer_email');
                 $payment->receiver_email = Input::get('receiver_email');
                 $payment->amount = Input::get('mc_gross');
