@@ -44,7 +44,7 @@ body {font-size:16px !important; font-family:sans-serif !important;}
 }
 
 .naving ul li a:hover {text-decoration:none; color:#2EBFEE;}
-.naving .fb-login-btn {
+.naving .fb-login-btn, .naving .fb-logout-btn {
     border: 1px solid;
     border-radius: 5px;
     color: #2ebfee;
@@ -57,7 +57,7 @@ body {font-size:16px !important; font-family:sans-serif !important;}
     right:16%;
     outline: 0;
 }
-.naving .fb-login-btn:hover {
+.naving .fb-login-btn:hover, .naving .fb-logout-btn:hover {
     color:#FFF;
     background-color:#2EBFEE;
     text-decoration: none;

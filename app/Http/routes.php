@@ -50,6 +50,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'AccessController@index');
     Route::post('/gettingUrl', 'AccessController@getLoginUrl');
     Route::get('/authenticating', 'AccessController@fbCallback');
+    Route::get('/logout', 'AccessController@logout');
     Route::match(['get', 'post'], '/posting', 'MainController@index')->middleware(['isLoggedIn']);
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
     Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.user']); //['fb.token', 'fb.user']

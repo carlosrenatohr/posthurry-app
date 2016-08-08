@@ -79,6 +79,7 @@
                     </div>
                 </div>
             </center>
+            @if (Session::has('fb_user_data'))
             <div class="user-data-space">
                 <div class="logo-container">
                     <img id="logo-picture" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.png" alt="">
@@ -87,6 +88,7 @@
                     <p>{{ json_decode(session('fb_user_data'))->name }}</p>
                 </div>
             </div>
+            @endif
         </div>
         {{--<!-- Brand and toggle get grouped for better mobile display -->--}}
         <div class="navbar-header" style="background-color: #2B416D">
