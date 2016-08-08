@@ -17,9 +17,9 @@ class AccessController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->session()->has('fb_user_access_token'))
-            return redirect('/posting');
-        else
+//        if ($request->session()->has('fb_user_access_token'))
+//            return redirect('/posting');
+//        else
             return view('layouts.main-page', ['withoutHeader' => true]);
 
     }
@@ -52,6 +52,12 @@ class AccessController extends Controller
             }
         }
         return redirect('/posting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name ."!"));
+    }
+
+    public function logout(Request $request) {
+        $request->session()->remove('fb_user_access_token');
+        $request->session()->remove('fb_user_data');
+        return redirect('/');
     }
 
 }

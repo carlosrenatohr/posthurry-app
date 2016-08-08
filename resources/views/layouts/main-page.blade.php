@@ -59,7 +59,15 @@
                     {{--<div class="closed">X</div>--}}
                     {{--<li><a href="#">login</a></li>--}}
                 {{--</ul>--}}
-                <button class="fb-login-btn">Login</button>
+                @if(Session::has('fb_user_access_token'))
+                    <?php $user =  json_decode(session('fb_user_data')); ?>
+                    <div style="position: absolute;right: 2%;max-width: 250px;">
+                        Logged in as <br> <span style="font-weight:600;">{{ ($user->name) }}</span>
+                        <a href="/logout" class="fb-logout-btn">Logout</a>
+                    </div>
+                @else
+                    <button class="fb-login-btn">Login</button>
+                @endif
             </div>
         </div>
     </div>
