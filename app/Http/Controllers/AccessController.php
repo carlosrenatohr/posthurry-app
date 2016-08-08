@@ -51,7 +51,7 @@ class AccessController extends Controller
                 dd($e->getMessage());
             }
         }
-        return redirect('/posting')->with('success-msg', 'Successfully logged in with Facebook, Welcome <b>' . $user->name .'</b>!');
+        return redirect('/posting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name ."!"));
     }
 
 }
