@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('others-js')
-    <script src="{{ asset('js/access.js') }}"></script>
+{{--    <script src="{{ asset('js/access.js') }}"></script>--}}
+    <script src="{{ asset('js/init.js') }}"></script>
 @endsection
 @section('content')
     {{--<div class="row-fluid">--}}

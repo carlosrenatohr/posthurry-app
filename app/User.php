@@ -27,7 +27,7 @@ class User extends Authenticatable
      */
     public static function existsUser($data)
     {
-        // FIX set a salt
+        // TODO: set a salt
         $token = session('fb_user_access_token');
         $user = self::where('facebook_user_id', $data->id)->first();
         if (!count($user)) {

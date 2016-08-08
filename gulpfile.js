@@ -35,6 +35,6 @@ elixir(function(mix) {
         './node_modules/alertifyjs/build/alertify.js',
         'main_design.js',
         'main.js'
-        ])
-        .scripts(['fbinit.js'], './public/js/access.js');
+        ]);
+        //.scripts(['fbinit.js'], './public/js/access.js');
 });
