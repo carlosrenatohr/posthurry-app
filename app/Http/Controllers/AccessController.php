@@ -21,7 +21,6 @@ class AccessController extends Controller
 //            return redirect('/posting');
 //        else
             return view('layouts.main-page', ['withoutHeader' => true]);
-
     }
 
     public function getLoginUrl()
@@ -51,7 +50,7 @@ class AccessController extends Controller
                 dd($e->getMessage());
             }
         }
-        return redirect('/posting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name ."!"));
+        return redirect('/blasting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name ."!"));
     }
 
     public function logout(Request $request) {

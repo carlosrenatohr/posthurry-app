@@ -30,8 +30,12 @@ $.ajax({
             form.appendTo('.below-container .groups');
         });
         //
-        $('.below-container .col-md-6 .panel-body').addClass('disabled-on');
-        $('.massCheckbox').prop('disabled', true);
+        //$('.below-container .col-md-6 .panel-body').addClass('disabled-on');
+        var belowContainer = $('.below-container .col-md-6 .panel-body');
+        if (!belowContainer.hasClass('blasting-form')) {
+            belowContainer.addClass('disabled-on');
+            $('.massCheckbox').prop('disabled', true);
+        }
         //
         $('.img-loading').addClass('hide');
     },

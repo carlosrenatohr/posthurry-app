@@ -58,7 +58,12 @@
             color: #FFF;
             text-align: center;
         }
+
+        .navbar-nav li.active {
+            background-color: #f5f5f5;
+        }
     </style>
+    @yield('others-css')
     {{--JS--}}
     <script src="{{ asset('js/all.js') }}"></script>
     @yield('others-js')
@@ -89,16 +94,16 @@
                     </div>
                 </div>
             </center>
-            @if (Session::has('fb_user_data'))
-            <div class="user-data-space">
-                <div class="logo-container">
-                    <img id="logo-picture" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.png" alt="">
-                </div>
-                <div class="text-container">
-                    <p>{{ json_decode(session('fb_user_data'))->name }}</p>
-                </div>
-            </div>
-            @endif
+            {{--@if (Session::has('fb_user_data'))--}}
+            {{--<div class="user-data-space">--}}
+                {{--<div class="logo-container">--}}
+                    {{--<img id="logo-picture" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.png" alt="">--}}
+                {{--</div>--}}
+                {{--<div class="text-container">--}}
+                    {{--<p>{{ json_decode(session('fb_user_data'))->name }}</p>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+            {{--@endif--}}
         </div>
         {{--<!-- Brand and toggle get grouped for better mobile display -->--}}
         <div class="navbar-header" style="background-color: #2B416D">
@@ -114,11 +119,16 @@
         {{--<!-- Collect the nav links, forms, and other content for toggling -->--}}
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: #2B416D">
             <ul class="nav navbar-nav">
+                <li class="{{ (Request::is('blasting')) ? 'active' : '' }}"><a
+                            href="/blasting">Blast</a></li>
+                <li class="{{ (Request::is('blasting-posts')) ? 'active' : '' }}"><a
+                            href="/blasting-posts">Blast posts</a></li>
+                <li class="{{ (Request::is('posting') or Request::is('posting/*')) ? 'active' : '' }}"><a
+                            href="/posting">A/B comparison</a></li>
                 <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
                             href="{{ url('comparison') }}">Comparisons</a></li>
                 <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
                             href="{{ url('/comparison/winners') }}">Winners</a></li>
-                <li class=""><a href="#">Blasting post</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </header>
