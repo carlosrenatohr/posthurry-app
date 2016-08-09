@@ -22,24 +22,40 @@
                 $(".naving ul").addClass("ulinactive");
             });
 
-            $('.fb-login-btn').on('click', function(e) {
+            $('.fb-login-btn').on('click', function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: '/gettingUrl',
                     method: 'post',
                     dataType: 'json',
-                    success: function(data) {
+                    success: function (data) {
                         window.location.href = data.url;
                     }
                 });
             });
+
+            $(".monthly-payment-button").on('click', function () {
+                $(".monthly-payment-form").submit();
+            })
+
+            $(".yearly-payment-button").on('click', function () {
+                $(".yearly-payment-form").submit();
+            })
         });
 
     </script>
 @endsection
 
 @section('content')
+    <style>
+        .teoprise a:last-child {
+            pointer-events: auto;
+        }
 
+        .yearly-payment-form, .monthly-payment-form {
+            display: none;
+        }
+    </style>
     <div class="container-fluid newsty">
         <div class="container">
             <header>
@@ -56,11 +72,11 @@
             </header>
             <div class="naving">
                 {{--<ul>--}}
-                    {{--<div class="closed">X</div>--}}
-                    {{--<li><a href="#">login</a></li>--}}
+                {{--<div class="closed">X</div>--}}
+                {{--<li><a href="#">login</a></li>--}}
                 {{--</ul>--}}
                 @if(Session::has('fb_user_access_token'))
-                    <?php $user =  json_decode(session('fb_user_data')); ?>
+                    <?php $user = json_decode(session('fb_user_data')); ?>
                     <div style="position: absolute;right: 2%;max-width: 250px;">
                         Logged in as <br> <span style="font-weight:600;">{{ ($user->name) }}</span>
                         <a href="/logout" class="fb-logout-btn">Logout</a>
@@ -88,7 +104,13 @@
                     <li>Unlimited Contests per month.</li>
                 </ul>
                 <div class="teoprise">
-                    <a href="#">$19 per month</a><a href="#">$189 per year</a>
+                    @if(Auth::check())
+                        <a href="#" class="monthly-payment-button">$19 per month</a>
+                        <a href="#" class="yearly-payment-button">$189 peryear</a>
+                    @else
+                        <a href="{{ url('login?package=monthly') }}">$19 per month</a>
+                        <a href="{{ url('login?package=yearly') }}">$189 peryear</a>
+                    @endif
                 </div>
                 <div class="ofer"><a href="#">Limited Time Offer Here!!!</a></div>
                 <div class="limitoff">
@@ -106,15 +128,18 @@
     </div>
 
     <div class="container-fluid foot">
-    <div class="container">
-    <div class="col-lg-6 col-md-6 copyleft">
-        <a href="{{ url('faq') }}">FAQ</a>
-        <a href="{{ url('privacy') }}">Privacy Policy</a>
-        <a href="{{ url('terms') }}">Terms of Service</a>
+        <div class="container">
+            <div class="col-lg-6 col-md-6 copyleft">
+                <a href="{{ url('faq') }}">FAQ</a>
+                <a href="{{ url('privacy') }}">Privacy Policy</a>
+                <a href="{{ url('terms') }}">Terms of Service</a>
+            </div>
+            <div class="col-lg-6 col-md-6 copyright">
+                Copyright @ 2016 PostHurry
+            </div>
+        </div>
     </div>
-    <div class="col-lg-6 col-md-6 copyright">
-        Copyright @ 2016 PostHurry
-    </div>
-    </div>
-    </div>
+
+    @include('payment.monthly')
+    @include('payment.yearly')
 @endsection
