@@ -37,10 +37,11 @@ class MainController extends Controller
     {
         $token = $request->session()->get('fb_user_access_token');
         $groupsManaged = $this->fb->sendRequest('get', '/me/groups', ['limit' => 500, 'privacy' => 'open'], $token)->getBody();
-        $pagesLiked = $this->fb->sendRequest('get', '/me/likes', ['limit' => 500], $token)->getBody();
+//        $pagesLiked = $this->fb->sendRequest('get', '/me/likes', ['limit' => 100], $token)->getBody();
 
-        $newGroups = [];
+        $newGroups = $newPages = [];
         $decodingGroups = json_decode($groupsManaged);
+//        $decodingPages = json_decode($pagesLiked);
         foreach($decodingGroups->data as $group) {
 //            $group->label = '';
             if($group->privacy == 'OPEN') {
@@ -53,15 +54,31 @@ class MainController extends Controller
             elseif($group->privacy == 'SECRET'){
                 $group->_privacy = 'Secret';
             }
-            $group->label = $group->name. ' (' . $group->_privacy . ')';
+//            $group->label = $group->name. ' (' . $group->_privacy . ')';
             if ($group->_privacy == 'Public') {
                 $newGroups[] = $group;
             }
         }
-        $newGroups = ['data' => $newGroups];
+        $accounts = $this->fb->sendRequest('get', '/me/accounts', ['limit' => 100], $token);
+//        $pagesIsAdmin = array_pluck(json_decode($accounts)->data, 'id');
+        $feed = $accounts->getGraphEdge();
 
-//        $allPagesGot = ['groups' => ($decodingGroups), 'pages' => json_decode($pagesLiked)];
-        $allPagesGot = ['groups' => ($newGroups), 'pages' => json_decode($pagesLiked)];
+        while(!is_null($feed)) {
+            foreach($feed as $status) {
+                $page = ($status->asArray());
+//                if (in_array($page['id'], $pagesIsAdmin)) {
+                    // $page->role = $accounts;
+                    $newPages[] = $page;
+//                }
+            }
+            $feed = $this->fb->next($feed);
+        }
+
+        $newGroups = ['data' => $newGroups];
+        $newPages = ['data' => $newPages];
+
+//        $allPagesGot = ['groups' => ($decodingGroups), 'pages' => $decodingPages];
+        $allPagesGot = ['groups' => ($newGroups), 'pages' => $newPages];
         return response()->json($allPagesGot);
     }
 
