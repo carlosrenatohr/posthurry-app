@@ -8,9 +8,10 @@ namespace App\Http\Controllers;
 
 
 use App\Payment;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
-use Vinkla\Hashids\Facades\Hashids;
 
 class PlansController extends Controller
 {
@@ -74,7 +75,7 @@ class PlansController extends Controller
         curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
-        if (env('PAYPAL_ENV') == 'local') {
+        if (env('PAYPAL_ENV') != 'production') {
             curl_setopt($ch, CURLOPT_HEADER, 1);
             curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
         }
@@ -126,12 +127,25 @@ class PlansController extends Controller
             // check that payment_amount/payment_currency are correct
             if (Input::get('payment_status') == 'Completed') {
                 Log::info('4');
+
+                // capture custom code and parsing it.
+                $custom_code = !empty(Input::get('custom')) ? Input::get('custom') : "0";
+                $user_id = 0;
+                $package = 0;
+
+                if ($custom_code != 0) {
+                    $code = explode("-", $custom_code[0]);
+                    $user_id = $code[0];
+                    $package = $code[1];
+                }
+
                 // assign posted variables to local variables
+                // and then save to database payment history
                 $payment = new Payment();
                 $payment->txn_id = Input::get('txn_id');
                 $payment->ipn_track_id = Input::get('ipn_track_id');
-                $payment->code = Input::get('custom');
-                $payment->user_id = !empty(Input::get('custom')) ? Hashids::decode(Input::get('custom'))[0] : '0';
+                $payment->code = $custom_code[0];
+                $payment->user_id = $user_id;
                 $payment->buyer_email = Input::get('payer_email');
                 $payment->receiver_email = Input::get('receiver_email');
                 $payment->amount = Input::get('mc_gross');
@@ -139,6 +153,40 @@ class PlansController extends Controller
                 $payment->type = 'posthurry';
                 $payment->status = Input::get('payment_status');
                 $payment->save();
+
+                // added user expired at
+                if ($user_id != 0) {
+
+                    $user = User::find($user_id);
+
+                    // get user expired at
+                    $userExpiredAt = Carbon::createFromFormat('Y-m-d H:i:s', $user->expired_at);
+
+                    // get current data
+                    $currentDate = Carbon::now();
+
+                    // compare user expired at with current date
+                    if ($currentDate->gte($userExpiredAt)) {
+                        $startDate = $currentDate;
+                    } else {
+                        $startDate = $userExpiredAt;
+                    }
+
+                    // adding expired at based on package user purchase
+                    if ($package == 'weekly') {
+                        $expired_at = $startDate->addWeek(1);
+                    }
+
+                    if ($package == 'yearly') {
+                        $expired_at = $startDate->addYear(1);
+                    }
+
+                    // update user
+                    $user->expired_at = $expired_at;
+                    $user->active_package = $package;
+                    $user->save();
+
+                }
             }
 
             error_log(
@@ -157,7 +205,8 @@ class PlansController extends Controller
         Log::info('5');
     }
 
-    public function getDir()
+    public
+    function getDir()
     {
         return base_path('public/cacert.pem');
     }
