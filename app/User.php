@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\Comparison', 'user_id', 'id');
     }
+
+    public function blastings()
+    {
+        return $this->hasMany('\App\Blasting', 'user_id', 'id');
+    }
 }

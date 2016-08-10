@@ -45,10 +45,19 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/gettingUrl', 'AccessController@getLoginUrl');
     Route::get('/authenticating', 'AccessController@fbCallback');
     Route::get('/logout', 'AccessController@logout');
-    Route::match(['get', 'post'], '/posting', 'MainController@index')->middleware(['isLoggedIn']);
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
     Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.user']); //['fb.token', 'fb.user']
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
+    Route::group(['middleware' => 'isLoggedIn'], function(){
+        Route::match(['get', 'post'], '/posting', 'MainController@index')->middleware(['isLoggedIn']);
+        Route::get('/blasting', 'MainController@getBlastingOut');
+        Route::post('/blastingOut', 'MainController@postBlastingOut')->name('postBlasting');
+        //
+        Route::group(['prefix' => 'blasting-posts'], function () {
+            Route::get('/', ['as' => 'blasting-index', 'uses' => 'BlastingController@index']);
+        });
+    });
+
     /**
      * Comparison routes
      */

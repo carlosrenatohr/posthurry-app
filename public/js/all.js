@@ -25026,7 +25026,7 @@ $(function() {
 
         $('.below-container .panel .groups .alert-warning p').html(groupsNamesSelected.join(',  '));
         $('.below-container .panel .pages .alert-warning p').html(pagesNamesSelected.join(',  '));
-
+        $('.blasting-title-container b').html(len);
         if (len >= 25) {
             if (this.checked) {
                 this.checked = false;
