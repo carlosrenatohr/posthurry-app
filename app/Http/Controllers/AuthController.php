@@ -14,6 +14,7 @@ class AuthController extends Controller
 {
     public function fbConnect(LaravelFacebookSdk $fb, Request $request)
     {
+        // get fb login url
         $login_url = $fb->getLoginUrl();
 
         if ($request->has('package')) {
