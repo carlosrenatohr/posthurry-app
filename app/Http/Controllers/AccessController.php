@@ -55,6 +55,11 @@ class AccessController extends Controller
                 dd($e->getMessage());
             }
         }
+
+        if ($request->session()->has('selected_package')) {
+            return redirect(url('/plans/' . $request->session()->get('selected_package')));
+        }
+
         return redirect('/blasting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name . "!"));
     }
 
@@ -62,6 +67,7 @@ class AccessController extends Controller
     {
         $request->session()->remove('fb_user_access_token');
         $request->session()->remove('fb_user_data');
+        $request->session()->remove('selected_package');
         return redirect('/');
     }
 

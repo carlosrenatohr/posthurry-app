@@ -14,19 +14,24 @@ class AuthController extends Controller
 {
     public function fbConnect(LaravelFacebookSdk $fb, Request $request)
     {
+        $login_url = $fb->getLoginUrl();
+
+        if (env('APP_ENV') == 'basic') {
+            $login_url = $fb->getLoginUrl(['email']);
+        }
+
         if ($request->has('package')) {
             $request->session()->put('selected_package', $request->get('package'));
         }
 
-        $login_url = $fb->getLoginUrl();
 
         return redirect($login_url);
     }
 
     public function fbCallback(Request $request)
     {
-        if ($request->has('state')) {
-            return redirect(url('/plans/' . $request->get('state')));
+        if ($request->session()->has('selected_package')) {
+            return redirect(url('/plans/' . $request->session()->get('selected_package')));
         }
 
         return redirect('/')->with('message', 'Successfully logged in with Facebook');
