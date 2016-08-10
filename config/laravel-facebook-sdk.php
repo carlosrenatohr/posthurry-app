@@ -27,8 +27,8 @@ return [
      * POST HURRY
      */
     'facebook_config' => [
-        'app_id' => '353859614689535',
-        'app_secret' => 'ed4e013338b91267bf4c6a43f1d23b3d',
+        'app_id' => env('FACEBOOK_APP_ID', '353859614689535'),
+        'app_secret' => env('FACEBOOK_APP_SECRET', 'ed4e013338b91267bf4c6a43f1d23b3d'),
         'default_graph_version' => 'v2.0', // v2.5
         //'enable_beta_mode' => true,
         //'http_client_handler' => 'guzzle',

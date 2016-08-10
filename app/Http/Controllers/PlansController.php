@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 use App\Payment;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
@@ -28,10 +29,12 @@ class PlansController extends Controller
         );
     }
 
-    public function getMonthly()
+    public function getMonthly(Request $request)
     {
-        if (Auth::check()) {
-            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly'));
+        if ($request->session()->has('selected_package') && $request->session()->has('fb_user_access_token')) {
+            $user = json_decode($request->session()->get('fb_user_data'));
+            $request->session()->remove('selected_package');
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', $user->id));
         }
 
         return redirect(url('/'));
@@ -46,7 +49,7 @@ class PlansController extends Controller
         }
     }
 
-    protected function getPaypalParameters($package)
+    protected function getPaypalParameters($package, $user_facebook_id)
     {
         switch ($package) {
             case "monthly":
@@ -58,7 +61,7 @@ class PlansController extends Controller
                 break;
         }
 
-        $params['custom'] = Hashids::encode(Auth::user()->id);
+        $params['custom'] = Hashids::encode($user_facebook_id);
         $params['hosted_button_id'] = $package_id;
         $params['cmd'] = "_s-xclick";
 
@@ -67,9 +70,11 @@ class PlansController extends Controller
         return $params_string;
     }
 
-    public function getYearly()
+    public function getYearly(Request $request)
     {
         if (Auth::check()) {
+            $user = json_decode($request->session()->get('fb_user_data'));
+            $request->session()->remove('selected_package');
             return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly'));
         }
 

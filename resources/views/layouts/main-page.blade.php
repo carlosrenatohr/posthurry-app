@@ -79,7 +79,7 @@
                     <?php $user = json_decode(session('fb_user_data')); ?>
                     <div style="position: absolute;right: 2%;max-width: 250px;">
                         Logged in as <br> <span style="font-weight:600;">{{ ($user->name) }}</span>
-                        <a href="/logout" class="fb-logout-btn">Logout</a>
+                        <a href="{{ url('/logout') }}" class="fb-logout-btn">Logout</a>
                     </div>
                 @else
                     <button class="fb-login-btn">Login</button>
