@@ -75,7 +75,38 @@
 
         ga('create', 'UA-82146887-1', 'auto');
         ga('send', 'pageview');
+        //
+        $(function(){
+            $('.popover-btn').popover();
+            $('#relogin').on('click', function(e){
+                e.preventDefault();
+                console.log('lel');
+//                window.fbAsyncInit = function() {
+                    console.log('asd');
+                    FB.init({
+                        appId: '353859614689535',
+                        xfbml: true,
+                        version: 'v2.0',
+                        cookie: true,
+                        status: true
+                    });
 
+                    FB.login(function(response) {
+                        // Original FB.login code
+                        console.log(response);
+                        window.location.reload();
+                    }, { auth_type: 'rerequest', scope: "<?php echo session('permissions_required'); ?>" });
+
+//                }
+            });
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        });
     </script>
     <title>POST HURRY @yield('pageTitle', '')</title>
 </head>
@@ -94,6 +125,16 @@
                     </div>
                 </div>
             </center>
+            @if (Session::has('permissions_required'))
+                <button type="button" class="btn btn-danger popover-btn" data-container="body" data-toggle="popover"
+                    data-placement="right" data-title="Grant permissions required" data-msg="asd"
+                    data-content="It's required for your correct use of site to grant missing permissions: {!! session('permissions_required') !!}"
+                    tabindex="0" data-trigger="focus">
+                    <i class="fa fa-remove"></i> Not Granted!</button>
+                <button class="btn btn-default" id="relogin">Authorize!</button>
+            @else
+                <button href="#" class="btn btn-success"><i class="fa fa-check"></i> Granted!</button>
+            @endif
             {{--@if (Session::has('fb_user_data'))--}}
             {{--<div class="user-data-space">--}}
                 {{--<div class="logo-container">--}}

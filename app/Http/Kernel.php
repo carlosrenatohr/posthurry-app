@@ -51,5 +51,6 @@ class Kernel extends HttpKernel
         'fb.token' => \App\Http\Middleware\Hurrypost\ValidateFbTokenMiddleware::class,
         'fb.user' => \App\Http\Middleware\Hurrypost\VerifyUserExists::class,
         'isLoggedIn' => \App\Http\Middleware\Hurrypost\IsLoggedIn::class,
+        'fb.granted' => \App\Http\Middleware\Hurrypost\PermissionsGranted::class,
     ];
 }
