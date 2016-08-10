@@ -84,22 +84,21 @@ class BlastingController extends Controller
             elseif($row['type'] == 'group')
                 $groups__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
         }
-        $pages__posts_id_string = implode(',', $pages__posts_id);
-        $groups__posts_id_string = implode(',', $groups__posts_id);
+        $pages__posts_id_string = implode('\,/', $pages__posts_id);
+        $groups__posts_id_string = implode('\,/', $groups__posts_id);
 
         Blasting::create([
             'post_text' => $request->get('post1_text'),
             'post_img_url' => $post_img_url,
-            'groups_id' => implode(',', $groups),
+            'groups_id' => implode('\,/', $groups),
             'groups_names' => $request->get('groupsNamesSelected'),
             'groups_published_id' => $groups__posts_id_string,
-            'pages_id' => implode(',', $pages),
+            'pages_id' => implode('\,/', $pages),
             'pages_names' => $request->get('pagesNamesSelected'),
             'pages_published_id' => $pages__posts_id_string,
             'user_id' => $request->session()->get('logged_in'),
         ]);
 
-        // REDIRECTING BACK...
         return redirect('/blasting-posts')->with('success-msg', 'Blasting out your post successfully!');
     }
 }

@@ -16,18 +16,18 @@ class Blasting extends Model
     }
 
     public function getGroupsAttribute() {
-        return (!empty($this->groups_names)) ? explode(',', $this->groups_names) : '';
+        return (!empty($this->groups_names)) ? explode('\,/', $this->groups_names) : '';
     }
 
     public function getGroupsPostsAttribute() {
-        return (!empty($this->groups_published_id)) ? explode(',', $this->groups_published_id) : '';
+        return (!empty($this->groups_published_id)) ? explode('\,/', $this->groups_published_id) : '';
     }
 
     public function getPagesAttribute() {
-        return (!empty($this->pages_names)) ? explode(',', $this->pages_names) : '';
+        return (!empty($this->pages_names)) ? explode('\,/', $this->pages_names) : '';
     }
 
     public function getPagesPostsAttribute() {
-        return (!empty($this->pages_published_id)) ? explode(',', $this->pages_published_id) : '';
+        return (!empty($this->pages_published_id)) ? explode('\,/', $this->pages_published_id) : '';
     }
 }
