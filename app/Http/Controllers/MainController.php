@@ -1,14 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-use App\Blasting;
 use App\Comparison;
 use App\Http\Requests;
-use Faker\Provider\zh_TW\DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 use Mockery\Exception;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
+use App\Library\Helpers\MediaHelper;
 
 class MainController extends Controller
 {
@@ -35,50 +32,33 @@ class MainController extends Controller
 
     public function getDataFromFB(Request $request)
     {
-        $token = $request->session()->get('fb_user_access_token');
-        $groupsManaged = $this->fb->sendRequest('get', '/me/groups', ['limit' => 500, 'privacy' => 'open'], $token)->getBody();
-//        $pagesLiked = $this->fb->sendRequest('get', '/me/likes', ['limit' => 100], $token)->getBody();
-
         $newGroups = $newPages = [];
+        $token = $request->session()->get('fb_user_access_token');
+        // -- Getting groups
+        $groupsManaged = $this->fb->sendRequest('get', '/me/groups', ['limit' => 500], $token)->getBody();
         $decodingGroups = json_decode($groupsManaged);
-//        $decodingPages = json_decode($pagesLiked);
         foreach($decodingGroups->data as $group) {
-//            $group->label = '';
-            if($group->privacy == 'OPEN') {
-                $group->_privacy = 'Public';
-            }
-            elseif($group->privacy == 'CLOSED'){
-                $group->_privacy = 'Closed';
-            }
-
-            elseif($group->privacy == 'SECRET'){
-                $group->_privacy = 'Secret';
-            }
 //            $group->label = $group->name. ' (' . $group->_privacy . ')';
-            if ($group->_privacy == 'Public') {
+            if ($group->privacy == 'OPEN') {
                 $newGroups[] = $group;
             }
         }
+        // -- Getting pages where user has access
         $accounts = $this->fb->sendRequest('get', '/me/accounts', ['limit' => 100], $token);
 //        $pagesIsAdmin = array_pluck(json_decode($accounts)->data, 'id');
         $feed = $accounts->getGraphEdge();
-
         while(!is_null($feed)) {
             foreach($feed as $status) {
                 $page = ($status->asArray());
-//                if (in_array($page['id'], $pagesIsAdmin)) {
-                    // $page->role = $accounts;
                     $newPages[] = $page;
-//                }
             }
             $feed = $this->fb->next($feed);
         }
-
+        // -- Setting pages and groups as response
         $newGroups = ['data' => $newGroups];
         $newPages = ['data' => $newPages];
-
-//        $allPagesGot = ['groups' => ($decodingGroups), 'pages' => $decodingPages];
         $allPagesGot = ['groups' => ($newGroups), 'pages' => $newPages];
+
         return response()->json($allPagesGot);
     }
 
@@ -105,13 +85,13 @@ class MainController extends Controller
             'message' => $input['post2_text']
         );
         if($request->hasFile('post1_image')){
-            $post1_image = $this->upload($request->file('post1_image'));
+            $post1_image = MediaHelper::upload($request->file('post1_image'));
             $post1_has_image = true;
             $params1['source'] = $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()));
             $input['post1_img_url'] = asset('uploads/'. $post1_image->getFileName());
         }
         if($request->hasFile('post2_image')){
-            $post2_image = $this->upload($request->file('post2_image'));
+            $post2_image = MediaHelper::upload($request->file('post2_image'));
             $post2_has_image = true;
             $params2['source'] = $this->fb->fileToUpload(asset('uploads/'. $post2_image->getFileName()));
             $input['post2_img_url'] = asset('uploads/'. $post2_image->getFileName());
@@ -163,97 +143,6 @@ class MainController extends Controller
             return redirect()->to('/comparison/'. $comparison->id);
         } else {
             return redirect()->back();
-        }
-
-    }
-
-    public function getBlastingOut() {
-        return view('app.blasting_form');
-    }
-
-    public function postBlastingOut(Request $request) {
-        $massGroup = $request->get('massPosts');
-        $token = $request->session()->get('fb_user_access_token');
-        // Getting pages/posts ids selected by user
-        $groups = !empty($massGroup['groups']) ? ($massGroup['groups']) : [];
-        $pages = !empty($massGroup['pages']) ? ($massGroup['pages']) : [];
-        foreach($groups as $group) {
-            $all_pages_selected[] = [
-                'id' => $group,
-                'type' => 'group'
-            ];
-        }
-        foreach($pages as $page) {
-            $all_pages_selected[] = [
-                'id' => $page,
-                'type' => 'page'
-            ];
-        }
-//        $all_pages_selected = array_merge($groups, $pages);
-        // Uploading image
-        $post_has_image = false;
-        $post_img_url = null;
-        if($request->hasFile('post1_image')){
-            $post1_image = $this->upload($request->file('post1_image'));
-            $post_has_image = true;
-            $params1['source'] = $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()));
-            $post_img_url = asset('uploads/'. $post1_image->getFileName());
-        }
-        // POSTING on fb
-        $pages__posts_id = $groups__posts_id = [];
-        foreach ($all_pages_selected as $count => $row) {
-            $params['message'] = $request->get('post1_text') . "\n\n[{$count}]";
-            // Execute fileToUpload on every Page to post
-            if ($post_has_image)
-                $params['source'] = $this->fb->fileToUpload($post_img_url);
-            $post_return = $this->fb->sendRequest(
-                'post',
-                '/' . $row['id'] . '/' . ($post_has_image ? 'photos' : 'feed'),
-                $params,
-                $token
-            )->getBody();
-            $post_return = json_decode($post_return);
-            if($row['type'] == 'page')
-                $pages__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
-            elseif($row['type'] == 'group')
-                $groups__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
-        }
-        $pages__posts_id_string = implode(',', $pages__posts_id);
-        $groups__posts_id_string = implode(',', $groups__posts_id);
-
-        Blasting::create([
-            'post_text' => $request->get('post1_text'),
-            'post_img_url' => $post_img_url,
-            'groups_id' => implode(',', $groups),
-            'groups_names' => $request->get('groupsNamesSelected'),
-            'groups_published_id' => $groups__posts_id_string,
-            'pages_id' => implode(',', $pages),
-            'pages_names' => $request->get('pagesNamesSelected'),
-            'pages_published_id' => $pages__posts_id_string,
-            'user_id' => $request->session()->get('logged_in'),
-        ]);
-
-        // REDIRECTING BACK...
-        return redirect('/blasting-posts')->with('success-msg', 'Blasting out your post successfully!');
-    }
-
-    private function upload($image) {
-        $validate = Validator::make(['image' => $image], ['image' => 'required']);
-        if(!$validate->fails() ) {
-            if($image->isValid()) {
-                try {
-                    $destinationPath = public_path('uploads');
-                    $extension = $image->getClientOriginalExtension(); // getting image extension
-                    $fileName = time().'_'.md5($image->getClientOriginalName()).'.'.$extension; // renameing image
-                    $file = $image->move($destinationPath, $fileName); // uploading file to given path
-                    return $file;
-                } catch(Exception $e) {
-                    dd($e);
-                }
-            }
-        }
-        else {
-            dd('something is validating an image');
         }
     }
 

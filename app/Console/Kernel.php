@@ -2,10 +2,10 @@
 namespace App\Console;
 use App\Comparison;
 use App\Comparison_data;
+use App\Library\Helpers\MediaHelper;
 use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Http\Request;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 
 class Kernel extends ConsoleKernel
@@ -27,15 +27,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-//        $schedule->command('inspire')
-//            ->hourly();
-        $schedule->call(
-            function (Request $request, LaravelFacebookSdk $fb) {
-                foreach (User::all() as $user) {
-                    $token = $user->access_token;
-                    if(!is_null($token)) {
-                        foreach ($user->comparisons as $contest) {
-                        if ($this->comparisonIsExpired($contest->created_at, $contest->limitDaysDuration)) {
+        $SchedulerBlasting = function (LaravelFacebookSdk $fb) {
+            foreach (User::all() as $user) {
+                $token = $user->access_token;
+                if(!is_null($token)) {
+                    foreach ($user->comparisons as $contest) {
+                        if (MediaHelper::comparisonIsExpired($contest->created_at, $contest->limitDaysDuration)) {
+//                        if ($this->comparisonIsExpired($contest->created_at, $contest->limitDaysDuration)) {
                             $row_saved = $contest->data_row;
                             if (is_null($row_saved)) {
                                 $collection = $this->getDetailsFromFB($fb, $contest, $token);
@@ -68,22 +66,14 @@ class Kernel extends ConsoleKernel
                             }
                         }
                     }
-                    }
                 }
             }
-        )
-        ->everyMinute();
+        };
+
+        $schedule->call($SchedulerBlasting)
+            ->everyMinute();
 //        ->everyFiveMinutes();
 //        ->hourly();
-
-    }
-
-    private function comparisonIsExpired($date, $days)
-    {
-        $limit = new \Carbon\Carbon($date);
-        $expiration = $limit->addMinutes($days);
-        $now = \Carbon\Carbon::now();
-        return $now->gt($expiration);
     }
 
     private function publishInMass($comparison, $numberOfWinnerPost, $token, $fb)

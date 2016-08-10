@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Library\Helpers\MediaHelper;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 
 class ComparisonController extends Controller
@@ -33,7 +34,8 @@ class ComparisonController extends Controller
     public function show($id, Request $request)
     {
         $comparison = $this->comparison->find($id);
-        $isExpired = $this->comparisonIsExpired($comparison->created_at, $comparison->limitDaysDuration);
+        $isExpired = MediaHelper::comparisonIsExpired($comparison->created_at, $comparison->limitDaysDuration);
+//        $isExpired = $this->comparisonIsExpired($comparison->created_at, $comparison->limitDaysDuration);
         return view('comparison.show', ['comparison' => $comparison, 'isExpired' => $isExpired]);
     }
 
@@ -49,7 +51,8 @@ class ComparisonController extends Controller
         $comparison = $this->comparison->find($id);
         $token = $request->session()->get('fb_user_access_token');
         // Validation. If time of compare is expired
-        if($this->comparisonIsExpired($comparison->created_at, $comparison->limitDaysDuration)) {
+        if(MediaHelper::comparisonIsExpired($comparison->created_at, $comparison->limitDaysDuration)) {
+//        if($this->comparisonIsExpired($comparison->created_at, $comparison->limitDaysDuration)) {
             $row_saved = $comparison->data_row;
             if (!is_null($row_saved)) {
                 $collection = [
@@ -125,18 +128,6 @@ class ComparisonController extends Controller
             'first' => $first,
             'second' => $second,
         ];
-    }
-
-    private function comparisonIsExpired($date, $days) {
-        $limit = new \Carbon\Carbon($date);
-//        $expiration = $limit->addDays($days);
-        $expiration = $limit->addMinutes($days);
-//        $expiration->hour(0);
-//        $expiration->minute(0);
-//        $expiration->minute($days);
-        $now = \Carbon\Carbon::now();
-
-        return $now->gt($expiration);
     }
 
     private function setWinnerByComparison($row) {

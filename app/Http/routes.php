@@ -48,9 +48,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
     Route::group(['middleware' => 'isLoggedIn'], function () {
         Route::match(['get', 'post'], '/posting', 'MainController@index')->middleware(['isLoggedIn']);
-        Route::get('/blasting', 'MainController@getBlastingOut');
-        Route::post('/blastingOut', 'MainController@postBlastingOut')->name('postBlasting');
-        //
+        Route::get('/blasting', 'BlastingController@getBlastingOutForm');
+        Route::post('/blastingOut', 'BlastingController@postBlastingOut')->name('postBlasting');
         Route::group(['prefix' => 'blasting-posts'], function () {
             Route::get('/', ['as' => 'blasting-index', 'uses' => 'BlastingController@index']);
         });
