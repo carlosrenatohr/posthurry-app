@@ -33,11 +33,9 @@ Route::group(['middleware' => ['web']], function () {
      */
     // Generate a login URL
     Route::match(['get', 'post'], '/login', 'AuthController@fbConnect');
-    
+
     // Endpoint that is redirected to after an authentication attempt
-    Route::get('/facebook/callback', function () {
-        return redirect('/')->with('message', 'Successfully logged in with Facebook');
-    });
+    Route::get('/facebook/callback', 'AuthController@fbCallback');
     /**
      * Main actions routes
      */
@@ -48,7 +46,7 @@ Route::group(['middleware' => ['web']], function () {
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
     Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.user']); //['fb.token', 'fb.user']
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
-    Route::group(['middleware' => 'isLoggedIn'], function(){
+    Route::group(['middleware' => 'isLoggedIn'], function () {
         Route::match(['get', 'post'], '/posting', 'MainController@index')->middleware(['isLoggedIn']);
         Route::get('/blasting', 'MainController@getBlastingOut');
         Route::post('/blastingOut', 'MainController@postBlastingOut')->name('postBlasting');
