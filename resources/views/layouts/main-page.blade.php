@@ -104,7 +104,7 @@
                     <li>Unlimited Contests per month.</li>
                 </ul>
                 <div class="teoprise">
-                    @if(Auth::check())
+                    @if(Session::has('fb_user_access_token'))
                         <a href="#" class="monthly-payment-button">$19 per month</a>
                         <a href="#" class="yearly-payment-button">$189 peryear</a>
                     @else

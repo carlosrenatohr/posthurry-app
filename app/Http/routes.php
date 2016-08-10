@@ -32,16 +32,10 @@ Route::group(['middleware' => ['web']], function () {
      * Fb routes
      */
     // Generate a login URL
-    Route::match(['get', 'post'], '/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
-    {
-        // Send an array of permissions to request
-        $login_url = $fb->getLoginUrl();
-        // Obviously you'd do this in blade :)
-        echo '<a href="' . $login_url . '">Login with Facebook</a>';
-    });
+    Route::match(['get', 'post'], '/login', 'AuthController@fbConnect');
+    
     // Endpoint that is redirected to after an authentication attempt
-    Route::get('/facebook/callback', function()
-    {
+    Route::get('/facebook/callback', function () {
         return redirect('/')->with('message', 'Successfully logged in with Facebook');
     });
     /**

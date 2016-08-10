@@ -10,29 +10,70 @@ namespace App\Http\Controllers;
 use App\Payment;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Vinkla\Hashids\Facades\Hashids;
 
 class PlansController extends Controller
 {
     public function getIndex()
     {
-        return view('layouts.new-index');
+        return view(
+            'layouts.main-page',
+            [
+                'withoutHeader' => true,
+                'custom_code' => Auth::check() ? Hashids::encode(Auth::user()->id) : 0
+            ]
+        );
     }
 
     public function getMonthly()
     {
-        return view('payment.monthly');
+        if (Auth::check()) {
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly'));
+        }
+
+        return redirect(url('/'));
+    }
+
+    protected function getPaypalUrl()
+    {
+        if (env('PAYPAL_ENV') == 'production') {
+            return 'https://www.paypal.com/cgi-bin/webscr';
+        } else {
+            return 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+        }
+    }
+
+    protected function getPaypalParameters($package)
+    {
+        switch ($package) {
+            case "monthly":
+                $package_id = "SHP2DC7365998";
+                break;
+
+            case "yearly":
+                $package_id = "943WLK6QHBMUA";
+                break;
+        }
+
+        $params['custom'] = Hashids::encode(Auth::user()->id);
+        $params['hosted_button_id'] = $package_id;
+        $params['cmd'] = "_s-xclick";
+
+        $params_string = http_build_query($params);
+
+        return $params_string;
     }
 
     public function getYearly()
     {
-        return view('payment.yearly');
-    }
+        if (Auth::check()) {
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly'));
+        }
 
-    public function postMonthly()
-    {
-
+        return redirect(url('/'));
     }
 
     public function postIpn()
@@ -56,11 +97,7 @@ class PlansController extends Controller
             $req .= "&$key=$value";
         }
 
-        if (env('PAYPAL_ENV') == 'production') {
-            $paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
-        } else {
-            $paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-        }
+        $paypal_url = $this->getPaypalUrl();
 
         $ch = curl_init($paypal_url);
         if ($ch == false) {
@@ -134,7 +171,8 @@ class PlansController extends Controller
                 $package = 0;
 
                 if ($custom_code != 0) {
-                    $code = explode("-", $custom_code[0]);
+                    $decode = Hashids::decode($custom_code)[0];
+                    $code = explode("-", $decode);
                     $user_id = $code[0];
                     $package = $code[1];
                 }
@@ -144,13 +182,13 @@ class PlansController extends Controller
                 $payment = new Payment();
                 $payment->txn_id = Input::get('txn_id');
                 $payment->ipn_track_id = Input::get('ipn_track_id');
-                $payment->code = $custom_code[0];
+                $payment->code = $custom_code;
                 $payment->user_id = $user_id;
                 $payment->buyer_email = Input::get('payer_email');
                 $payment->receiver_email = Input::get('receiver_email');
                 $payment->amount = Input::get('mc_gross');
                 $payment->currency = Input::get('mc_currency');
-                $payment->type = 'posthurry';
+                $payment->type = $package;
                 $payment->status = Input::get('payment_status');
                 $payment->save();
 
