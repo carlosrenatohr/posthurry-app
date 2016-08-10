@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Requests;
+
+use Facebook\Exceptions\FacebookSDKException;
 use Illuminate\Http\Request;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
-use Facebook\Exceptions\FacebookSDKException;
 
 class AccessController extends Controller
 {
@@ -20,7 +20,12 @@ class AccessController extends Controller
 //        if ($request->session()->has('fb_user_access_token'))
 //            return redirect('/posting');
 //        else
-            return view('layouts.main-page', ['withoutHeader' => true]);
+
+        if ($request->session()->has('selected_package')) {
+            return redirect(url('plans/' . $request->session()->get('selected_package')));
+        }
+
+        return view('layouts.main-page', ['withoutHeader' => true]);
     }
 
     public function getLoginUrl()
@@ -50,10 +55,11 @@ class AccessController extends Controller
                 dd($e->getMessage());
             }
         }
-        return redirect('/blasting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name ."!"));
+        return redirect('/blasting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name . "!"));
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         $request->session()->remove('fb_user_access_token');
         $request->session()->remove('fb_user_data');
         return redirect('/');

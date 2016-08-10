@@ -14,14 +14,11 @@ class AuthController extends Controller
 {
     public function fbConnect(LaravelFacebookSdk $fb, Request $request)
     {
-        // get fb login url
-        $login_url = $fb->getLoginUrl();
-
         if ($request->has('package')) {
-
-            $login_url .= "&state=gogo";
-
+            $request->session()->put('selected_package', $request->get('package'));
         }
+
+        $login_url = $fb->getLoginUrl();
 
         return redirect($login_url);
     }
