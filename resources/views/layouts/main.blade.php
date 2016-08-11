@@ -170,7 +170,7 @@
                 <div class="granted-btns-container" style="position: absolute;right: 5%;margin-top: 0.5em;">
                     @if (Session::has('permissions_required'))
                         <button type="button" class="btn btn-danger popover-btn" data-container="body" data-toggle="popover"
-                                data-placement="right" data-title="Grant permissions required" data-active="no" id="granted-btn"
+                                data-placement="left" data-title="Grant permissions required" data-active="no" id="granted-btn"
                                 data-content="It's required for your correct use of site to grant missing permissions: {!! session('permissions_required') !!}"
                                 tabindex="0" data-trigger="focus">
                             <i class="fa fa-remove"></i> Not Granted!</button>
