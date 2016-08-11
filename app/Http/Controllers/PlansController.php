@@ -174,13 +174,9 @@ class PlansController extends Controller
                 // capture custom code and parsing it.
                 $custom_code = !empty(Input::get('custom')) ? Input::get('custom') : "0";
                 $user_id = 0;
-                $package = 0;
 
                 if ($custom_code != 0) {
-                    $decode = Hashids::decode($custom_code)[0];
-                    $code = explode("-", $decode);
-                    $user_id = $code[0];
-                    $package = $code[1];
+                    $user_id = Hashids::decode($custom_code)[0];
                 }
 
                 // assign posted variables to local variables
@@ -201,7 +197,7 @@ class PlansController extends Controller
                 // added user expired at
                 if ($user_id != 0) {
 
-                    $user = User::find($user_id);
+                    $user = User::where('facebok_user_id', $user_id)->first();
 
                     // get user expired at
                     $userExpiredAt = Carbon::createFromFormat('Y-m-d H:i:s', $user->expired_at);
