@@ -31,17 +31,17 @@ class PlansController extends Controller
 
     public function getMonthly(Request $request)
     {
-        if ($request->session()->has('selected_package') && $request->session()->has('fb_user_access_token')) {
+        if ($request->session()->has('fb_user_access_token')) {
             $user = json_decode($request->session()->get('fb_user_data'));
-            $request->session()->remove('selected_package');
             return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', $user->id));
         }
 
-        return redirect(url('/'));
+        return redirect(url('/login?package=monthly'));
     }
 
     protected function getPaypalUrl()
     {
+        // select the url destination
         if (env('PAYPAL_ENV') == 'production') {
             return 'https://www.paypal.com/cgi-bin/webscr';
         } else {
@@ -72,13 +72,12 @@ class PlansController extends Controller
 
     public function getYearly(Request $request)
     {
-        if (Auth::check()) {
+        if ($request->session()->has('fb_user_access_token')) {
             $user = json_decode($request->session()->get('fb_user_data'));
-            $request->session()->remove('selected_package');
-            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly'));
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly', $user->id));
         }
 
-        return redirect(url('/'));
+        return redirect(url('/login?package=yearly'));
     }
 
     public function postIpn()
@@ -172,15 +171,7 @@ class PlansController extends Controller
 
                 // capture custom code and parsing it.
                 $custom_code = !empty(Input::get('custom')) ? Input::get('custom') : "0";
-                $user_id = 0;
-                $package = 0;
-
-                if ($custom_code != 0) {
-                    $decode = Hashids::decode($custom_code)[0];
-                    $code = explode("-", $decode);
-                    $user_id = $code[0];
-                    $package = $code[1];
-                }
+                $user_id = Hashids::decode($custom_code)[0];
 
                 // assign posted variables to local variables
                 // and then save to database payment history
@@ -193,14 +184,14 @@ class PlansController extends Controller
                 $payment->receiver_email = Input::get('receiver_email');
                 $payment->amount = Input::get('mc_gross');
                 $payment->currency = Input::get('mc_currency');
-                $payment->type = $package;
+                $payment->type = Input::get('item_number');
                 $payment->status = Input::get('payment_status');
                 $payment->save();
 
                 // added user expired at
                 if ($user_id != 0) {
 
-                    $user = User::find($user_id);
+                    $user = User::where('facebook_user_id', $user_id)->first();
 
                     // get user expired at
                     $userExpiredAt = Carbon::createFromFormat('Y-m-d H:i:s', $user->expired_at);
@@ -216,17 +207,17 @@ class PlansController extends Controller
                     }
 
                     // adding expired at based on package user purchase
-                    if ($package == 'weekly') {
-                        $expired_at = $startDate->addWeek(1);
+                    if (Input::get('item_number') == 'posthurry.monthly') {
+                        $expired_at = $startDate->addMonth(1);
                     }
 
-                    if ($package == 'yearly') {
+                    if (Input::get('item_number') == 'posthurry.yearly') {
                         $expired_at = $startDate->addYear(1);
                     }
 
                     // update user
                     $user->expired_at = $expired_at;
-                    $user->active_package = $package;
+                    $user->active_package = Input::get('item_number');
                     $user->save();
 
                 }

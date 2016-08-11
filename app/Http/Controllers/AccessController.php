@@ -20,11 +20,7 @@ class AccessController extends Controller
 //        if ($request->session()->has('fb_user_access_token'))
 //            return redirect('/posting');
 //        else
-
-        if ($request->session()->has('selected_package')) {
-            return redirect(url('plans/' . $request->session()->get('selected_package')));
-        }
-
+        
         return view('layouts.main-page', ['withoutHeader' => true]);
     }
 

@@ -104,13 +104,8 @@
                     <li>Unlimited Contests per month.</li>
                 </ul>
                 <div class="teoprise">
-                    @if(Session::has('fb_user_access_token'))
-                        <a href="#" class="monthly-payment-button">$19 per month</a>
-                        <a href="#" class="yearly-payment-button">$189 peryear</a>
-                    @else
-                        <a href="{{ url('login?package=monthly') }}">$19 per month</a>
-                        <a href="{{ url('login?package=yearly') }}">$189 peryear</a>
-                    @endif
+                    <a href="{{ url('plans/monthly') }}">$19 per month</a>
+                    <a href="{{ url('plans/yearly') }}">$189 peryear</a>
                 </div>
                 <div class="ofer"><a href="#">Limited Time Offer Here!!!</a></div>
                 <div class="limitoff">
