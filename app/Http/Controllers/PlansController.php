@@ -42,6 +42,7 @@ class PlansController extends Controller
 
     protected function getPaypalUrl()
     {
+        // select the url destination
         if (env('PAYPAL_ENV') == 'production') {
             return 'https://www.paypal.com/cgi-bin/webscr';
         } else {
