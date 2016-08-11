@@ -31,13 +31,12 @@ class PlansController extends Controller
 
     public function getMonthly(Request $request)
     {
-        if ($request->session()->has('selected_package') && $request->session()->has('fb_user_access_token')) {
+        if ($request->session()->has('fb_user_access_token')) {
             $user = json_decode($request->session()->get('fb_user_data'));
-            $request->session()->remove('selected_package');
             return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', $user->id));
         }
 
-        return redirect(url('/'));
+        return redirect(url('/login?package=monthly'));
     }
 
     protected function getPaypalUrl()
@@ -73,13 +72,12 @@ class PlansController extends Controller
 
     public function getYearly(Request $request)
     {
-        if (Auth::check()) {
+        if ($request->session()->has('fb_user_access_token')) {
             $user = json_decode($request->session()->get('fb_user_data'));
-            $request->session()->remove('selected_package');
-            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly'));
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly', $user->id));
         }
 
-        return redirect(url('/'));
+        return redirect(url('/login?package=yearly'));
     }
 
     public function postIpn()
@@ -196,7 +194,7 @@ class PlansController extends Controller
                 $payment->receiver_email = Input::get('receiver_email');
                 $payment->amount = Input::get('mc_gross');
                 $payment->currency = Input::get('mc_currency');
-                $payment->type = $package;
+                $payment->type = Input::get('item_number');
                 $payment->status = Input::get('payment_status');
                 $payment->save();
 
@@ -219,17 +217,17 @@ class PlansController extends Controller
                     }
 
                     // adding expired at based on package user purchase
-                    if ($package == 'weekly') {
-                        $expired_at = $startDate->addWeek(1);
+                    if (Input::get('item_number') == 'posthurry.monthly') {
+                        $expired_at = $startDate->addMonth(1);
                     }
 
-                    if ($package == 'yearly') {
+                    if (Input::get('item_number') == 'posthurry.yearly') {
                         $expired_at = $startDate->addYear(1);
                     }
 
                     // update user
                     $user->expired_at = $expired_at;
-                    $user->active_package = $package;
+                    $user->active_package = Input::get('item_number');
                     $user->save();
 
                 }
