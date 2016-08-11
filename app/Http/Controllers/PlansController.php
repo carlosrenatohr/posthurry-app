@@ -169,57 +169,62 @@ class PlansController extends Controller
             if (Input::get('payment_status') == 'Completed') {
                 Log::info('4');
 
-                // capture custom code and parsing it.
-                $custom_code = !empty(Input::get('custom')) ? Input::get('custom') : "0";
-                $user_id = Hashids::decode($custom_code)[0];
+                // search payment before
+                if (Payment::where('txn_id', Input::get('txn_id'))->where("ipn_track_id", Input::get('ipn_track_id'))->count() == 0) {
+                    // capture custom code and parsing it.
+                    $custom_code = !empty(Input::get('custom')) ? Input::get('custom') : "0";
+                    $user_id = Hashids::decode($custom_code)[0];
 
-                // assign posted variables to local variables
-                // and then save to database payment history
-                $payment = new Payment();
-                $payment->txn_id = Input::get('txn_id');
-                $payment->ipn_track_id = Input::get('ipn_track_id');
-                $payment->code = $custom_code;
-                $payment->user_id = $user_id;
-                $payment->buyer_email = Input::get('payer_email');
-                $payment->receiver_email = Input::get('receiver_email');
-                $payment->amount = Input::get('mc_gross');
-                $payment->currency = Input::get('mc_currency');
-                $payment->type = Input::get('item_number');
-                $payment->status = Input::get('payment_status');
-                $payment->save();
+                    // assign posted variables to local variables
+                    // and then save to database payment history
+                    $payment = new Payment();
+                    $payment->txn_id = Input::get('txn_id');
+                    $payment->ipn_track_id = Input::get('ipn_track_id');
+                    $payment->code = $custom_code;
+                    $payment->user_id = $user_id;
+                    $payment->buyer_email = Input::get('payer_email');
+                    $payment->receiver_email = Input::get('receiver_email');
+                    $payment->amount = Input::get('mc_gross');
+                    $payment->currency = Input::get('mc_currency');
+                    $payment->type = Input::get('item_number');
+                    $payment->status = Input::get('payment_status');
+                    $payment->save();
 
-                // added user expired at
-                if ($user_id != 0) {
+                    // added user expired at
+                    if ($user_id != 0) {
 
-                    $user = User::where('facebook_user_id', $user_id)->first();
+                        $user = User::where('facebook_user_id', $user_id)->first();
 
-                    // get user expired at
-                    $userExpiredAt = Carbon::createFromFormat('Y-m-d H:i:s', $user->expired_at);
+                        // get user expired at
+                        $userExpiredAt = Carbon::createFromFormat('Y-m-d H:i:s', $user->expired_at);
 
-                    // get current data
-                    $currentDate = Carbon::now();
+                        // get current data
+                        $currentDate = Carbon::now();
 
-                    // compare user expired at with current date
-                    if ($currentDate->gte($userExpiredAt)) {
-                        $startDate = $currentDate;
-                    } else {
-                        $startDate = $userExpiredAt;
+                        // compare user expired at with current date
+                        if ($currentDate->gte($userExpiredAt)) {
+                            $startDate = $currentDate;
+                        } else {
+                            $startDate = $userExpiredAt;
+                        }
+
+                        // adding expired at based on package user purchase
+                        if (Input::get('item_number') == 'posthurry.monthly') {
+                            $expired_at = $startDate->addMonth(1);
+                        }
+
+                        if (Input::get('item_number') == 'posthurry.yearly') {
+                            $expired_at = $startDate->addYear(1);
+                        }
+
+                        // update user
+                        $user->expired_at = $expired_at;
+                        $user->active_package = Input::get('item_number');
+                        $user->save();
+
                     }
-
-                    // adding expired at based on package user purchase
-                    if (Input::get('item_number') == 'posthurry.monthly') {
-                        $expired_at = $startDate->addMonth(1);
-                    }
-
-                    if (Input::get('item_number') == 'posthurry.yearly') {
-                        $expired_at = $startDate->addYear(1);
-                    }
-
-                    // update user
-                    $user->expired_at = $expired_at;
-                    $user->active_package = Input::get('item_number');
-                    $user->save();
-
+                } else {
+                    Log::info('- duplicated');
                 }
             }
 
