@@ -191,7 +191,7 @@ class PlansController extends Controller
                 // added user expired at
                 if ($user_id != 0) {
 
-                    $user = User::where('facebok_user_id', $user_id)->first();
+                    $user = User::where('facebook_user_id', $user_id)->first();
 
                     // get user expired at
                     $userExpiredAt = Carbon::createFromFormat('Y-m-d H:i:s', $user->expired_at);
