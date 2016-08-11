@@ -169,15 +169,9 @@ class PlansController extends Controller
             if (Input::get('payment_status') == 'Completed') {
                 Log::info('4');
 
-                Log::info('input', ['data' => Input::get()]);
-
                 // capture custom code and parsing it.
                 $custom_code = !empty(Input::get('custom')) ? Input::get('custom') : "0";
-                $user_id = 0;
-
-                if ($custom_code != 0) {
-                    $user_id = Hashids::decode($custom_code)[0];
-                }
+                $user_id = Hashids::decode($custom_code)[0];
 
                 // assign posted variables to local variables
                 // and then save to database payment history
