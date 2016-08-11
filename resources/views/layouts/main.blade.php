@@ -176,7 +176,12 @@
                             <i class="fa fa-remove"></i> Not Granted!</button>
                         <button class="btn btn-default" id="relogin">Authorize!</button>
                     @else
-                        <button href="#" class="btn btn-success" id="granted-btn" data-active="yes"><i class="fa fa-check"></i> Granted!</button>
+                        <button href="#" class="btn btn-success popover-btn" id="granted-btn" data-active="yes"
+                                data-container="body" data-toggle="popover"
+                                data-placement="left" data-title="Grant permissions"
+                                data-content="You have granted required permissions, ready to enjoy our service."
+                                tabindex="0" data-trigger="focus">
+                            <i class="fa fa-check"></i> Granted!</button>
                     @endif
                 </div>
             </ul>
