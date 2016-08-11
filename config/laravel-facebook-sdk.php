@@ -57,9 +57,8 @@ return [
         'manage_pages',
 //        'pages_show_list',
 //        'pages_manage_cta',
-        'publish_pages',
         'publish_actions',
-    ], //user_managed_groups
+    ],
     /*
      * The default endpoint that Facebook will redirect to after
      * an authentication attempt.

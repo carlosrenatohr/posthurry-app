@@ -78,11 +78,18 @@
         //
         $(function(){
             $('.popover-btn').popover();
+            if ($('#granted-btn').data('active') == 'no') {
+//                $('.submit-btn').prop('disabled', true);
+                $('.submit-btn').on('click', function(e){
+                    e.preventDefault();
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                    alertify.set('notifier','position', 'top-right');
+                    alertify.warning('Please check status of granted permissions on button!');
+                })
+            }
             $('#relogin').on('click', function(e){
                 e.preventDefault();
-                console.log('lel');
 //                window.fbAsyncInit = function() {
-                    console.log('asd');
                     FB.init({
                         appId: '353859614689535',
                         xfbml: true,
@@ -93,9 +100,9 @@
 
                     FB.login(function(response) {
                         // Original FB.login code
-                        console.log(response);
+//                        console.log(response);
                         window.location.reload();
-                    }, { auth_type: 'rerequest', scope: "<?php echo session('permissions_required'); ?>" });
+                    }, { auth_type: 'rerequest', scope: "<?php echo session('permissions_required'); ?>", default_audience: 'everyone' });
 
 //                }
             });
@@ -125,16 +132,6 @@
                     </div>
                 </div>
             </center>
-            @if (Session::has('permissions_required'))
-                <button type="button" class="btn btn-danger popover-btn" data-container="body" data-toggle="popover"
-                    data-placement="right" data-title="Grant permissions required" data-msg="asd"
-                    data-content="It's required for your correct use of site to grant missing permissions: {!! session('permissions_required') !!}"
-                    tabindex="0" data-trigger="focus">
-                    <i class="fa fa-remove"></i> Not Granted!</button>
-                <button class="btn btn-default" id="relogin">Authorize!</button>
-            @else
-                <button href="#" class="btn btn-success"><i class="fa fa-check"></i> Granted!</button>
-            @endif
             {{--@if (Session::has('fb_user_data'))--}}
             {{--<div class="user-data-space">--}}
                 {{--<div class="logo-container">--}}
@@ -170,6 +167,18 @@
                             href="{{ url('comparison') }}">Comparisons</a></li>
                 <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
                             href="{{ url('/comparison/winners') }}">Winners</a></li>
+                <div class="granted-btns-container" style="position: absolute;right: 5%;margin-top: 0.5em;">
+                    @if (Session::has('permissions_required'))
+                        <button type="button" class="btn btn-danger popover-btn" data-container="body" data-toggle="popover"
+                                data-placement="right" data-title="Grant permissions required" data-active="no" id="granted-btn"
+                                data-content="It's required for your correct use of site to grant missing permissions: {!! session('permissions_required') !!}"
+                                tabindex="0" data-trigger="focus">
+                            <i class="fa fa-remove"></i> Not Granted!</button>
+                        <button class="btn btn-default" id="relogin">Authorize!</button>
+                    @else
+                        <button href="#" class="btn btn-success" id="granted-btn" data-active="yes"><i class="fa fa-check"></i> Granted!</button>
+                    @endif
+                </div>
             </ul>
         </div><!-- /.navbar-collapse -->
     </header>
