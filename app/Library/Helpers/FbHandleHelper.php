@@ -24,4 +24,8 @@ class FbHandleHelper
         return $class->data;
     }
 
+    public function getDefaultAudience() {
+
+    }
+
 }

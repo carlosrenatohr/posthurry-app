@@ -98,7 +98,7 @@
                 </div>
                 <div>
                     <input type="hidden" name="_token" value="{!!csrf_token()!!}">
-                    <input type="submit" value="Submit" style="margin: 10px 0;" class=""
+                    <input type="submit" value="Submit" style="margin: 10px 0;" class="submit-btn"
                            id="blastingOutSubmitBtn">
                 </div>
             </div>
