@@ -105,7 +105,7 @@
                 </ul>
                 <div class="teoprise">
                     <a href="{{ url('plans/monthly') }}">$19 per month</a>
-                    <a href="#{{ url('plans/yearly') }}">$189 peryear</a>
+                    <a href="{{ url('plans/yearly') }}">$189 peryear</a>
                 </div>
                 <div class="ofer"><a href="#">Limited Time Offer Here!!!</a></div>
                 <div class="limitoff">
