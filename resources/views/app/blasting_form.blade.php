@@ -43,7 +43,7 @@
         <div class="col-md-12" id="post-container-blastingForm">
             <fieldset class="cd-form floating-labels">
                 <div>
-                    <h4>Post you want to create</h4>
+                    <h4>Enter your Post</h4>
                 </div>
 
                 <div class="icon">
