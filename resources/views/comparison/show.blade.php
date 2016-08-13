@@ -11,7 +11,7 @@
     <div class="row-fluid">
         <div class="col-md-12">
             <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
-                Comparison
+                A/B History
                 <small>Created by: {{ $comparison->user->name }}</small>
             </h1>
             <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right" style="margin: 15px;">Back</a>

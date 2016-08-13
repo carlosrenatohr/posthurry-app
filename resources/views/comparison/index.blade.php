@@ -2,7 +2,7 @@
 @section('content')
     <div class="row-fluid">
         <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
-            List of your comparison
+            A/B History
         </h1>
         <div class="col-md-12">
             <table class="table table-striped">

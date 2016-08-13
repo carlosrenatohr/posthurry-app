@@ -167,11 +167,11 @@
             <li class="{{ (Request::is('blasting')) ? 'active' : '' }}"><a
                         href="/blasting">Blast</a></li>
             <li class="{{ (Request::is('blasting-posts')) ? 'active' : '' }}"><a
-                        href="/blasting-posts">Blast posts</a></li>
+                        href="/blasting-posts">Blast history</a></li>
             <li class="{{ (Request::is('posting') or Request::is('posting/*')) ? 'active' : '' }}"><a
                         href="/posting">A/B comparison</a></li>
             <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
-                        href="{{ url('comparison') }}">Comparisons</a></li>
+                        href="{{ url('comparison') }}">A/B history</a></li>
             <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
                         href="{{ url('/comparison/winners') }}">Winners</a></li>
             <div class="granted-btns-container" style="position: absolute;right: 5%;margin-top: 0.5em;">
@@ -188,7 +188,7 @@
                             data-placement="left" data-title="Grant permissions"
                             data-content="You have granted required permissions, ready to enjoy our service."
                             tabindex="0" data-trigger="focus">
-                        <i class="fa fa-check"></i> Granted!</button>
+                        <i class="fa fa-check"></i> Facebook Authorizaton Granted!</button>
                 @endif
             </div>
         </ul>
