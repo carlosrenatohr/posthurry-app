@@ -11,50 +11,7 @@
     </style>
 @endsection
 @section('others-js')
-    <script>
-        $(document).ready(function (e) {
-            $(".navbar-toggle").click(function (e) {
-                $(".naving").css("visibility", "visible");
-                $(".naving ul").addClass("ulactive");
-                $(".naving ul").removeClass("ulinactive");
-            });
 
-            $(".ofer a").click(function (e) {
-                $(".limitoff").css("visibility", "visible");
-            });
-
-            $(".closed2").click(function (e) {
-                $(".limitoff").css("visibility", "hidden");
-            });
-
-            $(".closed").click(function (e) {
-                $(".naving").css("visibility", "hidden");
-                $(".naving ul").removeClass("ulactive");
-                $(".naving ul").addClass("ulinactive");
-            });
-
-            $('.fb-login-btn').on('click', function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '/gettingUrl',
-                    method: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        window.location.href = data.url;
-                    }
-                });
-            });
-
-            $(".monthly-payment-button").on('click', function () {
-                $(".monthly-payment-form").submit();
-            })
-
-            $(".yearly-payment-button").on('click', function () {
-                $(".yearly-payment-form").submit();
-            })
-        });
-
-    </script>
 @endsection
 
 @section('content')

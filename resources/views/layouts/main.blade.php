@@ -84,7 +84,49 @@
         ga('create', 'UA-82146887-1', 'auto');
         ga('send', 'pageview');
         //
-        $(function(){
+        $(function() {
+//            $(document).ready(function (e) {
+                $(".navbar-toggle").click(function (e) {
+                    $(".naving").css("visibility", "visible");
+                    $(".naving ul").addClass("ulactive");
+                    $(".naving ul").removeClass("ulinactive");
+                });
+
+                $(".ofer a").click(function (e) {
+                    $(".limitoff").css("visibility", "visible");
+                });
+
+                $(".closed2").click(function (e) {
+                    $(".limitoff").css("visibility", "hidden");
+                });
+
+                $(".closed").click(function (e) {
+                    $(".naving").css("visibility", "hidden");
+                    $(".naving ul").removeClass("ulactive");
+                    $(".naving ul").addClass("ulinactive");
+                });
+
+                $('.fb-login-btn').on('click', function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: '/gettingUrl',
+                        method: 'post',
+                        dataType: 'json',
+                        success: function (data) {
+                            window.location.href = data.url;
+                        }
+                    });
+                });
+
+                $(".monthly-payment-button").on('click', function () {
+                    $(".monthly-payment-form").submit();
+                });
+
+                $(".yearly-payment-button").on('click', function () {
+                    $(".yearly-payment-form").submit();
+                });
+//            });
+
             $('.popover-btn').popover();
             if ($('#granted-btn').data('active') == 'no') {
 //                $('.submit-btn').prop('disabled', true);
@@ -95,7 +137,8 @@
                     alertify.warning('Please check status of granted permissions on button!');
                 })
             }
-            $('#relogin').on('click', function(e){
+
+            $('#relogin').on('click', function(e) {
                 e.preventDefault();
 //                window.fbAsyncInit = function() {
                     FB.init({
@@ -107,13 +150,12 @@
                     });
 
                     FB.login(function(response) {
-                        // Original FB.login code
-//                        console.log(response);
                         window.location.reload();
                     }, { auth_type: 'rerequest', scope: "<?php echo session('permissions_required'); ?>", default_audience: 'everyone' });
 
 //                }
             });
+
             (function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) {return;}
