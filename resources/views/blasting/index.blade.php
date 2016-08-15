@@ -73,42 +73,4 @@
     <div class="col-md-12">
         <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right">Back</a>
     </div>
-
-    {{-- MODAL MASS GROUPS --}}
-    <div class="modal fade" id="massGroupsModal" tabindex="-1" role="dialog" aria-labelledby="massGroupsModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Groups/Pages selected to post in mass after comparison time</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="below-container">
-                        <div class="col-md-6">
-                            <div class="panel panel-default" >
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Groups</h3>
-                                </div>
-                                <div class="panel-body groups" style="max-height:400px;overflow-y: scroll;"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel panel-default" >
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Pages</h3>
-                                </div>
-                                <div class="panel-body pages" style="max-height:400px;overflow-y: scroll;">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save!</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection

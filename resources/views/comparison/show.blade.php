@@ -90,7 +90,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="massPagesListModalLabel">Groups/Pages selected to post in mass</h4>
+                    <h4 class="modal-title" id="massPagesListModalLabel">Facebook Groups and Pages selected</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -102,7 +102,7 @@
                                     Blasted Out! ({{ $blastAt->format('d-m-Y h:iA') }})
                                 @endif
                             </h4>
-                            <p>When winner post on contest was blasted out, you will go to fb for checking post on every page/group.</p>
+                            <p>Press the page link to check your post.</p>
                             <br>
                         </div>
                         <div class="col-md-6">

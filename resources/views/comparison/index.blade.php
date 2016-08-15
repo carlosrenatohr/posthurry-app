@@ -57,7 +57,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Groups/Pages selected to post in mass after comparison time</h4>
+                    <h4 class="modal-title" id="myModalLabel">Facebook Groups and Pages selected</h4>
                 </div>
                 <div class="modal-body">
                     <div class="below-container">
