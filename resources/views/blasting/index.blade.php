@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
-    <div class="row-fluid">
-        <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
+    <div class="row">
+        <h1 class="hurrypost-title">
             Blast History
         </h1>
         <div class="col-md-12">

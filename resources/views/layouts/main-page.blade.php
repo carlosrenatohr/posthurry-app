@@ -1,4 +1,15 @@
 @extends('layouts.main')
+@section('others-css')
+    <style>
+        .teoprise a:last-child {
+            pointer-events: auto;
+        }
+
+        .yearly-payment-form, .monthly-payment-form {
+            display: none;
+        }
+    </style>
+@endsection
 @section('others-js')
     <script>
         $(document).ready(function (e) {
@@ -47,16 +58,6 @@
 @endsection
 
 @section('content')
-    <style>
-        .teoprise a:last-child {
-            pointer-events: auto;
-        }
-
-        .yearly-payment-form, .monthly-payment-form {
-            display: none;
-        }
-    </style>
-
     <div class="container pricer">
         <div class="row">
             <div class="boxprice">

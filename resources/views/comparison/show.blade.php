@@ -1,6 +1,5 @@
 @extends('layouts.main')
-@section('content')
-    <?php $blastAt = (!is_null($comparison->massPosts)) ? new \Carbon\Carbon($comparison->massPosts->blastAt) : null;?>
+@section('others-css')
     <style>
         .blastTimeTitle {
             padding: 12px 0;
@@ -8,42 +7,47 @@
             font-weight: 800;
         }
     </style>
-    <div class="row-fluid">
-        <div class="col-md-12">
-            <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
-                A/B History
-                <small>Created by: {{ $comparison->user->name }}</small>
-            </h1>
-            <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right" style="margin: 15px;">Back</a>
-            @if(!is_null($comparison->massPosts))
-                <a href="#" class="btn btn-info btn-lg pull-right" style="margin: 15px;" data-toggle="modal" data-target="#massPagesListModal">Mass Groups</a>
-            @endif
+@endsection
+@section('content')
+    <?php $blastAt = (!is_null($comparison->massPosts)) ? new \Carbon\Carbon($comparison->massPosts->blastAt) : null;?>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <h1 class="hurrypost-title"
+                >A/B History <small>Created by: {{ $comparison->user->name }}</small></h1>
+            <div class="btn-left-container">
+                <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning">Back</a>
+                @if(!is_null($comparison->massPosts))
+                    <a href="javascript:void(0);" class="btn btn-info " data-toggle="modal" data-target="#massPagesListModal">Mass Groups</a>
+                @endif
+            </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="alert alert-warning">
-            <h2 class="" style="font-size: 18px;">
-                @if($isExpired)
-                    Comparison is expired!<br>
-                    @if(!is_null($comparison->winner))Winner was {{ $comparison->{'post'. $comparison->winner .'_page_name'} }} @endif
-                @else
-                    <?php $resting = ($comparison->limitDaysDuration > 60) ? round($comparison->limitDaysDuration / 60, 2) : $comparison->limitDaysDuration;?>
-                    Comparison during {{  $resting }} {{ ($comparison->limitDaysDuration < 60) ? 'minutes' : 'hours' }}
+                <h2 class="" style="font-size: 18px;"
+                >@if($isExpired)
+                        Comparison is expired!
+                        @if(!is_null($comparison->winner))Winner was {{ $comparison->{'post'. $comparison->winner .'_page_name'} }} @endif
+                    @else
+                        <?php $resting = ($comparison->limitDaysDuration > 60) ? round($comparison->limitDaysDuration / 60, 2) : $comparison->limitDaysDuration;?>
+                        Comparison during {{  $resting }} {{ ($comparison->limitDaysDuration < 60) ? 'minutes' : 'hours' }}
                         from {{ date('M d, Y', strtotime($comparison->created_at)) }} at {{ date('h:i A', strtotime($comparison->created_at)) }}
-                @endif
+                    @endif
+                </h2>
                 @if(!is_null($comparison->massPosts))
-                    <h4 class="blastTimeTitle">
-                        <?php //var_dump(\Carbon\Carbon::now()->toDateTimeString()) ?>
+                    <p class="blastTimeTitle">
                         @if(is_null($comparison->massPosts->posts_published))
-                        will blast out at {{ $blastAt->format('d-m-Y h:iA') }}
+                            will blast out at {{ $blastAt->format('d-m-Y h:iA') }}
                         @else
                             Blasted Out!
                         @endif
-                    </h4>
-
+                    </p>
                 @endif
-            </h2>
             </div>
         </div>
+    </div>
+
         <div class="col-md-6 col-xs-12">
             <div class="panel panel-success">
                 <div class="panel-heading"> Posted on {{$comparison->post1_page_name }}</div>
@@ -76,7 +80,7 @@
         </div>
         {{ Form::hidden('id', $comparison->id, ['id' => 'comparison_id']) }}
     </div>
-    <div class="row-fluid">
+    <div class="row">
         <div class="col-md-12 col-xs-12">
             <div id="comparison-chart-container">
                 <p>Graph is generating . . .</p>
