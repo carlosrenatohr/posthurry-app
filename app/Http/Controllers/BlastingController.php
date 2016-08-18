@@ -86,9 +86,9 @@ class BlastingController extends Controller
         }
         $pages__posts_id_string = implode('\,/', $pages__posts_id);
         $groups__posts_id_string = implode('\,/', $groups__posts_id);
-        $groups__names = explode(',', $request->get('groupsNamesSelected'));
+        $groups__names = explode('_,PH//', $request->get('groupsNamesSelected'));
         $groups__names__string = implode('\,/', $groups__names);
-        $pages__names = explode(',', $request->get('pagesNamesSelected'));
+        $pages__names = explode('_,PH//', $request->get('pagesNamesSelected'));
         $pages__names__string = implode('\,/', $pages__names);
 
         Blasting::create([

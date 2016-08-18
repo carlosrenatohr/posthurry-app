@@ -130,8 +130,12 @@ class MainController extends Controller
             $blastMassJson = [];
             $blastMassJson['groups'] = isset($blastMass['groups']) ? json_encode($blastMass['groups'], true) : '';
             $blastMassJson['pages'] = isset($blastMass['pages']) ? json_encode($blastMass['pages'], true) : '';
-            $blastMassJson['pages_names'] = $request->get('pagesNamesSelected');
-            $blastMassJson['groups_names'] = $request->get('groupsNamesSelected');
+            $groups__names = explode('_,PH//', $request->get('groupsNamesSelected'));
+            $groups__names__string = implode('\,/', $groups__names);
+            $pages__names = explode('_,PH//', $request->get('pagesNamesSelected'));
+            $pages__names__string = implode('\,/', $pages__names);
+            $blastMassJson['groups_names'] = $groups__names__string;
+            $blastMassJson['pages_names'] = $pages__names__string;
             // BlastAt date
             $blastOutTime = new \Carbon\Carbon($request->get('blastDatetime'));
             $blastMassJson['blastAt'] = $blastOutTime->toDateTimeString();

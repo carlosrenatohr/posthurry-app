@@ -118,8 +118,8 @@
                                     <div style="max-height:400px;overflow-y: scroll;">
                                         <ul class="list-group">
                                             <?php
-                                                $groups_names = explode(',', $comparison->massPosts->groups_names);
-                                                $published = explode(',', $comparison->massPosts->posts_published);
+                                                $groups_names = $comparison->groups;
+                                                $published = $comparison->published;
                                             ?>
                                             @if(!empty($groups_names[0]))
                                             @foreach($groups_names as $index => $group)
@@ -147,7 +147,7 @@
                                 <div class="panel-body">
                                     <div style="max-height:400px;overflow-y: scroll;">
                                         <ul class="list-group">
-                                            <?php $pages_names = explode(',', $comparison->massPosts->pages_names);
+                                            <?php $pages_names = $comparison->pages;
 
                                             ?>
                                             @if(!empty($pages_names[0]))

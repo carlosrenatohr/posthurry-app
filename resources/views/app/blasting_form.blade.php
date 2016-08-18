@@ -48,7 +48,7 @@
 
                 <div class="icon">
                     <label class="cd-label" for="cd-textarea">Type your Status</label>
-                    {!! Form::textarea('post1_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post1', 'required', 'data-control' => 'First Post Status']) !!}
+                    {!! Form::textarea('post1_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post1', 'required', 'data-control' => 'Post field']) !!}
                 </div>
                 <div class="">
                     <div class="form-group">
@@ -61,7 +61,7 @@
         <div class="col-md-12">
             <div class="cd-form" style="max-width: 100%;">
 
-                <div class="blasting-title-container">
+                <div class="blasting-title-container" data-count="0">
                     Add up to 25 Groups or Pages. Your selection: <b>0</b>
                 </div>
                 <div class="below-container">
