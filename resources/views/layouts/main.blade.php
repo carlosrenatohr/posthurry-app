@@ -62,6 +62,14 @@
         .navbar-nav li.active {
             background-color: #f5f5f5;
         }
+        .divider {
+            height: 1px;
+            width:100%;
+            display:block; /* for use on default inline elements like span */
+            margin: 9px 0;
+            overflow: hidden;
+            background-color: #e5e5e5;
+        }
     </style>
     @yield('others-css')
     {{--JS--}}
@@ -76,7 +84,49 @@
         ga('create', 'UA-82146887-1', 'auto');
         ga('send', 'pageview');
         //
-        $(function(){
+        $(function() {
+//            $(document).ready(function (e) {
+                $(".navbar-toggle").click(function (e) {
+                    $(".naving").css("visibility", "visible");
+                    $(".naving ul").addClass("ulactive");
+                    $(".naving ul").removeClass("ulinactive");
+                });
+
+                $(".ofer a").click(function (e) {
+                    $(".limitoff").css("visibility", "visible");
+                });
+
+                $(".closed2").click(function (e) {
+                    $(".limitoff").css("visibility", "hidden");
+                });
+
+                $(".closed").click(function (e) {
+                    $(".naving").css("visibility", "hidden");
+                    $(".naving ul").removeClass("ulactive");
+                    $(".naving ul").addClass("ulinactive");
+                });
+
+                $('.fb-login-btn').on('click', function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: '/gettingUrl',
+                        method: 'post',
+                        dataType: 'json',
+                        success: function (data) {
+                            window.location.href = data.url;
+                        }
+                    });
+                });
+
+                $(".monthly-payment-button").on('click', function () {
+                    $(".monthly-payment-form").submit();
+                });
+
+                $(".yearly-payment-button").on('click', function () {
+                    $(".yearly-payment-form").submit();
+                });
+//            });
+
             $('.popover-btn').popover();
             if ($('#granted-btn').data('active') == 'no') {
 //                $('.submit-btn').prop('disabled', true);
@@ -87,7 +137,8 @@
                     alertify.warning('Please check status of granted permissions on button!');
                 })
             }
-            $('#relogin').on('click', function(e){
+
+            $('#relogin').on('click', function(e) {
                 e.preventDefault();
 //                window.fbAsyncInit = function() {
                     FB.init({
@@ -99,13 +150,12 @@
                     });
 
                     FB.login(function(response) {
-                        // Original FB.login code
-//                        console.log(response);
                         window.location.reload();
                     }, { auth_type: 'rerequest', scope: "<?php echo session('permissions_required'); ?>", default_audience: 'everyone' });
 
 //                }
             });
+
             (function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) {return;}
@@ -119,70 +169,94 @@
 </head>
 <body style="height:100%;width:100%;padding:0;margin:0">
 <div>
-    {{-- |==> FOOTER <==|| --}}
-    @if(!isset($withoutHeader))
-    <header>
-        <div class="col-md-12 header2" style="height:110px;width:100%;">
-            <center>
-                <div class="" style="margin-top:10px">
-                    <div class="pull-left col-md-6 col-sm-5 col-xs-7">
-                        <a href="/">
-                            <img src="{{ asset('img/logo2.png') }}" class="pull-left"/>
-                        </a>
-                    </div>
+    {{-- |==> HEADER <==|| --}}
+    <div class="container-fluid newsty">
+        <div class="container">
+            <header>
+                <div class="logosec">
+                    <span><a href="/"><img src="{{ asset('img/logo-new.png') }}" alt="logo"/></a><br>When time is money, use PostHurry!</span>
+                    {{--<button aria-expanded="false" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"--}}
+                            {{--class="navbar-toggle collapsed" type="button">--}}
+                        {{--<span class="sr-only">Toggle navigation</span>--}}
+                        {{--<span class="icon-bar"></span>--}}
+                        {{--<span class="icon-bar"></span>--}}
+                        {{--<span class="icon-bar"></span>--}}
+                    {{--</button>--}}
                 </div>
-            </center>
-            {{--@if (Session::has('fb_user_data'))--}}
-            {{--<div class="user-data-space">--}}
-                {{--<div class="logo-container">--}}
-                    {{--<img id="logo-picture" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.png" alt="">--}}
-                {{--</div>--}}
-                {{--<div class="text-container">--}}
-                    {{--<p>{{ json_decode(session('fb_user_data'))->name }}</p>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--@endif--}}
+            </header>
+            <div class="naving">
+                {{--<ul>--}}
+                {{--<div class="closed">X</div>--}}
+                {{--<li><a href="#">login</a></li>--}}
+                {{--</ul>--}}
+                @if(Session::has('fb_user_access_token'))
+                    <?php $user = json_decode(session('fb_user_data')); ?>
+                    <div style="position: absolute;right: 2%;max-width: 250px;">
+                        Logged in as <br> <span style="font-weight:600;">{{ ($user->name) }}</span>
+                        <a href="{{ url('/logout') }}" class="fb-logout-btn">Logout</a>
+                    </div>
+                @else
+                    <button class="fb-login-btn">Login</button>
+                @endif
+            </div>
         </div>
-        {{--<!-- Brand and toggle get grouped for better mobile display -->--}}
-        <div class="navbar-header" style="background-color: #2B416D">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
-                    style="background-color: lightgray!important;">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar" style="background-color: #222;"></span>
-                <span class="icon-bar" style="background-color: #222;"></span>
-                <span class="icon-bar" style="background-color: #222;"></span>
-            </button>
-            {{--<a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('img/posthurry_logo.jpg') }}"></a>--}}
-        </div>
-        {{--<!-- Collect the nav links, forms, and other content for toggling -->--}}
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: #2B416D">
-            <ul class="nav navbar-nav">
-                <li class="{{ (Request::is('blasting')) ? 'active' : '' }}"><a
-                            href="/blasting">Blast</a></li>
-                <li class="{{ (Request::is('blasting-posts')) ? 'active' : '' }}"><a
-                            href="/blasting-posts">Blast posts</a></li>
-                <li class="{{ (Request::is('posting') or Request::is('posting/*')) ? 'active' : '' }}"><a
-                            href="/posting">A/B comparison</a></li>
-                <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
-                            href="{{ url('comparison') }}">Comparisons</a></li>
-                <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
-                            href="{{ url('/comparison/winners') }}">Winners</a></li>
-                <div class="granted-btns-container" style="position: absolute;right: 5%;margin-top: 0.5em;">
-                    @if (Session::has('permissions_required'))
-                        <button type="button" class="btn btn-danger popover-btn" data-container="body" data-toggle="popover"
-                                data-placement="left" data-title="Grant permissions required" data-active="no" id="granted-btn"
-                                data-content="It's required for your correct use of site to grant missing permissions: {!! session('permissions_required') !!}"
-                                tabindex="0" data-trigger="focus">
-                            <i class="fa fa-remove"></i> Not Granted!</button>
-                        <button class="btn btn-default" id="relogin">Authorize!</button>
-                    @else
-                        <button href="#" class="btn btn-success" id="granted-btn" data-active="yes"><i class="fa fa-check"></i> Granted!</button>
+    </div>
+    @if(Session::has('fb_user_access_token'))
+    <div class="navbar-header" > {{-- background-color: #2B416D --}}
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
+                style="background-color: lightgray!important;">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar" style="background-color: #222;"></span>
+            <span class="icon-bar" style="background-color: #222;"></span>
+            <span class="icon-bar" style="background-color: #222;"></span>
+        </button>
+    </div>
+    {{-- Collect the nav links, forms, and other content for toggling style="background-color: #2B416D"--}}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <div class="visible-xs">
+                <div style="padding: 0 12px;">
+                    @if(Session::has('fb_user_access_token'))
+                        <?php $user = json_decode(session('fb_user_data')); ?>
+                        Logged in as <span style="font-weight:600;">{{ ($user->name) }}</span><br><br>
+                        <a href="{{ url('/logout') }}" class="fb-logout-btn btn btn-danger">Logout</a>
+                    {{--@else--}}
+                        {{--<button class="fb-login-btn btn btn-success">Login</button>--}}
                     @endif
                 </div>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </header>
+                <div class="divider"></div>
+            </div>
+            <li class="{{ (Request::is('blasting')) ? 'active' : '' }}"><a
+                        href="/blasting">Blast</a></li>
+            <li class="{{ (Request::is('blasting-posts')) ? 'active' : '' }}"><a
+                        href="/blasting-posts">Blast history</a></li>
+            <li class="{{ (Request::is('posting') or Request::is('posting/*')) ? 'active' : '' }}"><a
+                        href="/posting">A/B comparison</a></li>
+            <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
+                        href="{{ url('comparison') }}">A/B history</a></li>
+            <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
+                        href="{{ url('/comparison/winners') }}">Winners</a></li>
+            <div class="granted-btns-container" style="position: absolute;right: 5%;margin-top: 0.5em;">
+                @if (Session::has('permissions_required'))
+                    <button type="button" class="btn btn-danger popover-btn" data-container="body" data-toggle="popover"
+                            data-placement="left" data-title="Grant permissions required" data-active="no" id="granted-btn"
+                            data-content="It's required for your correct use of site to grant missing permissions: {!! session('permissions_required') !!}"
+                            tabindex="0" data-trigger="focus">
+                        <i class="fa fa-remove"></i> Not Granted!</button>
+                    <button class="btn btn-default" id="relogin">Authorize!</button>
+                @else
+                    <button href="#" class="btn btn-success popover-btn" id="granted-btn" data-active="yes"
+                            data-container="body" data-toggle="popover"
+                            data-placement="left" data-title="Grant permissions"
+                            data-content="You have granted required permissions, ready to enjoy our service."
+                            tabindex="0" data-trigger="focus">
+                        <i class="fa fa-check"></i> Facebook Authorizaton Granted!</button>
+                @endif
+            </div>
+        </ul>
+    </div><!-- /.navbar-collapse -->
     @endif
+
     {{-- |==> MAIN CONTENT <==|| --}}
     <div class="main-container">
         @if(Session::has('success-msg'))
@@ -205,21 +279,17 @@
 </div>
 
 {{-- |==> FOOTER <==|| --}}
-@if(!isset($withoutHeader))
-<div class="header2 footer">
-	<div  class="col-md-3 item">
-        <a href="{{ url('terms') }}">Terms of Service</a>
-	</div>
-    <div class="col-md-3 item">
-        <a href="{{ url('privacy') }}">Privacy Policy</a>
-	</div>
-    <div  class="col-md-3 item">
-        <a href="{{ url('faq') }}">FAQ</a>
-	</div>
-    <div  class="col-md-3 item">
-        Copyright 2016 Post Hurry
-	</div>
+<div class="container-fluid foot">
+    <div class="container">
+        <div class="col-lg-6 col-md-6 copyleft">
+            <a href="{{ url('faq') }}">FAQ</a>
+            <a href="{{ url('privacy') }}">Privacy Policy</a>
+            <a href="{{ url('terms') }}">Terms of Service</a>
+        </div>
+        <div class="col-lg-6 col-md-6 copyright">
+            Copyright @ 2016 PostHurry
+        </div>
+    </div>
 </div>
-@endif
 </body>
 </html>

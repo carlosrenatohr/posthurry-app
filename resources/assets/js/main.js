@@ -60,7 +60,7 @@ $(function() {
         console.log($(this).val());
     });
 
-    $('#createContestSubmitBtn').on('click', function(e) {
+    $('#createContestSubmitBtn, #blastingOutSubmitBtn').on('click', function(e) {
         var needvalidation = false;
         $('.cd-form .post-textarea').each(function(i, el){
              if (el.value == '') {
@@ -81,8 +81,21 @@ $(function() {
                  $(el).css({'border-color': '#CCC'});
              }
         });
+        if ($('.blasting-title-container').length > 0) {
+            var counting = parseInt($('.blasting-title-container').data('count'));
+            if (counting <= 0) {
+                needvalidation = true;
+                //$(el).css({'border-color': '#F00'});
+                alertify.notify('Select at least 1 group or page to blast out', 'error', [2000, function(){}]);
+            } else {
+                //$(el).css({'border-color': '#CCC'});
+            }
+        }
         if (needvalidation) {
             e.preventDefault();
+        } else {
+            $('#pagesNamesSelected').val(pagesNamesSelected.join("_,PH//"));
+            $('#groupsNamesSelected').val(groupsNamesSelected.join("_,PH//"));
         }
     });
 
@@ -117,12 +130,13 @@ $(function() {
             }
         }
 
-        $('#pagesNamesSelected').val(pagesNamesSelected);
-        $('#groupsNamesSelected').val(groupsNamesSelected);
+        $('#pagesNamesSelected').val(groupsNamesSelected);
+        $('#groupsNamesSelected').val(pagesNamesSelected);
 
         $('.below-container .panel .groups .alert-warning p').html(groupsNamesSelected.join(',  '));
         $('.below-container .panel .pages .alert-warning p').html(pagesNamesSelected.join(',  '));
         $('.blasting-title-container b').html(len);
+        $('.blasting-title-container').data('count', len);
         if (len >= 25) {
             if (this.checked) {
                 this.checked = false;
