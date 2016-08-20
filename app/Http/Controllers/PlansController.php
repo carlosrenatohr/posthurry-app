@@ -73,6 +73,11 @@ class PlansController extends Controller
         return redirect(url('/login?package=yearly'));
     }
 
+    public function getIpn()
+    {
+        $this->postIpn();
+    }
+
     public function postIpn()
     {
         Log::info('1');
