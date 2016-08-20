@@ -56,6 +56,7 @@ class PlansController extends Controller
         $params['custom'] = Hashids::encode($user_facebook_id);
         $params['hosted_button_id'] = $package_id;
         $params['cmd'] = "_s-xclick";
+        $params['rm'] = 1;
 
         $params_string = http_build_query($params);
 
