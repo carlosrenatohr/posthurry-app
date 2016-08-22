@@ -203,6 +203,7 @@
         </div>
     </div>
 
+    @if(Session::has('fb_user_access_token'))
     <nav>
         <div class="container">
             <ul class="nav navbar-nav">
@@ -235,6 +236,7 @@
             @endif
         </div>
     </nav>
+    @endif
 
     {{-- |==> MAIN CONTENT <==|| --}}
     <div class="main-container">
