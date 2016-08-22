@@ -51,19 +51,12 @@ class PlansController extends Controller
 
     protected function getPaypalParameters($package, $user_facebook_id)
     {
-        switch ($package) {
-            case "monthly":
-                $package_id = "SHP2DC7365998";
-                break;
-
-            case "yearly":
-                $package_id = "943WLK6QHBMUA";
-                break;
-        }
+        $package_id = env(strtoupper('PAYPAL_' . $package . '_' . env('PAYPAL_ENV')));
 
         $params['custom'] = Hashids::encode($user_facebook_id);
         $params['hosted_button_id'] = $package_id;
         $params['cmd'] = "_s-xclick";
+        $params['rm'] = 1;
 
         $params_string = http_build_query($params);
 
@@ -78,6 +71,11 @@ class PlansController extends Controller
         }
 
         return redirect(url('/login?package=yearly'));
+    }
+
+    public function getIpn()
+    {
+        $this->postIpn();
     }
 
     public function postIpn()
