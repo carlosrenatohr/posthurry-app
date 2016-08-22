@@ -32,9 +32,9 @@ Form
 
 -------------------------------- */
 .cd-form {
-  width: 90%;
-  max-width: 600px;
-  margin: 0em auto;
+  /*width: 90%;*/
+  /*max-width: 600px;*/
+  /*margin: 0em auto;*/
 }
 .cd-form::after {
   clear: both;
@@ -241,7 +241,6 @@ Form
   padding: 16px 20px;
   color: #ffffff;
   font-weight: bold;
-  float: right;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

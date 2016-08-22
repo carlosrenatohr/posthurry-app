@@ -38,72 +38,65 @@
 @endsection
 @section('content')
     {!! Form::open(['url' => route('postBlasting'), 'method' => 'post', 'class' => '', 'enctype' => 'multipart/form-data'])!!}
-    <div class="col-md-12" style="height:74%;margin-bottom:4%;margin-top:4%;">
-
-        <div class="col-md-12" id="post-container-blastingForm">
-            <fieldset class="cd-form floating-labels">
-                <div>
-                    <h4>Enter your Post</h4>
-                </div>
+    <div class="container pricer">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 post_entry" id="post-container-blastingForm">
+                <h4>Enter your Post</h4>
 
                 <div class="icon">
-                    <label class="cd-label" for="cd-textarea">Type your Status</label>
-                    {!! Form::textarea('post1_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post1', 'required', 'data-control' => 'Post field']) !!}
+                    {!! Form::textarea('post1_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post1', 'required', 'data-control' => 'Post field', 'placeholder' => 'type your status']) !!}
                 </div>
-                <div class="">
-                    <div class="form-group">
-                        {{ Form::file('post1_image', []) }}
-                    </div>
-                </div>
-
-            </fieldset>
-        </div>
-        <div class="col-md-12">
-            <div class="cd-form" style="max-width: 100%;">
-
-                <div class="blasting-title-container" data-count="0">
-                    Add up to 25 Groups or Pages. Your selection: <b>0</b>
-                </div>
-                <div class="below-container">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Groups</h3>
-                            </div>
-                            <div class="panel-body groups blasting-form" style="max-height:400px;overflow-y: scroll;">
-                                <div class="alert alert-warning">
-                                    <b>Selected:</b>
-
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Pages</h3>
-                            </div>
-                            <div class="panel-body pages blasting-form" style="max-height:400px;overflow-y: scroll;">
-                                <div class="alert alert-warning">
-                                    <b>Selected:</b>
-
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="pagesNamesSelected" id="pagesNamesSelected">
-                    <input type="hidden" name="groupsNamesSelected" id="groupsNamesSelected">
-                </div>
-                <div>
-                    <input type="hidden" name="_token" value="{!!csrf_token()!!}">
-                    <input type="submit" value="Submit" style="margin: 10px 0;" class="submit-btn"
-                           id="blastingOutSubmitBtn">
+                <div class="form-group">
+                    {{ Form::file('post1_image', []) }}
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="add">
+        <h1 class="text-center">Add UP TO 25 Groups OR Pages</h1>
+        <h5 class="text-center blasting-title-container" data-count="0">
+            Your selection: <b>00</b>
+        </h5>
+        <div class="container below-container">
+            <div class="row cd-form">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Groups</h3>
+                        </div>
+                        <div class="panel-body groups blasting-form" style="max-height:400px;overflow-y: scroll;">
+                            <div class="alert alert-warning">
+                                <b>Selected:</b>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Pages</h3>
+                        </div>
+                        <div class="panel-body pages blasting-form" style="max-height:400px;overflow-y: scroll;">
+                            <div class="alert alert-warning">
+                                <b>Selected:</b>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="pagesNamesSelected" id="pagesNamesSelected">
+            <input type="hidden" name="groupsNamesSelected" id="groupsNamesSelected">
+            <input type="hidden" name="_token" value="{!!csrf_token()!!}">
+
+            <button type="submit" class="post_submit submit-btn"
+                    id="blastingOutSubmitBtn">Submit your post</button>
+        </div>
+    </div>
+
     {{ Form::close() }}
+
 @endsection

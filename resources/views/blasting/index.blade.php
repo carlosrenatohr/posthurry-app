@@ -1,31 +1,60 @@
 @extends('layouts.main')
+@section('others-js')
+    <script>
+        $(function() {
+            var html;
+            $('.groups-modal-btn').on('click', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                html = $('.groups-container-' + id).clone();
+                html.removeClass('hide');
+                $('#myGroupsModal').find('.modal-body').html(html);
+                $('#myGroupsModal').modal('show');
+            });
+
+            $('#myGroupsModal').on('hidden.bs.modal', function () {
+                $(this).find('.modal-body').html('');
+            });
+        });
+    </script>
+@endsection
+
 @section('content')
-    <div class="row">
-        <h1 class="hurrypost-title">
-            Blast History
-        </h1>
-        <div class="col-md-12">
-            <table class="table table-striped" id="blasting-list-posts">
+    <section class="heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-xs-8">
+                    <h3>Blast History</h3>
+                </div>
+                <div class="col-sm-3 col-xs-4">
+                    <a href="{{ redirect()->getUrlGenerator()->previous() }}"
+                       class="btn-warning pull-right">Back</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="add">
+        <div class="container">
+            <table class="table table-striped text-center" id="blasting-list-posts">
                 <thead>
                 <tr>
                     <th></th>
                     <th>Text</th>
-                    <th># of Pages posted</th>
-                    <th># of Groups posted</th>
+                    <th class="text-center"># of Pages posted</th>
+                    <th class="text-center"># of Groups posted</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($user->blastings as $index => $blasting)
                     <tr id="blasting-row-{{ $index }}" data-toggle="collapse" data-target="#collapse-{{$index}}"
                         class="clickable">
-                        <td>
-                            <a role="button" data-toggle="collapse"
-                                href="#collapse-{{$index}}" aria-controls="collapse-{{ $index }}"
-                                class="btn btn-warning" aria-expanded="true"
-                            >Links
-                            </a>
-                        </td>
-                        <td>
+                        <th scope="row">
+                            <button type="button" class="btn-warning groups-modal-btn"
+                                    data-id="{{ $index }}"
+                                >Links</button>
+                        </th>
+                        <td class="post">
                             {{ $blasting->post_text }}
                         </td>
                         <td>
@@ -35,42 +64,61 @@
                             {{ count($blasting->groups) }}
                         </td>
                     </tr>
-                    <tr id="collapse-{{ $index }}" class="collapse" aria-expanded="true">
-                        <td colspan="2">
-                            <h3>Groups blasted</h3>
-                                @if(!empty($blasting->groups))
-                                <ul class="list-group">
-                                    @foreach($blasting->groups as $idx => $group)
-                                    <li class="list-group-item">
-                                        {{ $group }} <a href="https://fb.com/{{ $blasting->groups_posts[$idx] }}" target="_blank"
-                                                         class="btn btn-info"
-                                                         style="background-color: #3B5998;">Check it</a>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                                @endif
-                        </td>
-                        <td class="2">
-                            <h3>Pages blasted</h3>
-                            @if(!empty($blasting->pages))
-                            <ul class="list-group">
-                                @foreach($blasting->pages as $idx => $page)
-                                    <li class="list-group-item">
-                                        {{ $page }}  <a href="https://fb.com/{{ $blasting->pages_posts[$idx] }}" target="_blank"
-                                                         class="btn btn-info"
-                                                         style="background-color: #3B5998;">Check it</a>
-                                    </li>
-                                @endforeach
+                    <div class="groups-container-{{ $index }} hide">
+                        @if(!empty($blasting->groups))
+                            <h3>Groups</h3>
+                            @foreach($blasting->groups as $idx => $group)
+                            <ul class="list-unstyled" id="">
+                                <li> {{ $group }}
+                                    <a href="https://fb.com/{{ $blasting->groups_posts[$idx] }}"
+                                       class="btn btn-success" style="background-color: #3B5998;">Check it</a>
+                                </li>
+                                <br>
                             </ul>
-                            @endif
-                        </td>
-                    </tr>
+                            @endforeach
+                        @endif
+                        <div class="divider"></div>
+                        @if(!empty($blasting->pages))
+                            <h3>Pages</h3>
+                            @foreach($blasting->pages as $idx => $page)
+                            <ul class="list-unstyled" id="">
+                                <li> {{ $page }}
+                                    <a href="https://fb.com/{{ $blasting->pages_posts[$idx] }}"
+                                       class="btn btn-success" style="background-color: #3B5998;">Check it</a>
+                                </li>
+                                <br>
+                            </ul>
+                            @endforeach
+                        @endif
+                    </div>
                 @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="col-md-12">
-        <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right">Back</a>
+    </section>
+
+    <!-- Modal -->
+    <div id="myGroupsModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Pages / Groups Linked</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-unstyled">
+                        <li>Young Entertainment Professionals <button class="btn btn-success">Check it</button></li>
+                        <br>
+                        <li>Young Entertainment Professionals <button class="btn btn-success">Check it</button></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 @endsection

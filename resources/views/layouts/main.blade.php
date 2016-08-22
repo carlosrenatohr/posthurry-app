@@ -175,87 +175,66 @@
             <header>
                 <div class="logosec">
                     <span><a href="/"><img src="{{ asset('img/logo-new.png') }}" alt="logo"/></a><br>When time is money, use PostHurry!</span>
-                    {{--<button aria-expanded="false" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"--}}
-                            {{--class="navbar-toggle collapsed" type="button">--}}
-                        {{--<span class="sr-only">Toggle navigation</span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                    {{--</button>--}}
+                    <button aria-expanded="false" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
+                            class="navbar-toggle collapsed" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
             </header>
             <div class="naving">
-                {{--<ul>--}}
-                {{--<div class="closed">X</div>--}}
-                {{--<li><a href="#">login</a></li>--}}
-                {{--</ul>--}}
-                @if(Session::has('fb_user_access_token'))
-                    <?php $user = json_decode(session('fb_user_data')); ?>
-                    <div style="position: absolute;right: 2%;max-width: 250px;">
-                        Logged in as <br> <span style="font-weight:600;">{{ ($user->name) }}</span>
-                        <a href="{{ url('/logout') }}" class="fb-logout-btn">Logout</a>
-                    </div>
+                @if(!Session::has('fb_user_access_token'))
+                <ul>
+                    <div class="closed">X</div>
+                    <li><a href="#" class="fb-login-btn">login</a></li>
+                </ul>
                 @else
-                    <button class="fb-login-btn">Login</button>
+                    <?php $user = json_decode(session('fb_user_data')); ?>
+                    <ul>
+                        <div class="closed">X</div>
+                        <li class="pull-right"><a href="{{ url('/logout') }}">logout</a></li>
+                        <div class="clearfix"></div>
+                        <li style="margin: 10px 0;">Logged in as {{ ($user->name) }}</li>
+                    </ul>
                 @endif
             </div>
         </div>
     </div>
-    @if(Session::has('fb_user_access_token'))
-    <div class="navbar-header" > {{-- background-color: #2B416D --}}
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
-                style="background-color: lightgray!important;">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar" style="background-color: #222;"></span>
-            <span class="icon-bar" style="background-color: #222;"></span>
-            <span class="icon-bar" style="background-color: #222;"></span>
-        </button>
-    </div>
-    {{-- Collect the nav links, forms, and other content for toggling style="background-color: #2B416D"--}}
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <div class="visible-xs">
-                <div style="padding: 0 12px;">
-                    @if(Session::has('fb_user_access_token'))
-                        <?php $user = json_decode(session('fb_user_data')); ?>
-                        Logged in as <span style="font-weight:600;">{{ ($user->name) }}</span><br><br>
-                        <a href="{{ url('/logout') }}" class="fb-logout-btn btn btn-danger">Logout</a>
-                    {{--@else--}}
-                        {{--<button class="fb-login-btn btn btn-success">Login</button>--}}
-                    @endif
-                </div>
-                <div class="divider"></div>
-            </div>
-            <li class="{{ (Request::is('blasting')) ? 'active' : '' }}"><a
-                        href="/blasting">Blast</a></li>
-            <li class="{{ (Request::is('blasting-posts')) ? 'active' : '' }}"><a
-                        href="/blasting-posts">Blast history</a></li>
-            <li class="{{ (Request::is('posting') or Request::is('posting/*')) ? 'active' : '' }}"><a
-                        href="/posting">A/B comparison</a></li>
-            <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
-                        href="{{ url('comparison') }}">A/B history</a></li>
-            <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
-                        href="{{ url('/comparison/winners') }}">Winners</a></li>
-            <div class="granted-btns-container" style="position: absolute;right: 5%;margin-top: 0.5em;">
-                @if (Session::has('permissions_required'))
-                    <button type="button" class="btn btn-danger popover-btn" data-container="body" data-toggle="popover"
-                            data-placement="left" data-title="Grant permissions required" data-active="no" id="granted-btn"
-                            data-content="It's required for your correct use of site to grant missing permissions: {!! session('permissions_required') !!}"
-                            tabindex="0" data-trigger="focus">
-                        <i class="fa fa-remove"></i> Not Granted!</button>
-                    <button class="btn btn-default" id="relogin">Authorize!</button>
-                @else
-                    <button href="#" class="btn btn-success popover-btn" id="granted-btn" data-active="yes"
-                            data-container="body" data-toggle="popover"
-                            data-placement="left" data-title="Grant permissions"
-                            data-content="You have granted required permissions, ready to enjoy our service."
-                            tabindex="0" data-trigger="focus">
-                        <i class="fa fa-check"></i> Facebook Authorizaton Granted!</button>
-                @endif
-            </div>
-        </ul>
-    </div><!-- /.navbar-collapse -->
-    @endif
+
+    <nav>
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <div class="visible-xs"></div>
+                <li class="{{ (Request::is('blasting')) ? 'active' : '' }}"><a
+                            href="/blasting">Blast</a></li>
+                <li class="{{ (Request::is('blasting-posts')) ? 'active' : '' }}"><a
+                            href="/blasting-posts">Blast history</a></li>
+                <li class="{{ (Request::is('posting') or Request::is('posting/*')) ? 'active' : '' }}"><a
+                            href="/posting">A/B comparison</a></li>
+                <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
+                            href="{{ url('comparison') }}">A/B history</a></li>
+                <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
+                            href="{{ url('/comparison/winners') }}">Winners</a></li>
+            </ul>
+            @if (Session::has('permissions_required'))
+                <button type="button" class="btn btn-danger popover-btn pull-right" data-container="body" data-toggle="popover"
+                        data-placement="left" data-title="Grant permissions required" data-active="no" id="granted-btn"
+                        data-content="It's required for your correct use of site to grant missing permissions: {!! session('permissions_required') !!}"
+                        tabindex="0" data-trigger="focus">
+                    <i class="fa fa-remove"></i> Not Granted!</button>
+                <button class="btn btn-default" id="relogin">Authorize!</button>
+            @else
+                <button href="#" class="btn btn-success popover-btn pull-right" id="granted-btn" data-active="yes"
+                        data-container="body" data-toggle="popover"
+                        data-placement="left" data-title="Grant permissions"
+                        data-content="You have granted required permissions, ready to enjoy our service."
+                        tabindex="0" data-trigger="focus">
+                    <i class="fa fa-check"></i> Facebook Authorizaton Granted!</button>
+            @endif
+        </div>
+    </nav>
 
     {{-- |==> MAIN CONTENT <==|| --}}
     <div class="main-container">
