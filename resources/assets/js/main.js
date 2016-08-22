@@ -141,7 +141,7 @@ $(function() {
             if (this.checked) {
                 this.checked = false;
             }
-            alert('You are able to add up to 25 groups to post the winner ad');
+            alert('A maximum of 25 groups may be added.');
             //e.preventDefault();
         }
     });
