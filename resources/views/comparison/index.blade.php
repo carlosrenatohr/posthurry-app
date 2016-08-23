@@ -1,55 +1,58 @@
 @extends('layouts.main')
 @section('content')
-    <div class="row-fluid">
-        <h1 class="pull-left" style="font-size: 30px;padding: 30px 10px;">
-            A/B History
-        </h1>
-        <div class="col-md-12">
-            <table class="table table-striped">
+    <section class="heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h3>A/B History</h3>
+                </div>
+                <div class="col-sm-3">
+                    <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn-warning pull-right">Back</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="add">
+        <div class="container">
+            <table class="table table-striped text-center">
                 <thead>
                 <tr>
-                    <th>Post 1</th>
-                    <th>Post 2</th>
-                    <th>Created</th>
-                    <th>Is active?</th>
-                    <th>Actions</th>
+                    <th>Post # 1</th>
+                    <th>Post # 2</th>
+                    <th class="text-center">Created</th>
+                    <th class="text-center">Is Active?</th>
+                    <th class="text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($user->comparisons as $comparison)
                     <tr>
-                        <td>
+                        <td class="text-left col-md-4">
                             <span style="font-weight: 800;">({{ $comparison->post1_sort == 1 ? 'Page' : 'Group' }})</span>
                             {{ $comparison->post1_page_name }}
                         </td>
-                        <td>
-                                <span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Page' : 'Group' }})</span>
+                        <td class="text-left col-md-4">
+                            <span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Page' : 'Group' }})</span>
                             {{ $comparison->post2_page_name }}
                         </td>
-                        <td>{{ date('m-d-Y  h:i A', strtotime($comparison->created_at)) }}</td>
+                        <td>{{ date("m-d-Y h:iA", strtotime($comparison->created_at)) }}</td>
                         <td>
                             @if(!is_null($comparison->winner))
-                                <i class="fa fa-remove" style="color: red;"></i>
+                                NO
                             @else
-                                <i class="fa fa-check" style="color: green;"></i>
+                                YES
                             @endif
                         </td>
                         <td>
                             <a href="{{ url('comparison/'. $comparison->id) }}" title="View Chart"><i class="fa fa-area-chart"></i></a>
-                            {{--@if(!is_null($comparison->winner) || !is_null($comparison->massPosts))--}}
-                                {{--<a href="#" title="Mass groups selected" data-toggle="modal" data-target="#massGroupsModal">--}}
-                                    {{--<i class="fa fa-th-large"></i></a>--}}
-                            {{--@endif--}}
-                            </td>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="col-md-12">
-        <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning btn-lg pull-right">Back</a>
-    </div>
+    </section>
 
     {{-- MODAL MASS GROUPS --}}
     <div class="modal fade" id="massGroupsModal" tabindex="-1" role="dialog" aria-labelledby="massGroupsModalLabel">

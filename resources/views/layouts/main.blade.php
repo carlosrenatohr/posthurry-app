@@ -196,7 +196,7 @@
                         <div class="closed">X</div>
                         <li class="pull-right"><a href="{{ url('/logout') }}">logout</a></li>
                         <div class="clearfix"></div>
-                        <li style="margin: 10px 0;">Logged in as {{ ($user->name) }}</li>
+                        <li style="margin: 10px 0;">Logged in as <b style="font-weight: 800;">{{ ($user->name) }}</b></li>
                     </ul>
                 @endif
             </div>
