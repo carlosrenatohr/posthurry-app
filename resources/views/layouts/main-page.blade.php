@@ -19,7 +19,7 @@
         <div class="row">
             <div class="boxprice">
                 <h4>One Size Fits All plan</h4>
-                <a href="#">Free 3 Day Trial</a>
+                <a href="#">Free 7 Day Trial</a>
 
                 <ul>
                     <li>Post to multiple Facebook Groups and Pages with one Post.</li>

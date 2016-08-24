@@ -107,7 +107,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Pages / Groups Linked</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 450px;overflow-y: scroll;">
                     <ul class="list-unstyled">
                         <li>Young Entertainment Professionals <button class="btn btn-success">Check it</button></li>
                         <br>
