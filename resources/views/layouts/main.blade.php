@@ -80,52 +80,50 @@
                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
         ga('create', 'UA-82146887-1', 'auto');
         ga('send', 'pageview');
         //
         $(function() {
-//            $(document).ready(function (e) {
-                $(".navbar-toggle").click(function (e) {
-                    $(".naving").css("visibility", "visible");
-                    $(".naving ul").addClass("ulactive");
-                    $(".naving ul").removeClass("ulinactive");
-                });
+            $(".navbar-toggle").click(function (e) {
+                $(".naving").css("visibility", "visible");
+                $(".naving ul").addClass("ulactive");
+                $(".naving ul").removeClass("ulinactive");
+            });
 
-                $(".ofer a").click(function (e) {
-                    $(".limitoff").css("visibility", "visible");
-                });
+            $(".ofer a").click(function (e) {
+                $(".limitoff").css("visibility", "visible");
+            });
 
-                $(".closed2").click(function (e) {
-                    $(".limitoff").css("visibility", "hidden");
-                });
+            $(".closed2").click(function (e) {
+                $(".limitoff").css("visibility", "hidden");
+            });
 
-                $(".closed").click(function (e) {
-                    $(".naving").css("visibility", "hidden");
-                    $(".naving ul").removeClass("ulactive");
-                    $(".naving ul").addClass("ulinactive");
-                });
+            $(".closed").click(function (e) {
+                $(".naving").css("visibility", "hidden");
+                $(".naving ul").removeClass("ulactive");
+                $(".naving ul").addClass("ulinactive");
+            });
 
-                $('.fb-login-btn').on('click', function (e) {
-                    e.preventDefault();
-                    $.ajax({
-                        url: '/gettingUrl',
-                        method: 'post',
-                        dataType: 'json',
-                        success: function (data) {
-                            window.location.href = data.url;
-                        }
-                    });
+            $('.fb-signup-btn').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/gettingUrl',
+                    data: {'toReturn': 'signup'},
+                    method: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = data.url;
+                    }
                 });
+            });
 
-                $(".monthly-payment-button").on('click', function () {
-                    $(".monthly-payment-form").submit();
-                });
+            $(".monthly-payment-button").on('click', function () {
+                $(".monthly-payment-form").submit();
+            });
 
-                $(".yearly-payment-button").on('click', function () {
-                    $(".yearly-payment-form").submit();
-                });
-//            });
+            $(".yearly-payment-button").on('click', function () {
+                $(".yearly-payment-form").submit();
+            });
 
             $('.popover-btn').popover();
             if ($('#granted-btn').data('active') == 'no') {
@@ -188,8 +186,8 @@
                 @if(!Session::has('fb_user_access_token'))
                 <ul>
                     <div class="closed">X</div>
-                    <li><a href="#" class="fb-login-btn">login</a></li>
-                    <li><a href="#" class="fb-signup-btn">signup</a></li>
+                    <li><a href="#" class="fb-signup-btn">login</a></li>
+                    {{--<li><a href="#" class="fb-signup-btn">signup</a></li>--}}
                 </ul>
                 @else
                     <?php $user = json_decode(session('fb_user_data')); ?>
