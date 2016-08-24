@@ -10,18 +10,27 @@
 @endsection
 @section('content')
     <?php $blastAt = (!is_null($comparison->massPosts)) ? new \Carbon\Carbon($comparison->massPosts->blastAt) : null;?>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <h1 class="hurrypost-title"
-                >A/B History <small>Created by: {{ $comparison->user->name }}</small></h1>
-            <div class="btn-left-container">
-                <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-warning">Back</a>
-                @if(!is_null($comparison->massPosts))
-                    <a href="javascript:void(0);" class="btn btn-info " data-toggle="modal" data-target="#massPagesListModal">Mass Groups</a>
-                @endif
+    <section class="heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-xs-6">
+                    <h3>A/B History
+                        <small style="font-weight:bold; color:#2ac6ec">By {{$comparison->user->name}}</small>
+                    </h3>
+                </div>
+                <div class="col-sm-2 col-xs-3">
+                    <a href="{{ redirect()->getUrlGenerator()->previous() }}"
+                       class="btn-warning pull-right">Back</a>
+                </div>
+                <div class="col-sm-2 col-xs-3">
+                    @if(!is_null($comparison->massPosts))
+                        <a href="javascript:void(0);" class="btn-warning pull-left" data-toggle="modal" data-target="#massPagesListModal">Mass Groups</a>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-warning">
@@ -79,7 +88,6 @@
             </div>
         </div>
         {{ Form::hidden('id', $comparison->id, ['id' => 'comparison_id']) }}
-    </div>
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <div id="comparison-chart-container">
@@ -94,7 +102,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="massPagesListModalLabel">Facebook Groups and Pages selected</h4>
+                    <h4 class="modal-title" id="massPagesListModalLabel">Pages / Groups Linked</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
