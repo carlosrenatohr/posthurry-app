@@ -189,6 +189,7 @@
                 <ul>
                     <div class="closed">X</div>
                     <li><a href="#" class="fb-login-btn">login</a></li>
+                    <li><a href="#" class="fb-signup-btn">signup</a></li>
                 </ul>
                 @else
                     <?php $user = json_decode(session('fb_user_data')); ?>

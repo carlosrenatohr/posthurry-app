@@ -36,7 +36,10 @@
                             <span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Page' : 'Group' }})</span>
                             {{ $comparison->post2_page_name }}
                         </td>
-                        <td>{{ date("m-d-Y h:iA", strtotime($comparison->created_at)) }}</td>
+                        <td>
+                            {{ date("m-d-Y ", strtotime($comparison->created_at)) }}<br>
+                            {{ date("h:iA", strtotime($comparison->created_at)) }}
+                        </td>
                         <td>
                             @if(!is_null($comparison->winner))
                                 NO
