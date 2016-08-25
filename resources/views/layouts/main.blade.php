@@ -188,13 +188,14 @@
                 </div>
             </header>
             <div class="naving">
-                @if(Session::has('fb_user_access_token') && !Session::has('logged_in'))
+                @if(!Session::has('fb_user_access_token') && !Session::has('logged_in'))
                 <ul>
                     <div class="closed">X</div>
                     <li><a href="#" class="fb-signup-btn">login</a></li>
                     {{--<li><a href="#" class="fb-signup-btn">signup</a></li>--}}
                 </ul>
                 @else
+                    @if(Session::has('fb_user_access_token'))
                     <?php $user = json_decode(session('fb_user_data')); ?>
                     <ul>
                         <div class="closed">X</div>
@@ -202,6 +203,13 @@
                         <div class="clearfix"></div>
                         <li style="margin: 10px 0;">Logged in as <b style="font-weight: 800;">{{ ($user->name) }}</b></li>
                     </ul>
+                    @else
+                        <ul>
+                            <div class="closed">X</div>
+                            <li><a href="#" class="fb-signup-btn">login</a></li>
+                            {{--<li><a href="#" class="fb-signup-btn">signup</a></li>--}}
+                        </ul>
+                    @endif
                 @endif
             </div>
         </div>
