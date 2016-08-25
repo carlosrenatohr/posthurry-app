@@ -29,11 +29,11 @@
                 @foreach($user->comparisons as $comparison)
                     <tr>
                         <td class="text-left col-md-4">
-                            <span style="font-weight: 800;">({{ $comparison->post1_sort == 1 ? 'Page' : 'Group' }})</span>
+{{--                            <span style="font-weight: 800;">({{ $comparison->post1_sort == 1 ? 'Page' : 'Group' }})</span>--}}
                             {{ $comparison->post1_page_name }}
                         </td>
                         <td class="text-left col-md-4">
-                            <span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Page' : 'Group' }})</span>
+{{--                            <span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Page' : 'Group' }})</span>--}}
                             {{ $comparison->post2_page_name }}
                         </td>
                         <td>
@@ -42,9 +42,9 @@
                         </td>
                         <td>
                             @if(!is_null($comparison->winner))
-                                NO
+                                No
                             @else
-                                YES
+                                YeS
                             @endif
                         </td>
                         <td>

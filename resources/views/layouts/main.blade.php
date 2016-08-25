@@ -136,6 +136,11 @@
                 })
             }
 
+            $('#scheduleBtn').on('click', function(e){
+//                $('#blastingTimeContainer').toggleClass('hide');
+                $('#blastingTimeContainer').fadeToggle(800, 'linear');
+            });
+
             $('#relogin').on('click', function(e) {
                 e.preventDefault();
 //                window.fbAsyncInit = function() {

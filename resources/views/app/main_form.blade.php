@@ -106,7 +106,7 @@
                 </div>
                 <div class="icon">
                     {{--<label class="cd-label" for="cd-textarea">Type your Status</label>--}}
-                    {!! Form::textarea('post2_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post2', 'required', 'data-control' => 'Second Post Status', 'placeholder' => "type your status"]) !!}
+                    {!! Form::textarea('post2_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post2', 'required', 'data-control' => 'Second Post Status', 'placeholder' => "Type your status"]) !!}
                 </div>
 
                 <div class="form-group">
@@ -121,12 +121,13 @@
         </label>
         <div class="spacer"></div>
         <br>
-        {{--<div class="">--}}
+        <button class="post_submit" id="scheduleBtn" type="button">Press to Schedule post</button>
+        <br>
+        <div id="blastingTimeContainer" style="display: none;">
             <label for="">When?</label>
             <input type="text" id="blastDateTime" name="blastDatetime" data-field="datetime" readonly disabled>
             <div id="blastDateTimePlugin"></div>
-        {{--</div>--}}
-        <button class="post_submit" type="button">Press to Schedule post</button>
+        </div>
     </div>
 
     <div class="add">

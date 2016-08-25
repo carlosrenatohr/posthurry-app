@@ -24942,6 +24942,7 @@ $(function() {
             //$('#blastDate').prop('disabled', false);
             //$('#blastTime').prop('disabled', false);
             $('#blastDateTime').prop('disabled', false);
+            $('#scheduleBtn').prop('disabled', false);
         } else {
             $('.massCheckbox').prop('disabled', true);
             $('.below-container .col-md-6 .panel').removeClass('panel-info').addClass('panel-default');
@@ -24950,6 +24951,7 @@ $(function() {
             //$('#blastDate').prop('disabled', true);
             //$('#blastTime').prop('disabled', true);
             $('#blastDateTime').prop('disabled', true);
+            $('#scheduleBtn').prop('disabled', true);
         }
     });
 
@@ -25045,7 +25047,7 @@ $(function() {
             if (this.checked) {
                 this.checked = false;
             }
-            alert('A maximum of 25 groups may be added.');
+            alert('A maximum of 25 Groups or Pages may be added.');
             //e.preventDefault();
         }
     });
