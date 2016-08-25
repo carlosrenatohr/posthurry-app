@@ -60,6 +60,8 @@ class PlansController extends Controller
 
         $params_string = http_build_query($params);
 
+        Log::info('param', ['params' => $params]);
+
         return $params_string;
     }
 
