@@ -28,12 +28,8 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     /**
-     * @DEPRECATED
-     * Fb routes
+     * FB routes
      */
-    // Generate a login URL
-    Route::match(['get', 'post'], '/login', 'AuthController@fbConnect');
-
     // Endpoint that is redirected to after an authentication attempt
     Route::get('/facebook/callback', 'AuthController@fbCallback');
     /**
@@ -42,12 +38,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'AccessController@index');
     Route::post('/gettingUrl', 'AccessController@getLoginUrl');
     Route::get('/authenticating', 'AccessController@fbCallback');
+    Route::get('/login', 'AccessController@login');
+    Route::get('/signup', 'AccessController@getSignup');
+    Route::post('/signup', 'AccessController@postSignup');
     Route::get('/logout', 'AccessController@logout');
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
-    Route::post('/data', 'MainController@getDataFromFB')->middleware(['fb.user']); //['fb.token', 'fb.user']
+    Route::post('/data', 'MainController@getDataFromFB'); //->middleware(['fb.user']); //['fb.token', 'fb.user']
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
     Route::group(['middleware' => ['isLoggedIn', 'fb.granted']], function () {
-        Route::match(['get', 'post'], '/posting', 'MainController@index')->middleware(['isLoggedIn']);
+        Route::match(['get', 'post'], '/posting', 'MainController@index');
         Route::get('/blasting', 'BlastingController@getBlastingOutForm');
         Route::post('/blastingOut', 'BlastingController@postBlastingOut')->name('postBlasting');
         Route::group(['prefix' => 'blasting-posts'], function () {

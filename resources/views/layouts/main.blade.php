@@ -211,12 +211,12 @@
                             href="/blasting">Blast</a></li>
                 <li class="{{ (Request::is('blasting-posts')) ? 'active' : '' }}"><a
                             href="/blasting-posts">Blast history</a></li>
-                <li class="{{ (Request::is('posting') or Request::is('posting/*')) ? 'active' : '' }}"><a
+                <li class="{{ (Request::is('posting')) ? 'active' : '' }}"><a
                             href="/posting">A/B comparison</a></li>
-                <li class="{{ (Request::is('comparison') or Request::is('comparison/*')) ? 'active' : '' }}"><a
+                <li class="{{ (Request::is('comparison')) ? 'active' : '' }}"><a
                             href="{{ url('comparison') }}">A/B history</a></li>
-                <li class="{{ Request::is('/comparison/winners') ? 'active' : '' }}"><a
-                            href="{{ url('/comparison/winners') }}">Winners</a></li>
+                <li class="{{ Request::is('comparison/winners') ? 'active' : '' }}"><a
+                            href="{{ url('comparison/winners') }}">Winners</a></li>
             </ul>
             @if (Session::has('permissions_required'))
                 <button type="button" class="btn btn-danger popover-btn pull-right" data-container="body" data-toggle="popover"
@@ -245,7 +245,7 @@
             </div>
         @endif
         @if(Session::has('error-msg'))
-            <div class="alert alert-error messages">
+            <div class="alert alert-danger messages">
                 {{  session('error-msg') }}
             </div>
         @endif

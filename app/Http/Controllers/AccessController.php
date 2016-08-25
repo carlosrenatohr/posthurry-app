@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\User;
 use Facebook\Exceptions\FacebookSDKException;
 use Illuminate\Http\Request;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
@@ -24,9 +25,39 @@ class AccessController extends Controller
         return view('layouts.main-page', ['withoutHeader' => true]);
     }
 
-    public function getLoginUrl()
+    public function login(Request $request)
     {
-        return response()->json(['url' => $this->fb->getLoginUrl()]);
+        return view('layouts.login');
+    }
+
+    public function getSignup(Request $request)
+    {
+        $user = json_decode($request->session()->get('fb_user_data'));
+        return view('layouts.signup', compact('user'));
+    }
+
+    public function postSignup(Request $request)
+    {
+        $user = $request->session()->get('fb_user_data');
+        $user = json_decode($user);
+        $user->email2 = $request->get('email2');
+        if(!$request->has('acceptTerms')) {
+            return redirect()->back()->with('error-msg', 'You must accept terms and conditions!');
+        }
+        $userFound = User::existsUser($user);
+
+        return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $userFound->name . "!");
+
+    }
+
+
+    public function getLoginUrl(Request $request)
+    {
+        $request->session()->put('linkToReturn', $request->get('toReturn'));
+        return response()->json([
+//            'url' => $this->fb->getRedirectLoginHelper()->getLoginUrl()
+            'url' => $this->fb->getLoginUrl()
+        ]);
     }
 
     public function fbCallback(Request $request)
@@ -40,7 +71,7 @@ class AccessController extends Controller
         }
         // Not token found, denied the request
         if (!$token) {
-            return redirect('/')->with('message', 'Problem authenticating!');
+            return redirect('/')->with('error-msg', 'Problem authenticating!');
         } else {
             $request->session()->put('fb_user_access_token', (string)$token);
             try {
@@ -52,9 +83,16 @@ class AccessController extends Controller
             }
         }
 
+        if (User::isNotCreated($user->id)) {
+            return redirect(url('signup'));
+        }
         if ($request->session()->has('selected_package')) {
             return redirect(url('/plans/' . $request->session()->get('selected_package')));
         }
+//        if ($request->session()->has('linkToReturn')){
+//            if (session('linkToReturn') == 'signup')
+//                return redirect('/signup')->with('useremail', $user->email);
+//        }
 
         return redirect('/blasting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name . "!"));
     }

@@ -43,6 +43,12 @@ class User extends Authenticatable
         return $user;
     }
 
+    public static function isNotCreated($fb_id) {
+        $user = self::where('facebook_user_id', $fb_id)->count();
+
+        return $user == 0;
+    }
+
     public function comparisons()
     {
         return $this->hasMany('\App\Comparison', 'user_id', 'id');
