@@ -50,6 +50,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'fb.token' => \App\Http\Middleware\Hurrypost\ValidateFbTokenMiddleware::class,
         'fb.user' => \App\Http\Middleware\Hurrypost\VerifyUserExists::class,
+        'isUserIn' => \App\Http\Middleware\Hurrypost\IsUserIn::class,
         'isLoggedIn' => \App\Http\Middleware\Hurrypost\IsLoggedIn::class,
         'fb.granted' => \App\Http\Middleware\Hurrypost\PermissionsGranted::class,
     ];

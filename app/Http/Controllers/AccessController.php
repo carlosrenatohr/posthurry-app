@@ -45,6 +45,7 @@ class AccessController extends Controller
             return redirect()->back()->with('error-msg', 'You must accept terms and conditions!');
         }
         $userFound = User::existsUser($user);
+        $request->session()->put('logged_in', $userFound->id);
 
         return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $userFound->name . "!");
 
@@ -99,6 +100,7 @@ class AccessController extends Controller
 
     public function logout(Request $request)
     {
+        $request->session()->remove('logged_in');
         $request->session()->remove('fb_user_access_token');
         $request->session()->remove('fb_user_data');
         $request->session()->remove('selected_package');

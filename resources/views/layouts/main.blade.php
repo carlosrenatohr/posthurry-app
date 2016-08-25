@@ -188,7 +188,7 @@
                 </div>
             </header>
             <div class="naving">
-                @if(!Session::has('fb_user_access_token'))
+                @if(Session::has('fb_user_access_token') && !Session::has('logged_in'))
                 <ul>
                     <div class="closed">X</div>
                     <li><a href="#" class="fb-signup-btn">login</a></li>
@@ -207,7 +207,7 @@
         </div>
     </div>
 
-    @if(Session::has('fb_user_access_token'))
+    @if(Session::has('fb_user_access_token') && Session::has('logged_in'))
     <nav>
         <div class="container">
             <ul class="nav navbar-nav">
