@@ -44,7 +44,7 @@
                 <h4>Enter your Post</h4>
 
                 <div class="icon">
-                    {!! Form::textarea('post1_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post1', 'required', 'data-control' => 'Post field', 'placeholder' => 'type your status']) !!}
+                    {!! Form::textarea('post1_text', null, ['class'=> 'message post-textarea', 'id' => 'cd-textarea-post1', 'required', 'data-control' => 'Post field', 'placeholder' => 'Type your status']) !!}
                 </div>
                 <div class="form-group">
                     {{ Form::file('post1_image', []) }}

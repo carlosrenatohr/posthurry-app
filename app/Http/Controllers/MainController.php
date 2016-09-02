@@ -137,7 +137,9 @@ class MainController extends Controller
             $blastMassJson['groups_names'] = $groups__names__string;
             $blastMassJson['pages_names'] = $pages__names__string;
             // BlastAt date
-            $blastOutTime = new \Carbon\Carbon($request->get('blastDatetime'));
+            $parts = explode('-', $request->get('blastDatetime'));
+            $newBlastDatetime = $parts[1] . '-' . $parts[0] . '-' . $parts[2];
+            $blastOutTime = new \Carbon\Carbon($newBlastDatetime);
             $blastMassJson['blastAt'] = $blastOutTime->toDateTimeString();
             $massPostRow = \App\MassPost::create($blastMassJson);
             $comparison->massPosts()->save($massPostRow);

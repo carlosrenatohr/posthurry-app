@@ -18,7 +18,6 @@
         });
     </script>
 @endsection
-
 @section('content')
     <section class="heading">
         <div class="container">
@@ -40,12 +39,13 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th>Text</th>
+                    <th>Post</th>
                     <th class="text-center"># of Pages posted</th>
                     <th class="text-center"># of Groups posted</th>
                 </tr>
                 </thead>
                 <tbody>
+                @if(count($user->blastings))
                 @foreach($user->blastings as $index => $blasting)
                     <tr id="blasting-row-{{ $index }}" data-toggle="collapse" data-target="#collapse-{{$index}}"
                         class="clickable">
@@ -92,6 +92,7 @@
                         @endif
                     </div>
                 @endforeach
+                @endif
                 </tbody>
             </table>
         </div>

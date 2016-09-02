@@ -14,10 +14,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use Vinkla\Hashids\Facades\Hashids;
 
 class PlansController extends Controller
 {
+
+    protected $fb;
+
+    public function __construct(LaravelFacebookSdklFacebookSdk $fb)
+    {
+        $this->fb = $fb;
+    }
+
     public function getIndex()
     {
         return view(
@@ -36,7 +45,8 @@ class PlansController extends Controller
             return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', $user->id));
         }
 
-        return redirect(url('/login?package=monthly'));
+        //return redirect(url('/login?package=monthly'));
+        return redirect(url($this->fb->getLoginUrl().'&package=monthly'));
     }
 
     protected function getPaypalUrl()
@@ -72,7 +82,8 @@ class PlansController extends Controller
             return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly', $user->id));
         }
 
-        return redirect(url('/login?package=yearly'));
+        //return redirect(url('/login?package=yearly'));
+        return redirect(url($this->fb->getLoginUrl().'&package=yearly'));
     }
 
     public function getIpn()
