@@ -24,6 +24,7 @@
             <div class="row">
                 <div class="col-sm-9 col-xs-8">
                     <h3>Blast History</h3>
+                    <span style="font-size: 0.85em;">Most Recent 14 Days of Blasts shown</span>
                 </div>
                 <div class="col-sm-3 col-xs-4">
                     <a href="{{ redirect()->getUrlGenerator()->previous() }}"

@@ -223,11 +223,11 @@
                 <li class="{{ (Request::is('blasting')) ? 'active' : '' }}"><a
                             href="/blasting">Blast</a></li>
                 <li class="{{ (Request::is('blasting-posts')) ? 'active' : '' }}"><a
-                            href="/blasting-posts">Blast history</a></li>
+                            href="/blasting-posts">Blast History</a></li>
                 <li class="{{ (Request::is('posting')) ? 'active' : '' }}"><a
-                            href="/posting">A/B comparison</a></li>
+                            href="/posting">A/B Contest</a></li>
                 <li class="{{ (Request::is('comparison')) ? 'active' : '' }}"><a
-                            href="{{ url('comparison') }}">A/B history</a></li>
+                            href="{{ url('comparison') }}">A/B History</a></li>
                 <li class="{{ Request::is('comparison/winners') ? 'active' : '' }}"><a
                             href="{{ url('comparison/winners') }}">Winners</a></li>
             </ul>

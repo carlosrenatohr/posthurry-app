@@ -5,6 +5,7 @@
             <div class="row">
                 <div class="col-sm-9">
                     <h3>A/B History</h3>
+                    <span style="font-size: 0.85em;">Most Recent 14 Days of Blasts shown</span>
                 </div>
                 <div class="col-sm-3">
                     <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn-warning pull-right">Back</a>

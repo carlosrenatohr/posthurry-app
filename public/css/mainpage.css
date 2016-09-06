@@ -68,7 +68,8 @@ body {font-size:16px !important; font-family:sans-serif !important;}
 .pricer {text-align:center; padding:30px 0;}
 
 
-.boxprice {width: 375px;
+.boxprice {
+    width: 450px;
     margin: 0 auto;
 }
 
