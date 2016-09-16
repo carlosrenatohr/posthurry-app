@@ -99,4 +99,8 @@
 
     {{ Form::close() }}
 
+    <div class="container">
+        <p class="bg-info">Your referral code: <a href="#">{{url('/referral',$user->referral)}}</a><br><small>You can invite your friends with this link and they can get discount for all our packages !</small></p>
+    </div>
+
 @endsection

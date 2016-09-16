@@ -10,6 +10,7 @@ use App\Blasting;
 use App\User;
 use App\Library\Helpers\MediaHelper;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,8 +29,10 @@ class BlastingController extends Controller
         return view('blasting.index', ['user' => $user]);
     }
 
-    public function getBlastingOutForm() {
-        return view('app.blasting_form');
+    public function getBlastingOutForm(Request $request) {
+        $user_id = $request->session()->get('logged_in');
+        $user = User::find($user_id);
+        return view('app.blasting_form', ['user' => $user]);
     }
 
     /**

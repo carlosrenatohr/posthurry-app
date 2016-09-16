@@ -22,7 +22,7 @@ class PlansController extends Controller
 
     protected $fb;
 
-    public function __construct(LaravelFacebookSdklFacebookSdk $fb)
+    public function __construct(LaravelFacebookSdk $fb)
     {
         $this->fb = $fb;
     }
@@ -33,19 +33,22 @@ class PlansController extends Controller
             'layouts.main-page',
             [
                 'withoutHeader' => true,
-                'custom_code' => Auth::check() ? Hashids::encode(Auth::user()->id) : 0
+                'custom_code' => Auth::check() ? Hashids::encode(Auth::user()->id) : 0,
+                'referral'=>null
             ]
         );
     }
 
-    public function getMonthly(Request $request)
+    public function getMonthly(Request $request, $discount=null)
     {
         if ($request->session()->has('fb_user_access_token')) {
             $user = json_decode($request->session()->get('fb_user_data'));
-            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', $user->id));
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', $user->id, $discount));
         }
 
         //return redirect(url('/login?package=monthly'));
+        $request->session()->put('referral', $discount);
+        $request->session()->put('package_type', 'yearly');
         return redirect(url($this->fb->getLoginUrl().'&package=monthly'));
     }
 
@@ -59,13 +62,20 @@ class PlansController extends Controller
         }
     }
 
-    protected function getPaypalParameters($package, $user_facebook_id)
+    protected function getPaypalParameters($package, $user_facebook_id, $discount)
     {
         $package_id = env(strtoupper('PAYPAL_' . $package . '_' . env('PAYPAL_ENV')));
 
         $params['custom'] = Hashids::encode($user_facebook_id);
         $params['hosted_button_id'] = $package_id;
         $params['cmd'] = "_s-xclick";
+        if($discount){
+            // check if code is valid and is not his code then set discount_rate
+            $checkReferral = User::where('referral', $discount)->first();
+            if($checkReferral && !(session()->get('logged_in') === $checkReferral->id)){
+                $params['discount_rate'] = 25;
+            }
+        }
         $params['rm'] = 1;
 
         $params_string = http_build_query($params);
@@ -75,13 +85,15 @@ class PlansController extends Controller
         return $params_string;
     }
 
-    public function getYearly(Request $request)
+    public function getYearly(Request $request, $discount=null)
     {
         if ($request->session()->has('fb_user_access_token')) {
             $user = json_decode($request->session()->get('fb_user_data'));
-            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly', $user->id));
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly', $user->id, $discount));
         }
 
+        $request->session()->put('referral', $discount);
+        $request->session()->put('package_type', 'yearly');
         //return redirect(url('/login?package=yearly'));
         return redirect(url($this->fb->getLoginUrl().'&package=yearly'));
     }

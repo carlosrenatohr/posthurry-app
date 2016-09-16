@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web']], function () {
      * Main actions routes
      */
     Route::get('/', 'AccessController@index');
+    Route::get('/referral/{referral?}', 'AccessController@referral');
     Route::post('/gettingUrl', 'AccessController@getLoginUrl');
     Route::get('/authenticating', 'AccessController@fbCallback');
     Route::get('/login', 'AccessController@login');
@@ -78,8 +79,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'plans'], function () {
         Route::post('/ipn', ['as' => 'plans.ipn', 'uses' => 'PlansController@postIpn']);
-        Route::get('/monthly', ['as' => 'plans.monthly', 'uses' => 'PlansController@getMonthly']);
-        Route::get('/yearly', ['as' => 'plans.yearly', 'uses' => 'PlansController@getYearly']);
+        Route::get('/monthly/{discount?}', ['as' => 'plans.monthly', 'uses' => 'PlansController@getMonthly']);
+        Route::get('/yearly/{discount?}', ['as' => 'plans.yearly', 'uses' => 'PlansController@getYearly']);
         Route::get('/', ['as' => 'plans', 'uses' => 'PlansController@getIndex']);
     });
 

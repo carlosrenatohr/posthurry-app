@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hashids\Hashids;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,9 @@ class User extends Authenticatable
             $new_user = (array)$data;
             $new_user['facebook_user_id'] = $new_user['id'];
             $new_user['access_token'] = $token;
+            $hashids = new Hashids(time(), 15);  // generate a referral code
+            $referral = $hashids->encode(time());
+            $new_user['referral'] = $referral;
             $new_user = array_except($new_user, ['id']);
             $user = self::create($new_user);
         }

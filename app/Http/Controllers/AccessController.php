@@ -21,8 +21,21 @@ class AccessController extends Controller
 //        if ($request->session()->has('fb_user_access_token'))
 //            return redirect('/posting');
 //        else
-        
-        return view('layouts.main-page', ['withoutHeader' => true]);
+
+        return view('layouts.main-page', ['withoutHeader' => true, 'referral'=>null]);
+    }
+
+    public function referral($referral=null)
+    {
+        if($referral){
+            $checkReferral = User::where('referral', $referral)->first();
+            if($checkReferral && !(session()->get('logged_in') === $checkReferral->id)){
+                return view('layouts.main-page', ['withoutHeader' => true, 'referral'=>$referral]);
+            }
+            return view('layouts.main-page', ['withoutHeader' => true, 'referral'=>null]);
+        }
+
+        return view('layouts.main-page', ['withoutHeader' => true, 'referral'=>null]);
     }
 
     public function login(Request $request)
@@ -47,7 +60,18 @@ class AccessController extends Controller
         $userFound = User::existsUser($user);
         $request->session()->put('logged_in', $userFound->id);
 
-        return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $userFound->name . "!");
+        // check if user comes with referral code
+        if($request->session()->get('referral') && $request->session()->get('package_type')){
+            $referral = $request->session()->get('referral');
+            $package = $request->session()->get('package_type');
+            $checkReferral = User::where('referral', $referral)->get();
+            if(count($checkReferral)>0){
+                return redirect('plans/'.$package.'/'.$referral);
+            }
+            return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $userFound->name . "!");
+        }else{
+            return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $userFound->name . "!");
+        }
 
     }
 

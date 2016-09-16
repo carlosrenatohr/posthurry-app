@@ -70,6 +70,12 @@
             overflow: hidden;
             background-color: #e5e5e5;
         }
+        .bg-info {
+            background-color: #d9edf7;
+        }
+        .bg-primary, .bg-info{
+            padding: 15px;
+        }
     </style>
     @yield('others-css')
     {{--JS--}}
