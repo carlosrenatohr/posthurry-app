@@ -21,7 +21,7 @@ class AccessController extends Controller
 //        if ($request->session()->has('fb_user_access_token'))
 //            return redirect('/posting');
 //        else
-        
+
         return view('layouts.main-page', ['withoutHeader' => true]);
     }
 

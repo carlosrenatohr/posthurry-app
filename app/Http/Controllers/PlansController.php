@@ -22,7 +22,7 @@ class PlansController extends Controller
 
     protected $fb;
 
-    public function __construct(LaravelFacebookSdklFacebookSdk $fb)
+    public function __construct(LaravelFacebookSdk $fb)
     {
         $this->fb = $fb;
     }
@@ -38,6 +38,17 @@ class PlansController extends Controller
         );
     }
 
+    public function getTrial(Request $request)
+    {
+        if ($request->session()->has('fb_user_access_token')) {
+            echo "trial";
+            return;
+        }
+
+        //return redirect(url('/login?package=monthly'));
+        return redirect(url($this->fb->getLoginUrl() . '&package=trial'));
+    }
+
     public function getMonthly(Request $request)
     {
         if ($request->session()->has('fb_user_access_token')) {
@@ -46,7 +57,7 @@ class PlansController extends Controller
         }
 
         //return redirect(url('/login?package=monthly'));
-        return redirect(url($this->fb->getLoginUrl().'&package=monthly'));
+        return redirect(url($this->fb->getLoginUrl() . '&package=monthly'));
     }
 
     protected function getPaypalUrl()
@@ -83,7 +94,7 @@ class PlansController extends Controller
         }
 
         //return redirect(url('/login?package=yearly'));
-        return redirect(url($this->fb->getLoginUrl().'&package=yearly'));
+        return redirect(url($this->fb->getLoginUrl() . '&package=yearly'));
     }
 
     public function getIpn()

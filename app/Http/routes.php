@@ -80,6 +80,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/ipn', ['as' => 'plans.ipn', 'uses' => 'PlansController@postIpn']);
         Route::get('/monthly', ['as' => 'plans.monthly', 'uses' => 'PlansController@getMonthly']);
         Route::get('/yearly', ['as' => 'plans.yearly', 'uses' => 'PlansController@getYearly']);
+        Route::get('/trial', ['as' => 'plans.trial', 'uses' => 'PlansController@getTrial']);
         Route::get('/', ['as' => 'plans', 'uses' => 'PlansController@getIndex']);
     });
 
