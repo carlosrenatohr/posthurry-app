@@ -39,7 +39,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/gettingUrl', 'AccessController@getLoginUrl');
     Route::get('/authenticating', 'AccessController@fbCallback');
     Route::get('/login', 'AccessController@login');
-    Route::get('/signup', 'AccessController@getSignup')->middleware('isUserIn');
+    Route::get('/signup', 'AccessController@getSignup');
     Route::post('/signup', 'AccessController@postSignup');
     Route::get('/logout', 'AccessController@logout');
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
