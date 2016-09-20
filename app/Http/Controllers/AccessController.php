@@ -125,6 +125,9 @@ class AccessController extends Controller
         $request->session()->remove('fb_user_access_token');
         $request->session()->remove('fb_user_data');
         $request->session()->remove('selected_package');
+
+        Auth::logout();
+
         return redirect('/');
     }
 
