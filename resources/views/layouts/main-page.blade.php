@@ -34,7 +34,7 @@
                     <li>Post to hundreds of Groups daily!</li>
                 </ul>
                 <div class="teoprise">
-                    <a href="{{ url('?signup?package=monthly') }}">$19 per month</a>
+                    <a href="{{ url('signup?package=monthly') }}">$19 per month</a>
                     <a href="{{ url('signup?package=yearly') }}">$189 per year</a>
                 </div>
                 <div class="ofer"><a href="#">Limited Time Offer Here!!!</a></div>
