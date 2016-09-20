@@ -121,12 +121,10 @@ class AccessController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->remove('logged_in');
-        $request->session()->remove('fb_user_access_token');
-        $request->session()->remove('fb_user_data');
-        $request->session()->remove('selected_package');
-
+        
         Auth::logout();
+
+        $request->session()->flush();
 
         return redirect('/');
     }
