@@ -29,6 +29,7 @@ class BlastingController extends Controller
     }
 
     public function getBlastingOutForm() {
+        echo "a"; exit;
         return view('app.blasting_form');
     }
 

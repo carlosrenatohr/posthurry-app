@@ -23,7 +23,8 @@
                     we call them “blasts” because that’s exactly what they do! With PostHurry, the possibilities are
                     endless - use them to promote yourself, your business or host a contest. It's easy!</p>
                 <h4>One Size Fits All plan</h4>
-                <a href="{{ url('plans/trial') }}">Free 7 Day Trial</a>
+                <a href="{{ url('signup?package=trial') }}">Free 7 Day Trial</a>
+
 
                 <ul>
                     <li>Easy and intuitive!</li>
@@ -33,8 +34,8 @@
                     <li>Post to hundreds of Groups daily!</li>
                 </ul>
                 <div class="teoprise">
-                    <a href="{{ url('plans/monthly') }}">$19 per month</a>
-                    <a href="{{ url('plans/yearly') }}">$189 per year</a>
+                    <a href="{{ url('?signup?package=monthly') }}">$19 per month</a>
+                    <a href="{{ url('signup?package=yearly') }}">$189 per year</a>
                 </div>
                 <div class="ofer"><a href="#">Limited Time Offer Here!!!</a></div>
                 <p>It’s easy! PostHurry’s interface is easy and effective. In your PostHurry account, you can view

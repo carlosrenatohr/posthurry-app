@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use Facebook\Exceptions\FacebookSDKException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 
 class AccessController extends Controller
@@ -32,25 +34,46 @@ class AccessController extends Controller
 
     public function getSignup(Request $request)
     {
-        $user = json_decode($request->session()->get('fb_user_data'));
-        return view('layouts.signup', compact('user'));
+        $package = 'trial';
+
+        if( $request->has( 'package' ) ) {
+             $package = $request->get( 'package' );
+        }
+
+         return view('layouts.signup', compact('user', 'package'));
     }
 
     public function postSignup(Request $request)
     {
-        $user = $request->session()->get('fb_user_data');
-        $user = json_decode($user);
-        $user->email2 = $request->get('email2');
         if(!$request->has('acceptTerms')) {
             return redirect()->back()->with('error-msg', 'You must accept terms and conditions!');
-        }
-        $userFound = User::existsUser($user);
-        $request->session()->put('logged_in', $userFound->id);
+}
+        $userFound = User::where( 'email', $request->get( 'email' ) )->get();
 
-        return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $userFound->name . "!");
+        if( ! $userFound->isEmpty() ){
+            return redirect()->back()->with( 'error-msg', 'Your email has been registered, please do login instead' );
+        }
+        
+        $user =  $this->createUsers( $request->all() );
+
+        Auth::loginUsingId( $user->id );
+
+        $request->session()->put('logged_in', $user->id);
+
+        return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $user->name . "!");
 
     }
 
+    protected function createUsers( $data ) {
+        $user = new User();
+        $user->name              = $data[ 'name' ];
+        $user->email             = $data[ 'email' ];
+        $user->password          = Hash::make( $data[ 'password' ] );
+        $user->active_package    = $data[ 'package' ];
+        $user->save();
+
+        return $user;
+    }
 
     public function getLoginUrl(Request $request)
     {

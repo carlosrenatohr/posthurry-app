@@ -50,14 +50,14 @@ return [
     'default_scope' => [
         'email',
         'public_profile',
-        'user_groups',
-        'user_managed_groups',
-        'publish_pages',
-        'user_likes',
-        'manage_pages',
+//        'user_groups',
+//        'user_managed_groups',
+//        'publish_pages',
+//        'user_likes',
+//        'manage_pages',
 //        'pages_show_list',
 //        'pages_manage_cta',
-        'publish_actions',
+//        'publish_actions',
     ],
     /*
      * The default endpoint that Facebook will redirect to after
