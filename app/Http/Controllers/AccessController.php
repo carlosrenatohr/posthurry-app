@@ -107,15 +107,7 @@ class AccessController extends Controller
             }
         }
 
-        if (User::isNotCreated($user->id)) {
-            return redirect(url('signup'));
-        }
-        $userFound = User::existsUser($user);
-        $request->session()->put('logged_in', $userFound->id);
-        if ($request->session()->has('selected_package')) {
-            return redirect(url('/plans/' . $request->session()->get('selected_package')));
-        }
-
+        
         return redirect('/blasting')->with('success-msg', htmlentities("Successfully logged in with Facebook, Welcome " . $user->name . "!"));
     }
 

@@ -55,8 +55,8 @@ return [
         'publish_pages',
         'user_likes',
         'manage_pages',
-        'pages_show_list',
-        'pages_manage_cta',
+        //'pages_show_list',
+        //'pages_manage_cta',
         'publish_actions',
     ],
     /*
