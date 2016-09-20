@@ -40,25 +40,24 @@ class PlansController extends Controller
 
     public function getTrial(Request $request)
     {
-        if ($request->session()->has('fb_user_access_token')) {
-            echo "trial";
-            return;
-        }
-
-        //return redirect(url('/login?package=monthly'));
-        return redirect(url($this->fb->getLoginUrl() . '&package=trial'));
+        return redirect(url('/blasting');
     }
 
     public function getMonthly(Request $request)
     {
-        if ($request->session()->has('fb_user_access_token')) {
-            $user = json_decode($request->session()->get('fb_user_data'));
-            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', $user->id));
+        if( Auth::check() ) {
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', Auth::user()->id));
         }
-
-        //return redirect(url('/login?package=monthly'));
-        return redirect(url($this->fb->getLoginUrl() . '&package=monthly'));
     }
+
+    public function getYearly(Request $request)
+    {
+        if( Auth::check() ) {
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly', Auth::user()->id));
+        }
+    }
+
+   
 
     protected function getPaypalUrl()
     {
@@ -84,17 +83,6 @@ class PlansController extends Controller
         Log::info('param', ['params' => $params]);
 
         return $params_string;
-    }
-
-    public function getYearly(Request $request)
-    {
-        if ($request->session()->has('fb_user_access_token')) {
-            $user = json_decode($request->session()->get('fb_user_data'));
-            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly', $user->id));
-        }
-
-        //return redirect(url('/login?package=yearly'));
-        return redirect(url($this->fb->getLoginUrl() . '&package=yearly'));
     }
 
     public function getIpn()
