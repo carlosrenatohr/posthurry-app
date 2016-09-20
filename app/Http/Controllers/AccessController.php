@@ -65,7 +65,7 @@ class AccessController extends Controller
             return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $user->name . "!");
         } else {
 
-            return redirect('/plans/' . $request->get( 'package' );
+            return redirect('/plans/' . $request->get( 'package' ) );
         }
     }
 
