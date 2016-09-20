@@ -60,8 +60,13 @@ class AccessController extends Controller
 
         $request->session()->put('logged_in', $user->id);
 
-        return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $user->name . "!");
+        if( $request->get( 'package' ) == 'trial' ) {
+    
+            return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $user->name . "!");
+        } else {
 
+            return redirect('/plans/' . $request->get( 'package' );
+        }
     }
 
     protected function createUsers( $data ) {
