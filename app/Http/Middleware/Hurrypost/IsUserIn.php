@@ -3,6 +3,7 @@
 namespace App\Http\Middleware\Hurrypost;
 
 use Closure;
+use Auth;
 
 class IsUserIn
 {
@@ -15,7 +16,7 @@ class IsUserIn
      */
     public function handle($request, Closure $next)
     {
-        if($request->session()->has('logged_in')) {
+        if($request->session()->has('logged_in') || !Auth::check() ) {
             return redirect('/');
         }
         return $next($request);

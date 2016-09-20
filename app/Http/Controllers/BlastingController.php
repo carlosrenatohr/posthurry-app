@@ -6,6 +6,7 @@
  * Time: 12:37 AM
  */
 namespace App\Http\Controllers;
+
 use App\Blasting;
 use App\User;
 use App\Library\Helpers\MediaHelper;
@@ -23,14 +24,24 @@ class BlastingController extends Controller
     }
 
     public function index(Request $request) {
-        $user_id = $request->session()->get('logged_in');
+        $user_id = Auth::user()->id;
+
         $user = User::find($user_id);
         return view('blasting.index', ['user' => $user]);
     }
 
-    public function getBlastingOutForm() {
-        echo "a"; exit;
-        return view('app.blasting_form');
+    public function getBlastingOutForm( Request $request ) {
+
+        $fb = true;
+        if( !$request->session()->has('fb_user_access_token')){
+             $fb_login_url = $this->fb->getLoginUrl();
+             $request->session()->flash( 'error-msg', 'You must connected with facebook account to get list of groups and pages. <a href="'.$fb_login_url.'" class="btn btn-primary">Connect with facebook</a>' );
+
+             $fb = false;
+        }
+
+        return view('app.blasting_form', compact('fb'));
+;
     }
 
     /**

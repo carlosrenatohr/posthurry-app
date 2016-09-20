@@ -45,7 +45,7 @@ Route::group(['middleware' => ['web']], function () {
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
     Route::post('/data', 'MainController@getDataFromFB'); //->middleware(['fb.user']); //['fb.token', 'fb.user']
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
-    Route::group(['middleware' => ['isLoggedIn', 'fb.granted']], function () {
+    Route::group(['middleware' => ['isLoggedIn']], function () {
         Route::match(['get', 'post'], '/posting', 'MainController@index');
         Route::get('/blasting', 'BlastingController@getBlastingOutForm');
         Route::post('/blastingOut', 'BlastingController@postBlastingOut')->name('postBlasting');

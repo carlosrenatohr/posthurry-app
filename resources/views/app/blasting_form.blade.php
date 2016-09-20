@@ -37,6 +37,8 @@
     </style>
 @endsection
 @section('content')
+
+@if(isset($fb) && $fb == true)
     {!! Form::open(['url' => route('postBlasting'), 'method' => 'post', 'class' => '', 'enctype' => 'multipart/form-data'])!!}
     <div class="container pricer">
         <div class="row">
@@ -98,5 +100,5 @@
     </div>
 
     {{ Form::close() }}
-
+@endif
 @endsection

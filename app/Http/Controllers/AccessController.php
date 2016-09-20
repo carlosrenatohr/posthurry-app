@@ -20,10 +20,6 @@ class AccessController extends Controller
 
     public function index(Request $request)
     {
-//        if ($request->session()->has('fb_user_access_token'))
-//            return redirect('/posting');
-//        else
-
         return view('layouts.main-page', ['withoutHeader' => true]);
     }
 
@@ -35,6 +31,10 @@ class AccessController extends Controller
     public function getSignup(Request $request)
     {
         $package = 'trial';
+
+        if( Auth::check()){
+            return redirect('/blasting');
+        }
 
         if( $request->has( 'package' ) ) {
              $package = $request->get( 'package' );

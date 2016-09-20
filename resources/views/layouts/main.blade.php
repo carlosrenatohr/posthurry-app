@@ -188,34 +188,22 @@
                 </div>
             </header>
             <div class="naving">
-                @if(!Session::has('fb_user_access_token') && !Session::has('logged_in'))
-                <ul>
-                    <div class="closed">X</div>
-                    <li><a href="#" class="fb-signup-btn">login</a></li>
-                    {{--<li><a href="#" class="fb-signup-btn">signup</a></li>--}}
-                </ul>
-                @else
-                    @if(Session::has('fb_user_access_token'))
-                    <?php $user = json_decode(session('fb_user_data')); ?>
                     <ul>
-                        <div class="closed">X</div>
-                        <li class="pull-right"><a href="{{ url('/logout') }}">logout</a></li>
-                        <div class="clearfix"></div>
-                        <li style="margin: 10px 0;">Logged in as <b style="font-weight: 800;">{{ ($user->name) }}</b></li>
+                        @if( Auth::check() )
+                        <li class='pull-right'>
+                            <a href='{{ url('/logout') }}'>logout</a>
+                        </li>
+                        @else
+                        <li class='pull-right'>
+                            <a href='{{ url('/login') }}'>login</a>
+                        </li>
+                        @endif
                     </ul>
-                    @else
-                        <ul>
-                            <div class="closed">X</div>
-                            <li><a href="#" class="fb-signup-btn">login</a></li>
-                            {{--<li><a href="#" class="fb-signup-btn">signup</a></li>--}}
-                        </ul>
-                    @endif
-                @endif
             </div>
         </div>
     </div>
 
-    @if(Session::has('fb_user_access_token') && Session::has('logged_in'))
+    @if(Session::has('fb_user_access_token'))
     <nav>
         <div class="container">
             <ul class="nav navbar-nav">
@@ -257,9 +245,10 @@
                 {{  session('success-msg') }}
             </div>
         @endif
-        @if(Session::has('error-msg'))
+
+        @if(session('error-msg'))
             <div class="alert alert-danger messages">
-                {{  session('error-msg') }}
+                {!!  session('error-msg') !!}
             </div>
         @endif
         <div class="container-fluid">

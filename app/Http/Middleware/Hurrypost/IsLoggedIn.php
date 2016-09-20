@@ -3,6 +3,7 @@
 namespace App\Http\Middleware\Hurrypost;
 
 use Closure;
+use Auth;
 
 class IsLoggedIn
 {
@@ -15,7 +16,7 @@ class IsLoggedIn
      */
     public function handle($request, Closure $next)
     {
-        if(!$request->session()->has('fb_user_access_token')) {
+        if(!Auth::check()) {
             return redirect('/');
         }
         return $next($request);
