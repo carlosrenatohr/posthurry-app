@@ -40,7 +40,7 @@ class PlansController extends Controller
 
     public function getTrial(Request $request)
     {
-        return redirect(url('/blasting');
+        return redirect(url('/blasting'));
     }
 
     public function getMonthly(Request $request)
