@@ -23,9 +23,25 @@ class AccessController extends Controller
         return view('layouts.main-page', ['withoutHeader' => true]);
     }
 
-    public function login(Request $request)
+    public function getLogin(Request $request)
     {
         return view('layouts.login');
+    }
+
+    public function postLogin(Request $request)
+    {
+        if( Auth::attempt( 
+                [
+                    'email'      => $request->get( 'email' ),
+                    'password'   => $request->get( 'password' )
+                ] 
+            ) 
+        )
+        {
+            return redirect( url( 'blasting' ) );
+        }
+
+        return redirect()->back()->with( 'error-msg', "email and password doesn't match" );
     }
 
     public function getSignup(Request $request)

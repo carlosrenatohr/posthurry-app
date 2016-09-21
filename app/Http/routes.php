@@ -38,7 +38,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'AccessController@index');
     Route::post('/gettingUrl', 'AccessController@getLoginUrl');
     Route::get('/authenticating', 'AccessController@fbCallback');
-    Route::get('/login', 'AccessController@login');
+    Route::get('/login', 'AccessController@getLogin');
+    Route::post('/login', 'AccessController@postLogin');
     Route::get('/signup', 'AccessController@getSignup');
     Route::post('/signup', 'AccessController@postSignup');
     Route::get('/logout', 'AccessController@logout');
