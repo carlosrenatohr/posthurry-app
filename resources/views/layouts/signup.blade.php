@@ -3,6 +3,7 @@
 <section class="signup pricer">
     <div class="container">
         {!! Form::open(['url' => 'signup', 'method' => 'post', 'class' => 'registration'])!!}
+            {{ csrf_field() }}
             <h2>Registration Screen</h2>
             <div class="field">
                 <input type="text" name="name" placeholder="your name">
