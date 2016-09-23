@@ -111,7 +111,7 @@
                                 @if(is_null($comparison->massPosts->posts_published))
                                     Will blast out at {{ $blastAt->format('d-m-Y h:iA') }}
                                 @else
-                                    Blasted Out! ({{ $blastAt->format('d-m-Y h:iA') }})
+                                    Blasted Out! ({{ $blastAt->format('m-d-Y h:iA') }})
                                 @endif
                             </h4>
                             <p>Press the page link to check your post.</p>

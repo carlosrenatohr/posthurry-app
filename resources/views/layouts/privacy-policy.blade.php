@@ -26,10 +26,17 @@
                     <li>i. Other information submitted by you or your organizational representatives via various methods (phone, email, online forms, surveys, in-person meetings, etc).</li>
                     <li>j. Your billing address and any necessary other information to complete any financial transaction, and </li>when making purchases through the Services, we may also collect your credit card or PayPal information.
                     <li>k. User generated content, such as messages, posts, comments, pages, profiles, images, feeds or </li>communications exchanged or sent on all platforms.
-                    <li>l. Images or other files that you may publish via our Services.</li>
-                    <li>m. Information we may receive relating to communications you send us, such as queries or comments </li>concerning our Services.
-                    <li>n. Information relating to an individual’s real time location.</li>
-                    <li>o. PostHurry also automatically collects and receives certain information from your computer or mobile device, including the activities you perform on our Website, the Platforms, and the Applications, the type of hardware and software you are using (for example, your operating system or browser), and information obtained from cookies. For example, each time you visit the Website or otherwise use the Services, we automatically collect your IP address, browser and device type, access times, the web page from which you came, the regions from which you navigate the web page, and the web page(s) you access (as applicable).</li>
+                    <li>l. We offer the following Facebook permissions to use the PostHurry website
+                        <ul>
+                            <li>i. user_groups and user_managed_groups: To get info about groups of users and display submitted actions to post to Facebook Groups and Pages.</li>
+                            <li>ii. user_likes and manage_pages: To get info about pages where users are involved and display our actions to post to Facebook Pages</li>
+                            <li>iii. publish_pages: Special permission to post on Facebook as a page, when we Blast out or make a Contest to make a comparison to pages</li>
+                            <li>iiii. publish_actions: Required to make posts on the Pages and Groups timelines from users.</li>
+                         </ul>
+                    <li>m. Images or other files that you may publish via our Services.</li>
+                    <li>n. Information we may receive relating to communications you send us, such as queries or comments </li>concerning our Services.
+                    <li>o. Information relating to an individual’s real time location.</li>
+                    <li>p. PostHurry also automatically collects and receives certain information from your computer or mobile device, including the activities you perform on our Website, the Platforms, and the Applications, the type of hardware and software you are using (for example, your operating system or browser), and information obtained from cookies. For example, each time you visit the Website or otherwise use the Services, we automatically collect your IP address, browser and device type, access times, the web page from which you came, the regions from which you navigate the web page, and the web page(s) you access (as applicable).</li>
                 </ul>
             </ol>
 
