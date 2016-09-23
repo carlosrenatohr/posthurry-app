@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
-use Auth;
 use App\User;
 use Facebook\Exceptions\FacebookSDKException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 
 class AccessController extends Controller

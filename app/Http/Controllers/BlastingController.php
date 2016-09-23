@@ -11,6 +11,7 @@ use App\Blasting;
 use App\User;
 use App\Library\Helpers\MediaHelper;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use Symfony\Component\HttpFoundation\Request;
 
