@@ -41,7 +41,7 @@ class AccessController extends Controller
             return redirect( url( 'blasting' ) );
         }
 
-        return redirect()->back()->with( 'error-msg', "email and password doesn't match" );
+        return redirect()->back()->with( 'error-msg', 'The email address and password do not match.' );
     }
 
     public function getSignup(Request $request)
