@@ -12,7 +12,7 @@
     <div class="col-md-8 col-md-offset-2">
         <h1 class="h1-simplepage pull-left">Terms of Service</h1>
         <div class="simplepage-content" id="faq-content">
-            <h2>PostHurry Terms of Service <small>Last modified September 7, 2016</small></h2>
+            <h2>PostHurry Terms of Service</h2>
 
             <p>
                 Welcome to PostHurry. These terms and conditions (“Terms of Service” or “Agreement”) govern your access to and use of the products and services offered by PostHurry, (“PostHurry”) accessible via the website, www.getposthurry.com or posthurry.com, including successor domain names or sites as well, and any and all information, text, graphics, photos, or other materials uploaded, downloaded, or appearing on the Services (as defined below).
