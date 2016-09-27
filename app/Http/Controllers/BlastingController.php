@@ -113,7 +113,7 @@ class BlastingController extends Controller
             'pages_id' => implode('\,/', $pages),
             'pages_names' => $pages__names__string,
             'pages_published_id' => $pages__posts_id_string,
-            'user_id' => $request->session()->get('logged_in'),
+            'user_id' => Auth::user()->id,
         ]);
 
         return redirect('/blasting-posts')->with('success-msg', 'Blasting out your post successfully!');
