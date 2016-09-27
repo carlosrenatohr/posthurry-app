@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Comparison;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use App\Library\Helpers\MediaHelper;
@@ -123,7 +124,7 @@ class MainController extends Controller
         $post2_post_id = json_decode($post2_post_id);
         $input['post2_post_id'] = ($post2_has_image) ? $post2_post_id->post_id : $post2_post_id->id;
         // Getting user id to store
-        $input['user_id'] = $request->session()->get('logged_in');
+        $input['user_id'] = Auth::user()->id;
         $comparison = Comparison::create($input);
         // Multiple groups/pages selected by user to post after comparison
         if ($request->has('blastMassChkbox')) {
