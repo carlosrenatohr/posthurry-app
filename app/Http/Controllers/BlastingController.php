@@ -36,7 +36,7 @@ class BlastingController extends Controller
         $fb = true;
         if( !$request->session()->has('fb_user_access_token')){
              $fb_login_url = $this->fb->getLoginUrl();
-             $request->session()->flash( 'error-msg', 'You must connected with facebook account to get list of groups and pages. <a href="'.$fb_login_url.'" class="btn btn-primary">Connect with facebook</a>' );
+             $request->session()->flash( 'error-msg', 'Connect your Facebook account to view your Groups and Pages. <a href="'.$fb_login_url.'" class="btn btn-primary">Connect with facebook.</a>' );
 
              $fb = false;
         }
