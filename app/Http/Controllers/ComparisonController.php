@@ -5,6 +5,7 @@ use App\Comparison_data;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Library\Helpers\MediaHelper;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
@@ -21,7 +22,7 @@ class ComparisonController extends Controller
     //
     public function index(Request $request)
     {
-        $user_id = $request->session()->get('logged_in');
+        $user_id = Auth::user()->id;
         $user = User::find($user_id);
         return view('comparison.index', ['user' => $user]);
     }
@@ -41,7 +42,7 @@ class ComparisonController extends Controller
 
 
     public function getWinners(Request $request) {
-        $user_id = $request->session()->get('logged_in');
+        $user_id = Auth::user()->id;
         $winners = $this->comparison->where('user_id', $user_id)->whereNotNull('winner')->get();
         return view('comparison.winners', ['comparison' => $winners]);
     }
