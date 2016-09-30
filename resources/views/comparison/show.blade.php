@@ -47,7 +47,7 @@
                 @if(!is_null($comparison->massPosts))
                     <p class="blastTimeTitle">
                         @if(is_null($comparison->massPosts->posts_published))
-                            will blast out at {{ $blastAt->format('d-m-Y h:iA') }}
+                            will blast out at {{ $blastAt->format('m-d-Y h:iA') }}
                         @else
                             Blasted Out!
                         @endif
@@ -109,7 +109,7 @@
                         <div class="col-md-12">
                             <h4 class="blastTimeTitle">
                                 @if(is_null($comparison->massPosts->posts_published))
-                                    Will blast out at {{ $blastAt->format('d-m-Y h:iA') }}
+                                    Will blast out at {{ $blastAt->format('m-d-Y h:iA') }}
                                 @else
                                     Blasted Out! ({{ $blastAt->format('m-d-Y h:iA') }})
                                 @endif

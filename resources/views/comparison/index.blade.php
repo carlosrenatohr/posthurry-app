@@ -45,7 +45,7 @@
                             @if(!is_null($comparison->winner))
                                 No
                             @else
-                                YeS
+                                Yes
                             @endif
                         </td>
                         <td>
