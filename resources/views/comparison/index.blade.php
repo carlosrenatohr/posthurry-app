@@ -30,12 +30,10 @@
                 @foreach($user->comparisons as $comparison)
                     <tr>
                         <td class="text-left col-md-4">
-{{--                            <span style="font-weight: 800;">({{ $comparison->post1_sort == 1 ? 'Page' : 'Group' }})</span>--}}
-                            {{ $comparison->post1_page_name }}
+                           <a href='{{ $comparison->post1_post_id }}'> {{ $comparison->post1_page_name }}</a>
                         </td>
                         <td class="text-left col-md-4">
-{{--                            <span style="font-weight: 800;">({{ $comparison->post2_sort  == 1 ? 'Page' : 'Group' }})</span>--}}
-                            {{ $comparison->post2_page_name }}
+                            <a href='{{ $comparison->post2_post_id }}'>{{ $comparison->post2_page_name }}</a>
                         </td>
                         <td>
                             {{ date("m-d-Y ", strtotime($comparison->created_at)) }}<br>
