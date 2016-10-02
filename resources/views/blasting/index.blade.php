@@ -71,7 +71,7 @@
                             @foreach($blasting->groups as $idx => $group)
                             <ul class="list-unstyled" id="">
                                 <li> {{ $group }}
-                                    <a href="https://fb.com/{{ $blasting->groups_posts[$idx] }}"
+                                    <a href="https://fb.com/{{ $blasting->groups_posts[$idx] }}" target="_blank"
                                        class="btn btn-success" style="background-color: #3B5998;">Check it</a>
                                 </li>
                                 <br>
@@ -84,7 +84,7 @@
                             @foreach($blasting->pages as $idx => $page)
                             <ul class="list-unstyled" id="">
                                 <li> {{ $page }}
-                                    <a href="https://fb.com/{{ $blasting->pages_posts[$idx] }}"
+                                    <a href="https://fb.com/{{ $blasting->pages_posts[$idx] }}" target="_blank"
                                        class="btn btn-success" style="background-color: #3B5998;">Check it</a>
                                 </li>
                                 <br>

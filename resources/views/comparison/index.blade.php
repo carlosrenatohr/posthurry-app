@@ -30,10 +30,12 @@
                 @foreach($user->comparisons as $comparison)
                     <tr>
                         <td class="text-left col-md-4">
-                           <a href='http://facebook.com/{{ $comparison->post1_post_id }}'> {{ $comparison->post1_page_name }}</a>
+                           <a href='http://facebook.com/{{ $comparison->post1_post_id }}'
+                              target="_blank"> {{ $comparison->post1_page_name }}</a>
                         </td>
                         <td class="text-left col-md-4">
-                            <a href='http://facebook.com/{{ $comparison->post2_post_id }}'>{{ $comparison->post2_page_name }}</a>
+                            <a href='http://facebook.com/{{ $comparison->post2_post_id }}'
+                               target="_blank">{{ $comparison->post2_page_name }}</a>
                         </td>
                         <td>
                             {{ date("m-d-Y ", strtotime($comparison->created_at)) }}<br>

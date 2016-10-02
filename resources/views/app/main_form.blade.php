@@ -139,10 +139,10 @@
             <div class="row cd-form">
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="margin:0;">
                             <h3 class="panel-title">Groups</h3>
                         </div>
-                        <div class="panel-body groups blasting-form" style="max-height:400px;overflow-y: scroll;">
+                        <div class="panel-body groups blasting-form" style="max-height:400px;overflow-y: scroll;margin:0 auto;">
                             <div class="alert alert-warning">
                                 <b>Selected:</b>
                                 <p></p>
@@ -152,10 +152,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="margin:0;">
                             <h3 class="panel-title">Pages</h3>
                         </div>
-                        <div class="panel-body pages blasting-form" style="max-height:400px;overflow-y: scroll;">
+                        <div class="panel-body pages blasting-form" style="max-height:400px;overflow-y: scroll;margin:0 auto;">
                             <div class="alert alert-warning">
                                 <b>Selected:</b>
                                 <p></p>
