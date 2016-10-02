@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $SchedulerBlasting = function (LaravelFacebookSdk $fb) {
+            var_dump(date('Y-m-d h:i:s') . "\n\n");
             foreach (User::all() as $user) {
                 $token = $user->access_token;
                 if(!is_null($token)) {
@@ -71,9 +72,8 @@ class Kernel extends ConsoleKernel
         };
 
         $schedule->call($SchedulerBlasting)
-            ->everyMinute();
-//        ->everyFiveMinutes();
-//        ->hourly();
+//            ->everyFiveMinutes();
+            ->cron('*/6 * * * * *');
     }
 
     private function publishInMass($comparison, $numberOfWinnerPost, $token, $fb)
