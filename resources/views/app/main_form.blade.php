@@ -3,6 +3,14 @@
     {{--    <script src="{{ asset('js/access.js') }}"></script>--}}
     <script src="{{ asset('js/init.js') }}"></script>
 @endsection
+@section('others-css')
+    <style>
+        .postNumberTitle {
+            font-size: 20px;
+            font-weight: 800;
+        }
+    </style>
+@endsection
 @section('content')
     {!! Form::open(['url' => route('postData'), 'method' => 'post', 'class' => '', 'enctype' => 'multipart/form-data'])!!}
 
@@ -56,6 +64,7 @@
         <div class="row post_entry">
             <div class="col-md-6" id="post1-container">
                 <div class="pages-list-container">
+                    <span class="postNumberTitle">A</span>
                     <h4>Select a Page</h4>
                     <p class="cd-select icon">
                         <select class="budget select-pages" name="post1_page_id" data-control="Page combobox">
@@ -65,6 +74,7 @@
                     </p>
                 </div>
                 <div class="groups-list-container hide">
+                    <span class="postNumberTitle">A</span>
                     <h4>Select a Group</h4>
                     <p class="cd-select icon">
                         <select class="budget select-groups" name="post1_page_id" disabled data-control="Group combobox">
@@ -86,6 +96,7 @@
 
             <div class="col-md-6" id="post2-container">
                 <div class="groups-list-container">
+                    <span class="postNumberTitle">B</span>
                     <h4>Select a Group</h4>
                     <p class="cd-select icon">
                         <select class="budget select-groups" name="post2_page_id" required data-control="Group combobox">
@@ -95,6 +106,7 @@
                     </p>
                 </div>
                 <div class="pages-list-container hide">
+                    <span class="postNumberTitle">B</span>
                     <h4>Select a Post</h4>
                     <p class="cd-select icon">
                         <select class="budget select-pages" name="post2_page_id" required disabled data-control="Page combobox">
