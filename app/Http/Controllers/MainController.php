@@ -71,7 +71,7 @@ class MainController extends Controller
      * @return Comparison $comparison
      */
     public function postByUserSelected(Request $request) {
-        if ($this->postsPerDay->limitPerDayIsOver(Auth::user()->id)) {
+        if (!$this->postsPerDay->limitPerDayIsOver(Auth::user()->id)) {
             $post1_has_image = $post2_has_image = false;
             $token = $request->session()->get('fb_user_access_token');
             $input = array_except($request->all(),
