@@ -3,7 +3,7 @@ namespace App\Console;
 use App\Comparison;
 use App\Comparison_data;
 use App\Library\Helpers\MediaHelper;
-use App\Repositories\PostsPerDayRepository;
+use App\Library\Repositories\PostsPerDayRepository;
 use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;

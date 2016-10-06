@@ -6,9 +6,9 @@
  * Time: 11:05 AM
  */
 
-namespace App\Repositories;
-use App\PostsPerDay;
-use App\User;
+namespace App\Library\Repositories;
+use \App\PostsPerDay;
+use \App\User;
 
 class PostsPerDayRepository
 {

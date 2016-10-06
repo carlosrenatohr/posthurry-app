@@ -9,7 +9,7 @@ namespace App\Http\Controllers;
 
 use App\Blasting;
 use App\User;
-use App\Repositories\PostsPerDayRepository;
+use App\Library\Repositories\PostsPerDayRepository;
 use App\Library\Helpers\MediaHelper;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;

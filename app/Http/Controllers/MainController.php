@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use App\Library\Helpers\MediaHelper;
-use App\Repositories;
+//use App\Library\Repositories\PostsPerDayRepository;
 
 class MainController extends Controller
 {
     protected $fb, $postsPerDay;
-    public function __construct(LaravelFacebookSdk $fb, \App\Repositories\PostsPerDayRepository $postperday)
+    public function __construct(LaravelFacebookSdk $fb, \App\Library\Repositories\PostsPerDayRepository $postperday)
     {
         $this->fb = $fb;
         $this->postsPerDay = $postperday;
