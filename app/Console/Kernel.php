@@ -3,6 +3,7 @@ namespace App\Console;
 use App\Comparison;
 use App\Comparison_data;
 use App\Library\Helpers\MediaHelper;
+use App\Repositories\PostsPerDayRepository;
 use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -71,9 +72,15 @@ class Kernel extends ConsoleKernel
             }
         };
 
+        $setPostsPerDay = function(PostsPerDayRepository $postsPerDay) {
+            foreach (User::all() as $user) {
+                $postsPerDay->createOrUpdatePostsPerDay($user->id);
+            }
+        };
         $schedule->call($SchedulerBlasting)
-//            ->everyFiveMinutes();
             ->cron('*/6 * * * * *');
+        $schedule->call($setPostsPerDay)
+            ->daily();
     }
 
     private function publishInMass($comparison, $numberOfWinnerPost, $token, $fb)

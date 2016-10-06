@@ -58,4 +58,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\Blasting', 'user_id', 'id');
     }
+
+    public function postsPerDay()
+    {
+        return $this->hasOne('\App\PostsPerDay');
+//        return $this->hasMany('\App\PostsPerDay');
+    }
 }
