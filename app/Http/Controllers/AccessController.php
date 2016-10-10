@@ -142,4 +142,14 @@ class AccessController extends Controller
         return redirect('/');
     }
 
+    public function getForget(Request $request)
+    {
+        return view('layouts.forget-password');
+    }
+
+    public function postForget(Request $request)
+    {
+        dd($request->get('email'));
+    }
+
 }

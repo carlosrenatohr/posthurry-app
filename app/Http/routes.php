@@ -43,6 +43,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/signup', 'AccessController@getSignup');
     Route::post('/signup', 'AccessController@postSignup');
     Route::get('/logout', 'AccessController@logout');
+    Route::get('/forget', 'AccessController@getForget');
+    Route::post('/forget', 'AccessController@postForget');
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
     Route::post('/data', 'MainController@getDataFromFB'); //->middleware(['fb.user']); //['fb.token', 'fb.user']
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');

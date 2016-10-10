@@ -11,9 +11,9 @@
             <div class="field">
                 <input type="password" placeholder="your password" name="password">
             </div>
-            {{--<div class="field">--}}
-                {{--<button><img src="img/screen-fb.png" alt="">Authorize with facebook</button>--}}
-            {{--</div>--}}
+            <div class="field">
+                <a href="{{ url('forget') }}" style="color: #FFF;font-size: 16px;">Forgot password?</a>
+            </div>
             <input type="submit">
         </form>
     </div>
