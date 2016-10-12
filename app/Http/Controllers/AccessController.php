@@ -1,15 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 
+use Mail;
 use App\User;
 use Facebook\Exceptions\FacebookSDKException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class AccessController extends Controller
 {
+    use ResetsPasswords;
 
     protected $fb;
 
@@ -144,12 +147,8 @@ class AccessController extends Controller
 
     public function getForget(Request $request)
     {
-        return view('layouts.forget-password');
-    }
-
-    public function postForget(Request $request)
-    {
-        dd($request->get('email'));
+        return view('auth.emails.password', ['token' => str_random(), 'user' => Auth::user()]);
+//        return view('layouts.forget-password');
     }
 
 }

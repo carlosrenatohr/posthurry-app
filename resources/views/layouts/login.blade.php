@@ -12,7 +12,7 @@
                 <input type="password" placeholder="your password" name="password">
             </div>
             <div class="field">
-                <a href="{{ url('forget') }}" style="color: #FFF;font-size: 16px;">Forgot password?</a>
+                <a href="{{ url('reset') }}" style="color: #FFF;font-size: 16px;">Forgot password?</a>
             </div>
             <input type="submit">
         </form>

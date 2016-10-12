@@ -43,8 +43,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/signup', 'AccessController@getSignup');
     Route::post('/signup', 'AccessController@postSignup');
     Route::get('/logout', 'AccessController@logout');
-    Route::get('/forget', 'AccessController@getForget');
-    Route::post('/forget', 'AccessController@postForget');
+    Route::get('reset/{token?}', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@showResetForm']);
+    Route::post('password/email', ['as' => 'auth.password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
+    Route::post('password/reset', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@reset']);
+//    Route::get('/forget', 'AccessController@getForget');
 //    Route::match(['get', 'post'], '/', 'MainController@index'); //->middleware(['fb.token']);
     Route::post('/data', 'MainController@getDataFromFB'); //->middleware(['fb.user']); //['fb.token', 'fb.user']
     Route::post('/receiveData', 'MainController@postByUserSelected')->name('postData');
@@ -87,8 +89,5 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/', ['as' => 'plans', 'uses' => 'PlansController@getIndex']);
     });
 
-    Route::get('/temp', function () {
-        return view('layouts.new-index');
-    });
 });
 

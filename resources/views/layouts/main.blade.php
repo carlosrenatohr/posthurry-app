@@ -248,12 +248,18 @@
                 {{  session('success-msg') }}
             </div>
         @endif
+        @if(session('status'))
+            <div class="alert alert-success messages">
+                {{  session('status') }}
+            </div>
+        @endif
 
         @if(session('error-msg'))
             <div class="alert alert-danger messages">
                 {!!  session('error-msg') !!}
             </div>
         @endif
+        @yield('extra-messages')
         <div class="container-fluid">
             <img src="{{ asset('img/loading.gif') }}" alt="" class="img-responsive img-loading hide"
                  style="max-width: 150px;position: absolute;right: 0;">
