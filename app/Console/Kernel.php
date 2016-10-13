@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Ftw::class
+        Commands\Ftw::class,
         Commands\Inspire::class,
         Commands\PostPerDayChecker::class
     ];
