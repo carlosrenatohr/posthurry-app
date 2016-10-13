@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'info@getposthurry.com', 'name' => 'Customer Service'],
+    'from' => ['address' => 'info@getposthurry.com', 'name' => 'PostHurry Service'],
 
     /*
     |--------------------------------------------------------------------------
