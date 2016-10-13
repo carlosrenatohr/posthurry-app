@@ -126,6 +126,15 @@ class AccessController extends Controller
                 $response = $this->fb->get('/me?fields=id,name,email')->getBody();
                 $request->session()->put('fb_user_data', $response);
                 $user = json_decode($request->session()->get('fb_user_data'));
+
+                // save the user token and fb user id
+                User::where( 'id', Auth::user()->id )
+                        ->update( [ 
+                        'facebook_user_id' => $user->id,
+                        'access_token'     => $request->session()->get( 'fb_user_access_token' )
+                        ] );
+
+                
             } catch (FacebookSDKException $e) {
                 dd($e->getMessage());
             }
