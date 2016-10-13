@@ -43,9 +43,9 @@ class Ftw extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle( LaravelFacebookSdk $fb )
     {
-        $this->schedulerBlasting( new LaravelFacebookSdk() );
+        $this->schedulerBlasting( $fb );
     }
 
     protected function schedulerBlasting( $fb )
