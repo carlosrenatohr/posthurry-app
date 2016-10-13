@@ -39,10 +39,10 @@ class PostPerDayChecker extends Command
      */
     public function handle()
     {
-        $this->execute( new PostsPerDayRepository() );
+        $this->doCheck( new PostsPerDayRepository() );
     }
 
-    public function execute( $postPerDay ) {
+    public function doCheck( $postPerDay ) {
         foreach (User::all() as $user) {
             $postsPerDay->createOrUpdatePostsPerDay($user->id);
         }
