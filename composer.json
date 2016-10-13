@@ -10,7 +10,7 @@
         "sammyk/laravel-facebook-sdk": "~3.0",
         "laravelcollective/html": "5.2.*",
         "doctrine/dbal": ">=2.4",
-        "vinkla/hashids": "^2.3",
+        "vinkla/hashids": "2.3",
         "guzzlehttp/guzzle": "~5.3|~6.0"
     },
     "require-dev": {
