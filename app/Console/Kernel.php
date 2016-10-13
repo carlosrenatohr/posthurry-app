@@ -17,8 +17,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Inspire::class,
         Commands\Ftw::class
+        Commands\Inspire::class,
+        Commands\PostPerDayChecker::class
     ];
 
     /**
@@ -28,8 +29,7 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     public function schedule( Schedule $schedule ) {
-        //$schedule->call($SchedulerBlasting)->cron('*/6 * * * * *');
-        //$schedule->call($setPostsPerDay)->daily();
+        $schedule->command( 'blast:postPerDayChecker' )->daily();
         $schedule->command( 'blast:winner' )->cron('*/6 * * * * *');
     }
 }
