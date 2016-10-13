@@ -80,6 +80,9 @@ class Ftw extends Command
                         if (!is_null($contest->massPosts)) {
                             $blastDate = new \Carbon\Carbon($contest->massPosts->blastAt);
                             $now = \Carbon\Carbon::now();
+
+                            $this->info( 'blast' . $blastDate );
+                            $this->info( 'now'. $now );
                             if ($now->gt($blastDate) && is_null($contest->massPosts->posts_published)) {
                                 // If post 1 or was a tie, post 1 will be post in mass, else post 2 will be posted
                                 $winnerNum = ($winner == 1) ? 1 : 2;
