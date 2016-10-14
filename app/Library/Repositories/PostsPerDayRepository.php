@@ -7,6 +7,7 @@
  */
 
 namespace App\Library\Repositories;
+use \Log;
 use \App\PostsPerDay;
 use \App\User;
 
@@ -25,8 +26,11 @@ class PostsPerDayRepository
     }
 
     public function sumPost($user_id) {
+        Log::info( 'user-id-postperday-' . $user_id );
         $this->hasPostToday($user_id);
         $query = $this->postsPerDay->where('user_id', $user_id)->where('today', date('Y-m-d'));
+
+        Log::info( 'user-id-postperday-data', [ 'data' => $query ] );
         $total = $query->first()->posts;
         $query->update([
             'posts' => $total + 1
