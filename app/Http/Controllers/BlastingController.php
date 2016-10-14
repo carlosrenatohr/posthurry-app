@@ -30,6 +30,10 @@ class BlastingController extends Controller
         $user_id = Auth::user()->id;
 
         $user = User::find($user_id);
+
+        if( !empty( $user ) ) {
+            $request->session()->put( 'fb_user_access_token', $user->access_token ); 
+        }
         return view('blasting.index', ['user' => $user]);
     }
 
