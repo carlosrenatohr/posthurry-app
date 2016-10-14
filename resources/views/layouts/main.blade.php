@@ -218,6 +218,8 @@
                             href="{{ url('comparison') }}">A/B History</a></li>
                 <li class="{{ Request::is('comparison/winners') ? 'active' : '' }}"><a
                             href="{{ url('comparison/winners') }}">Winners</a></li>
+                <li class="{{ Request::is('settings') ? 'active' : '' }}"><a
+                            href="{{ url('settings') }}">Settings</a></li>
             </ul>
             @if (Session::has('permissions_required'))
                 <button type="button" class="btn btn-danger popover-btn pull-right" data-container="body" data-toggle="popover"

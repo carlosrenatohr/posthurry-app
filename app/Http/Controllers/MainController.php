@@ -146,7 +146,7 @@ class MainController extends Controller
                 $parts = explode('-', $request->get('blastDatetime'));
                 $newBlastDatetime = $parts[1] . '-' . $parts[0] . '-' . $parts[2];
                 $blastOutTime = new \Carbon\Carbon($newBlastDatetime);
-                $blastMassJson['blastAt'] = $blastOutTime->toDateTimeString();
+                $blastMassJson['blastAt'] = $this->convertToServerTimezone( $blastOutTime );
                 $massPostRow = \App\MassPost::create($blastMassJson);
                 $comparison->massPosts()->save($massPostRow);
             }
@@ -159,6 +159,20 @@ class MainController extends Controller
         } else {
             return redirect()->back()->with('error-msg', "You have exceeded the limit of posts per day.");
         }
+    }
+
+    public function convertToServerTimezone( $time ) {
+        $userTimezones = Auth::user()->timezones;
+
+        if( $userTimezones < 0 ) {
+            $time->addHours( $userTimezones * -1 );
+        }
+
+        else {
+            $time->subHours( $userTimezones );
+        }
+
+        return $time;
     }
 
 }

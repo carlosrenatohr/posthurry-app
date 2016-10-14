@@ -69,6 +69,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/stats/{id}', 'ComparisonController@postStatsFromFb');
     });
 
+    /**
+     * Settings pages
+     */
+    Route::controller( 'settings', 'SettingsController' );
+
     Route::get('/privacy', function () {
         return view('layouts.privacy-policy');
     });
