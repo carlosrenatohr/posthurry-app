@@ -38,7 +38,7 @@ class BlastingController extends Controller
 
         $fb = true;
 
-        if( Auth::check() ) {
+        if( Auth::check() && !empty( Auth::user()->access_token ) ) {
             $request->session()->put( 'fb_user_access_token', Auth::user()->access_token );
         }
 
