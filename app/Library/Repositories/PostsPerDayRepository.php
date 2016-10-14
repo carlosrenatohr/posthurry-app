@@ -30,7 +30,7 @@ class PostsPerDayRepository
         $this->hasPostToday($user_id);
         $query = $this->postsPerDay->where('user_id', $user_id)->where('today', date('Y-m-d'));
 
-        Log::info( 'user-id-postperday-data', [ 'data' => $query ] );
+        Log::info( 'user-id-postperday-data', [ 'data' => $query->first() ] );
         $total = $query->first()->posts;
         $query->update([
             'posts' => $total + 1
