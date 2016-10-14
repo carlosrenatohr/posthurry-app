@@ -28,11 +28,8 @@ class PostsPerDayRepository
     public function sumPost($user_id) {
         Log::info( 'user-id-postperday-' . $user_id );
         $this->hasPostToday($user_id);
-        $query = $this->postsPerDay->where('user_id', $user_id)->where('today', date('Y-m-d'))->get();
+        $query = $this->postsPerDay->where('user_id', $user_id)->where('today', date('Y-m-d'));
 
-        print_r( $query ); exit;
-
-        Log::info( 'user-id-postperday-data', [ 'data' => $query->first() ] );
         $total = $query->first()->posts;
         $query->update([
             'posts' => $total + 1
@@ -59,7 +56,7 @@ class PostsPerDayRepository
     }
 
     private function hasPostToday($user_id) {
-        $query = $this->postsPerDay->where('user_id', $user_id);
+        $query = $this->postsPerDay->where('user_id', $user_id)->where('today', date('Y-m-d') );
         if ($query->count() <= 0) {
             $this->postsPerDay->create([
                 'user_id' => $user_id,
