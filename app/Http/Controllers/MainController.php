@@ -172,8 +172,8 @@ class MainController extends Controller
             $time->subHours( $userTimezones );
         }
 
-        // because it's like server are on utc - 6
-        $time->subHours( 6 );
+        // because it's like server are on utc - 5
+        $time->subHours( 5 );
 
         return $time;
     }
