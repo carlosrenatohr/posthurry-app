@@ -197,9 +197,6 @@
                         <li class='pull-right'>
                             <a href='{{ url('/login') }}'>login</a>
                         </li>
-                        <li class='pull-right' style="margin:0 5px;">
-                            <a href='{{ url('/signup') }}'>Signup</a>
-                        </li>
                         @endif
                     </ul>
             </div>
