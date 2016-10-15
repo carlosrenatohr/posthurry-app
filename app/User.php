@@ -64,7 +64,11 @@ class User extends Authenticatable implements CanResetPassword
 
     public function postsPerDay()
     {
-        return $this->hasOne('\App\PostsPerDay');
-//        return $this->hasMany('\App\PostsPerDay');
+//        return $this->hasOne('\App\PostsPerDay');
+        return $this->hasMany('\App\PostsPerDay');
+    }
+
+    public function getTodayPostsAttribute() {
+        return $this->postsPerDay()->where('today', date('Y-m-d'))->first()->posts;
     }
 }
