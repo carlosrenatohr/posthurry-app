@@ -89,20 +89,24 @@ class BlastingRepository
      */
     public function scheduleBlastOut($blastingID, $token) {
         $blasting = $this->blasting->find($blastingID);
-        $post_has_image = false;
-        if(!is_null($blasting->post_img_url)){
-            $post_img_url = $blasting->post_img_url;
-            $post_has_image = true;
-        }
-        // POSTING on fb
-        $toPost = array_merge(explode('\,/', $blasting->groups_id), explode('\,/', $blasting->pages_id));
-        foreach ($toPost as $count => $id) {
-            $bottom = $count . '-'. time();
-            $params['message'] = $blasting->post_text . "\n\n[{$bottom}]";
-            if ($post_has_image)
-                $params['source'] = $this->fb->fileToUpload($post_img_url);
-            $this->postOnFb($params, $id, $token, $post_has_image);
-            $this->postsPerDay->sumPost($blasting->user->id);
+        $user_id = $blasting->user->id;
+        if (!$this->postsPerDay->limitPerDayIsOver($user_id)) {
+            $post_has_image = false;
+            if (!is_null($blasting->post_img_url)) {
+                $post_img_url = $blasting->post_img_url;
+                $post_has_image = true;
+            }
+            // POSTING on fb
+            $toPost = array_merge(explode('\,/', $blasting->groups_id), explode('\,/', $blasting->pages_id));
+            foreach ($toPost as $count => $id) {
+                $bottom = $count . '-' . time();
+                $params['message'] = $blasting->post_text . "\n\n[{$bottom}]";
+                if ($post_has_image) {
+                    $params['source'] = $this->fb->fileToUpload($post_img_url);
+                }
+                $this->postOnFb($params, $id, $token, $post_has_image);
+                $this->postsPerDay->sumPost($user_id);
+            }
         }
     }
 
