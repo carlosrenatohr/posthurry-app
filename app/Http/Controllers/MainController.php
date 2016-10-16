@@ -73,10 +73,6 @@ class MainController extends Controller
     public function postByUserSelected(Request $request) {
         if (!$this->postsPerDay->limitPerDayIsOver(Auth::user()->id)) {
 
-            if ($request->has('blastMassChkbox')) {
-                $blastMass = array_pull($input, 'massPosts');
-            }
-
             $a_entry = $this->createComparisonEntry( $request, 'post1' );
             $b_entry = $this->createComparisonEntry( $request, 'post2' );
 
