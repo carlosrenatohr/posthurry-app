@@ -144,7 +144,7 @@ class MainController extends Controller
             'post',
             '/' . $input[ $label . '_page_id'] . '/' . ( $has_image ? 'photos' : 'feed'),
             $params,
-            Auth::session()->access_token
+            Auth::user()->access_token
         )->getBody();
         
         $data = json_decode( $post );
