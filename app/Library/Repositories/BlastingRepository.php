@@ -90,7 +90,7 @@ class BlastingRepository
            // 'pages_names' => $pages__names__string,
            // 'pages_published_id' => $pages__posts_id_string,
             'user_id' => \Auth::user()->id,
-            'blastAt' => $param[ 'blastAt' ]
+            'blastAt' => $params[ 'blastAt' ]
         ]);
         }
     }
