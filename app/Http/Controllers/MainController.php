@@ -176,7 +176,7 @@ class MainController extends Controller
             $data['blastAt']          = $this->convertToServerTimezone( $request->get( 'blastDateTime' ), $key );
 
             $comparison->massPosts()->save(
-                \App\MassPost::create( $data );
+                \App\MassPost::create( $data )
             );
         } 
     }
