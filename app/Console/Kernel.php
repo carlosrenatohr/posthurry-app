@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     public function schedule( Schedule $schedule ) {
         $schedule->command( 'blast:postPerDayChecker' )->daily();
-        $schedule->command( 'blast:winner' )->cron('*/6 * * * * *');
-        $schedule->command('blast:blasting')->cron('*/6 * * * * *');
+        // $schedule->command( 'blast:winner' )->cron('*/6 * * * * *');
+        // $schedule->command('blast:blasting')->cron('*/6 * * * * *');
     }
 }

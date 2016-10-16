@@ -67,28 +67,28 @@ class BlastingRepository
             // $this->postsPerDay->sumPost(\Auth::user()->id);
 
             // Storing page/group
-            if($row['type'] == 'page')
-                $pages__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
-            elseif($row['type'] == 'group')
-                $groups__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
+            // if($row['type'] == 'page')
+            //     $pages__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
+            // elseif($row['type'] == 'group')
+            //     $groups__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
 
-        $pages__posts_id_string = implode('\,/', $pages__posts_id);
-        $groups__posts_id_string = implode('\,/', $groups__posts_id);
-        $groups__names = explode('_,PH//', $request->get('groupsNamesSelected'));
-        $groups__names__string = implode('\,/', $groups__names);
-        $pages__names = explode('_,PH//', $request->get('pagesNamesSelected'));
-        $pages__names__string = implode('\,/', $pages__names);
+        // $pages__posts_id_string = implode('\,/', $pages__posts_id);
+        // $groups__posts_id_string = implode('\,/', $groups__posts_id);
+        // $groups__names = explode('_,PH//', $request->get('groupsNamesSelected'));
+        // $groups__names__string = implode('\,/', $groups__names);
+        // $pages__names = explode('_,PH//', $request->get('pagesNamesSelected'));
+        // $pages__names__string = implode('\,/', $pages__names);
 
         // Adding new row on blasting table
         $this->blasting->create([
             'post_text' => $request->get('post1_text'),
             'post_img_url' => $post_img_url,
             'groups_id' => implode('\,/', $groups),
-            'groups_names' => $groups__names__string,
-            'groups_published_id' => $groups__posts_id_string,
+           // 'groups_names' => $groups__names__string,
+           // 'groups_published_id' => $groups__posts_id_string,
             'pages_id' => implode('\,/', $pages),
-            'pages_names' => $pages__names__string,
-            'pages_published_id' => $pages__posts_id_string,
+           // 'pages_names' => $pages__names__string,
+           // 'pages_published_id' => $pages__posts_id_string,
             'user_id' => \Auth::user()->id,
             'blastAt' => $param[ 'blastAt' ]
         ]);
