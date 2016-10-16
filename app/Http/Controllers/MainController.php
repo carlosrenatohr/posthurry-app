@@ -78,8 +78,8 @@ class MainController extends Controller
 
             $entry              = $a_entry + $b_entry;
             $entry['user_id']   = Auth::user()->id;
+            $entry['limitDaysDuration'] = $request->get( 'limitDaysDuration' );
 
-            
             $comparison         = Comparison::create( $entry );
             
             // Adding a post to register per day
