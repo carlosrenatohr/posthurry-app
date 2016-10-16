@@ -79,7 +79,6 @@ class MainController extends Controller
             $entry              = $a_entry + $b_entry;
             $entry['user_id']   = Auth::user()->id;
 
-            print_r( $entry ); exit;
             
             $comparison         = Comparison::create( $entry );
             
