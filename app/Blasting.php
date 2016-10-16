@@ -30,4 +30,8 @@ class Blasting extends Model
     public function getPagesPostsAttribute() {
         return (!empty($this->pages_published_id)) ? explode('\,/', $this->pages_published_id) : '';
     }
+
+    public function getIsTodayAttribute() {
+        return \Carbon\Carbon::parse($this->created_at)->isToday();
+    }
 }

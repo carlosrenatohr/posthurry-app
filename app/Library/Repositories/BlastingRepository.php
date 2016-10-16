@@ -90,7 +90,7 @@ class BlastingRepository
     public function scheduleBlastOut($blastingID, $token) {
         $blasting = $this->blasting->find($blastingID);
         $user_id = $blasting->user->id;
-        if (!$this->postsPerDay->limitPerDayIsOver($user_id)) {
+        if (!$this->postsPerDay->limitPerDayIsOver($user_id) && $blasting->isToday) {
             $post_has_image = false;
             if (!is_null($blasting->post_img_url)) {
                 $post_img_url = $blasting->post_img_url;
