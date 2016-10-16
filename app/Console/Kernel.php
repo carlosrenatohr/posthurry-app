@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
         Commands\Ftw::class,
         Commands\Inspire::class,
         Commands\PostPerDayChecker::class,
-        Commands\BlastingChecker::class,
         Commands\BlastingOBlasting::class
     ];
 
@@ -26,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     public function schedule( Schedule $schedule ) {
         $schedule->command( 'blast:postPerDayChecker' )->daily();
-        // $schedule->command( 'blast:winner' )->cron('*/6 * * * * *');
-        // $schedule->command('blast:blasting')->cron('*/6 * * * * *');
+        $schedule->command( 'blast:winner' )->cron('*/6 * * * * *');
+        $schedule->command( 'blast:all' )->everyMinute();
     }
 }

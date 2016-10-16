@@ -63,10 +63,22 @@ class BlastingOBlasting extends Command
         $this->info( 'end to blast' );
     }
 
+    /**
+     * Get data from table blast where status are waiting and correct blast time
+     *
+     * return Blasting 
+     */
     public function getBlastingList() {
         return Blasting::where( 'status', 'waiting' )->where( 'blastAt', '<=', Carbon::now() )->get();
     }
 
+    /**
+     * Get params for facebook post need
+     *
+     * @param array $post
+     *
+     * @return array $params
+     */ 
     public function getParams( $post ) {
         $params = [];
         $params[ 'message' ] = $post->post_text;
@@ -75,6 +87,13 @@ class BlastingOBlasting extends Command
         return $params;
     }
 
+    /**
+     * Getting Pages or Groups ID for sending fb post
+     *
+     * @param array $post
+     *
+     * @return int $fbid
+     */
     public function getFbId( $post ) {
         if( ! empty( trim( $post->pages_id ) ) ) {
             return $post->pages_id;                
@@ -83,10 +102,24 @@ class BlastingOBlasting extends Command
         return $post->groups_id;
     }
 
+    /**
+     * check if has image or not
+     *
+     * @param array $post 
+     *
+     * @return bool
+     */
     public function hasImage( $post ) {
         return ( ! empty( $post->post_img_url ) ) ? true : false;
     }
 
+    /**
+     * check if post are for page purpose or not
+     *
+     * @param array $post
+     *
+     * @return bool
+     */
     public function isForPage( $post ) {
         if( empty( $post->pages_id ) ) {
             return false;
@@ -95,6 +128,13 @@ class BlastingOBlasting extends Command
         return true;
     }
 
+    /**
+     * getting user token at table user
+     *
+     * @param array $post
+     *
+     * @return string|bool $access_token
+     */
     public function getUserToken( $post ) {
         $user = User::find( $post->user_id );
         if( !empty( $user ) ) {
@@ -104,6 +144,16 @@ class BlastingOBlasting extends Command
         return false;
     }
 
+    /**
+     * send request to post at FB
+     *
+     * @param array  $params
+     * @param int    $fbId
+     * @param string $token
+     * @param bool   $hasImage
+     *
+     * @return mixed $request
+     */ 
     private function postOnFb($params, $fbId, $token, $hasImage = false) {
         $request = $this->fb->sendRequest(
             'post',
@@ -114,6 +164,12 @@ class BlastingOBlasting extends Command
         return json_decode($request);
     }
 
+    /**
+     * update status at blasting page so it doesn't posted again in future
+     *
+     * @param array $post
+     * @param mixed $post_return
+     */
     public function updateBlastingStatus( $post, $postReturn ) {
         $postType = ( $this->isForPage( $post ) ) ? 'pages' : 'groups';
         
