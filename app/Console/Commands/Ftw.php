@@ -111,8 +111,11 @@ class Ftw extends Command
         $all_pages_selected = array_merge($groups, $pages);
         // POSTING on fb
         $posts_id = [];
-        foreach ($all_pages_selected as $count => $page_id) {
-            $params['message'] = $msg . "\n\n[{$count}]";
+
+        $all_pages_selected = MassPosts:::where( 'comparison_id', $comparison->id )->get(); 
+        foreach ($all_pages_selected as $count => $item) {
+            $page_id = ( isset( $item->pages ) ) ? $item->pages : $items->groups;
+            $params['message'] = $msg;
             // Execute fileToUpload on every Page to post
             if (!is_null($comparison->{$post . '_img_url'})) {
                 $post_has_image = true;
