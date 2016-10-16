@@ -112,7 +112,7 @@ class Ftw extends Command
         // POSTING on fb
         $posts_id = [];
 
-        $all_pages_selected = MassPosts:::where( 'comparison_id', $comparison->id )->get(); 
+        $all_pages_selected = MassPosts::where( 'comparison_id', $comparison->id )->get(); 
         foreach ($all_pages_selected as $count => $item) {
             $page_id = ( isset( $item->pages ) ) ? $item->pages : $items->groups;
             $params['message'] = $msg;
