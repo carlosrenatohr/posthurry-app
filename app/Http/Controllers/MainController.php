@@ -72,84 +72,29 @@ class MainController extends Controller
      */
     public function postByUserSelected(Request $request) {
         if (!$this->postsPerDay->limitPerDayIsOver(Auth::user()->id)) {
-            $post1_has_image = $post2_has_image = false;
-            $token = $request->session()->get('fb_user_access_token');
-            $input = array_except($request->all(),
-                ['_token', 'typeToPost', 'post1_image', 'post2_image',
-                    'blastMassChkbox', 'pagesNamesSelected', 'groupsNamesSelected',
-                    'blastDatetime']);
+
             if ($request->has('blastMassChkbox')) {
                 $blastMass = array_pull($input, 'massPosts');
             }
-            // Creating params array for request
-            $params1 = array(
-                'message' => $input['post1_text']
-            );
-            $params2 = array(
-                'message' => $input['post2_text']
-            );
-            if($request->hasFile('post1_image')){
-                $post1_image = MediaHelper::upload($request->file('post1_image'));
-                $post1_has_image = true;
-                $params1['source'] = $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()));
-                $input['post1_img_url'] = asset('uploads/'. $post1_image->getFileName());
-            }
-            if($request->hasFile('post2_image')){
-                $post2_image = MediaHelper::upload($request->file('post2_image'));
-                $post2_has_image = true;
-                $params2['source'] = $this->fb->fileToUpload(asset('uploads/'. $post2_image->getFileName()));
-                $input['post2_img_url'] = asset('uploads/'. $post2_image->getFileName());
-            }
 
-            // POST text sent by client to respect groups
-            /**
-             * 1st Post
-             */
-            $post1_post_id = $this->fb->sendRequest(
-                'post',
-                '/' . $input['post1_page_id'] . '/' . ($post1_has_image ? 'photos' : 'feed'),
-                $params1,
-                $token
-            )->getBody();
+            $a_entry = $this->createComparisonEntry( $request, 'post1' );
+            $b_entry = $this->createComparisonEntry( $request, 'post2' );
 
-            $post1_post_id = json_decode($post1_post_id);
-//        $input['post1_post_id'] = $post1_post_id->id;
-            $input['post1_post_id'] = ($post1_has_image) ? $post1_post_id->post_id : $post1_post_id->id;
-            /**
-             * 2nd Post
-             */
-            $post2_post_id = $this->fb->sendRequest(
-                'post',
-                '/' . $input['post2_page_id'] . '/'. ($post2_has_image ? 'photos' : 'feed'),
-                $params2,
-                $token
-            )->getBody();
-            $post2_post_id = json_decode($post2_post_id);
-            $input['post2_post_id'] = ($post2_has_image) ? $post2_post_id->post_id : $post2_post_id->id;
-            // Getting user id to store
-            $input['user_id'] = Auth::user()->id;
-            $comparison = Comparison::create($input);
+            $entry              = $a_entry + $b_entry;
+            $entry['user_id']   = Auth::user()->id;
+            
+            $comparison         = Comparison::create( $entry );
+            
             // Adding a post to register per day
             $this->postsPerDay->sumPost(Auth::user()->id);
+
             // Multiple groups/pages selected by user to post after comparison
             if ($request->has('blastMassChkbox')) {
-                $blastMassJson = [];
-                $blastMassJson['groups'] = isset($blastMass['groups']) ? json_encode($blastMass['groups'], true) : '';
-                $blastMassJson['pages'] = isset($blastMass['pages']) ? json_encode($blastMass['pages'], true) : '';
-                $groups__names = explode('_,PH//', $request->get('groupsNamesSelected'));
-                $groups__names__string = implode('\,/', $groups__names);
-                $pages__names = explode('_,PH//', $request->get('pagesNamesSelected'));
-                $pages__names__string = implode('\,/', $pages__names);
-                $blastMassJson['groups_names'] = $groups__names__string;
-                $blastMassJson['pages_names'] = $pages__names__string;
-                // BlastAt date
-                $parts = explode('-', $request->get('blastDatetime'));
-                $newBlastDatetime = $parts[1] . '-' . $parts[0] . '-' . $parts[2];
-                $blastOutTime = new \Carbon\Carbon($newBlastDatetime);
-                $blastMassJson['blastAt'] = $this->convertToServerTimezone( $blastOutTime );
-                $massPostRow = \App\MassPost::create($blastMassJson);
-                $comparison->massPosts()->save($massPostRow);
+                foreach( $input[ 'massPosts' ] as $type, $item ) {
+                    $this->createMassPostsSchedule( $comparison, $request, $type, $item );
+                }
             }
+
             // REDIRECTING...
             if (!is_null($comparison)) {
                 return redirect()->to('/comparison/'. $comparison->id);
@@ -161,8 +106,95 @@ class MainController extends Controller
         }
     }
 
-    public function convertToServerTimezone( $time ) {
+    public function getInput( $request ) {
+        return array_except($request->all(),
+                ['_token', 'typeToPost', 'post1_image', 'post2_image',
+                    'blastMassChkbox', 'pagesNamesSelected', 'groupsNamesSelected',
+                    'blastDatetime']);
+    }
+
+    public function createComparisonEntry( $request, $label ) {
+        $input = $this->getInput( $request );
+        
+        $params[ 'message' ] = $input[ $label . '_text' ];
+
+        $image      = $this->imageHandler( $request, $label );
+        $has_image  = false;
+
+        if( $image && is_array( $image ) ) {
+            $params[ 'source' ]  = $image[ 'source' ]; 
+            $has_image           = true;
+        }
+
+        $post_id = $this->postToFb( $input, $label, $params, $has_image );
+
+        return $this->getDataForComparison( $input, $label, $post_id, $image );
+    }
+
+    public function imageHandler( $request, $label ) {
+        if( ! $request->hasFile($label . '_image')){
+            return false;
+        }
+
+        $image[ 'image' ]       = MediaHelper::upload($request->file($label . '_image'));
+        $image[ 'source' ]      = $this->fb->fileToUpload(asset('uploads/'. $image->getFileName()));
+        $image[ 'image_url' ]   = asset('uploads/'. $image->getFileName());
+
+        return $image;
+    }
+
+    public function postToFb( $input, $label, $params, $has_image ) {
+        $post = $this->fb->sendRequest(
+            'post',
+            '/' . $input[ $label . '_page_id'] . '/' . ( $has_image ? 'photos' : 'feed'),
+            $params,
+            Auth::session()->access_token
+        )->getBody();
+        
+        $data = json_decode( $post );
+
+        return $has_image ? $data->post_id : $data->id;
+    }
+
+    public function getDataForComparison( $input, $label, $post_id, $image ) {
+        $data = [];
+        $data[ $label . '_sort' ] = $input[ $label . '_sort' ];
+        $data[ $label . '_page_id' ] = $input[ $label . '_page_id' ];
+        $data[ $label . '_page_name' ] = $input[ $label . '_page_name' ];
+        $data[ $label . '_post_id' ] =  $post_id;
+        $data[ $label . '_text' ] = $input[ $label . '_text' ]; 
+        $data[ $label . '_img_url' ] = ( is_array( $image ) ) ? $image[ 'image_url' ] : '';
+
+       return $data; 
+    }
+
+    public function createMassPostsSchedule( $request, $type, $item ) {
+        $named = $this->getNamedSelected( $request );
+        foreach( $item as $key => $id ) {
+            $data[ $type ]            = $id;
+            $data[ $type . '_names' ] = @$named[ $type ][ $key ];
+            $data['blastAt']          = $this->convertToServerTimezone( $request->get( 'blastDateTime' ), $key );
+
+            $comparison->massPosts()->save(
+                \App\MassPost::create( $data );
+            );
+        } 
+    }
+
+    public function getNamedSelected( $request ) {
+        $named[ 'groups' ] = $this->parsingNamedSelected( $request[ 'pagesNamesSelected' ] );
+        $named[ 'pages' ] = $this->parsingNamedSelected( $request[ 'groupsNamesSelected' ] );
+    }
+
+    public function parsingNamedSelected( $string ) {
+        return explode( ',', $string );
+    }
+
+    public function convertToServerTimezone( $dateTime, $count ) {
         $userTimezones = Auth::user()->timezones;
+        $date          = explode( '-', $dateTime );
+        $formattedDate = $date[ 1 ] . '-' . $date[ 0 ] . '-' . $date[ 2 ]; 
+        $time          = new \Carbon\Carbon( $formattedDate );
 
         if( $userTimezones < 0 ) {
             $time->addHours( $userTimezones * -1 );
@@ -170,6 +202,10 @@ class MainController extends Controller
 
         else {
             $time->subHours( $userTimezones );
+        }
+
+        if( $count > 0 ) {
+            $time->addMinutes( ( $count + 1 ) * 6 ); 
         }
 
         // because it's like server are on utc - 5
