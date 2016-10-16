@@ -9,6 +9,7 @@ namespace App\Library\Repositories;
 use App\Blasting;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use App\Library\Helpers\MediaHelper;
+use Carbon\Carbon;
 
 class BlastingRepository
 {
@@ -50,18 +51,27 @@ class BlastingRepository
         // POSTING on fb
         $pages__posts_id = $groups__posts_id = [];
         foreach ($all_pages_selected as $count => $row) {
+            // set time to scheduller. 
+            // first messages are post directly, so it was now()
+            // second and next messages are post for interval 6 minutes
+            $params[ 'blastAt' ] = $this->getBlastSchedulerTime( $count );
             $params['message'] = $request->get('post1_text') . "\n\n[{$count}]";
             // Execute fileToUpload on every Page to post
             if ($post_has_image)
                 $params['source'] = $this->fb->fileToUpload($post_img_url);
-            $post_return = $this->postOnFb($params, $row['id'], $token, $post_has_image);
-            $this->postsPerDay->sumPost(\Auth::user()->id);
+
+            // commmented out, 
+            // don;t publish it now, save it at table blasting
+            // then the scheduler will post it on there
+            // $post_return = $this->postOnFb($params, $row['id'], $token, $post_has_image);
+            // $this->postsPerDay->sumPost(\Auth::user()->id);
+
             // Storing page/group
             if($row['type'] == 'page')
                 $pages__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
             elseif($row['type'] == 'group')
                 $groups__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
-        }
+
         $pages__posts_id_string = implode('\,/', $pages__posts_id);
         $groups__posts_id_string = implode('\,/', $groups__posts_id);
         $groups__names = explode('_,PH//', $request->get('groupsNamesSelected'));
@@ -80,7 +90,26 @@ class BlastingRepository
             'pages_names' => $pages__names__string,
             'pages_published_id' => $pages__posts_id_string,
             'user_id' => \Auth::user()->id,
+            'blastAt' => $param[ 'blastAt' ]
         ]);
+        }
+    }
+
+    /**
+     * get time to blast on scheduler
+     * first blast are direct time, now()
+     * second and next messages are increment by 6 minutes
+     *
+     * @param int $count index of groups
+     *
+     * @return string Carbon
+     */
+    public function getBlastSchedulerTime( $count ) {
+        if( $count == 0 ) {
+            return Carbon::now();
+        }
+
+        return Carbon::now()->addMinutes( 6 );
     }
 
     /**

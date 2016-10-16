@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
         Commands\Ftw::class,
         Commands\Inspire::class,
         Commands\PostPerDayChecker::class,
-        Commands\BlastingChecker::class
+        Commands\BlastingChecker::class,
+        Commands\BlastingOBlasting::class
     ];
 
     /**
