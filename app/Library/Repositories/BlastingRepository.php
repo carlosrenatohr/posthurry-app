@@ -25,7 +25,7 @@ class BlastingRepository
     public function startBlastOut($massGroup, $token, $request = null)
     {
         // Uploading image
-        list( $post_has_image, $post_img_url ) = $this->imageHandler();
+        list( $post_has_image, $post_img_url ) = $this->imageHandler( $request );
 
         foreach ($this->getAllPages( $massGroup ) as $count => $row) {
             // set time to scheduller. 
@@ -57,7 +57,7 @@ class BlastingRepository
         }
     }
 
-    public function imageHandler() {
+    public function imageHandler( $request ) {
         $post_has_image = false;
         $post_img_url = null;
         if($request->hasFile('post1_image')){
