@@ -63,6 +63,14 @@ class BlastingOBlasting extends Command
         return Blasting::where( 'status', 'waiting' )->where( 'blastAt', '<=', Carbon::now() )->get();
     }
 
+    public function getParams( $post ) {
+        $params = [];
+        $params[ 'message' ] = $post->post_text;
+        $params[ 'source' ]  = $post->post_img_url;
+
+        return $params;
+    }
+
     public function getFbId( $post ) {
         if( ! empty( trim( $post->pages_id ) ) ) {
             return $post->pages_id;                

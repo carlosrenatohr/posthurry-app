@@ -24,33 +24,10 @@ class BlastingRepository
 
     public function startBlastOut($massGroup, $token, $request = null)
     {
-        // Getting pages/posts ids selected by user
-        $groups = !empty($massGroup['groups']) ? ($massGroup['groups']) : [];
-        $pages = !empty($massGroup['pages']) ? ($massGroup['pages']) : [];
-        foreach($groups as $group) {
-            $all_pages_selected[] = [
-                'id' => $group,
-                'type' => 'group'
-            ];
-        }
-        foreach($pages as $page) {
-            $all_pages_selected[] = [
-                'id' => $page,
-                'type' => 'page'
-            ];
-        }
         // Uploading image
-        $post_has_image = false;
-        $post_img_url = null;
-        if($request->hasFile('post1_image')){
-            $post1_image = MediaHelper::upload($request->file('post1_image'));
-            $post_has_image = true;
-            $params1['source'] = $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()));
-            $post_img_url = asset('uploads/'. $post1_image->getFileName());
-        }
-        // POSTING on fb
-        $pages__posts_id = $groups__posts_id = [];
-        foreach ($all_pages_selected as $count => $row) {
+        list( $post_has_image, $post_img_url ) = $this->imageHandler();
+
+        foreach ($this->getAllPages( $massGroup ) as $count => $row) {
             // set time to scheduller. 
             // first messages are post directly, so it was now()
             // second and next messages are post for interval 6 minutes
@@ -68,21 +45,48 @@ class BlastingRepository
                 $params[ 'groups_id' ] = $row[ 'id' ];
             }
             
-            // Execute fileToUpload on every Page to post
-            if ($post_has_image) {
-                $params['source'] = $this->fb->fileToUpload($post_img_url);
-            }
-
-        // Adding new row on blasting table
-        $this->blasting->create([
-            'post_text' => $request->get('post1_text'),
-            'post_img_url' => $post_img_url,
-            'groups_id' => $params[ 'groups_id' ], 
-            'pages_id' => $params[ 'pages_id' ],
-            'user_id' => \Auth::user()->id,
-            'blastAt' => $params[ 'blastAt' ]
-        ]);
+            // Adding new row on blasting table
+            $this->blasting->create([
+                'post_text' => $request->get('post1_text'),
+                'post_img_url' => $post_img_url,
+                'groups_id' => $params[ 'groups_id' ], 
+                'pages_id' => $params[ 'pages_id' ],
+                'user_id' => \Auth::user()->id,
+                'blastAt' => $params[ 'blastAt' ]
+            ]);
         }
+    }
+
+    public function imageHandler() {
+        $post_has_image = false;
+        $post_img_url = null;
+        if($request->hasFile('post1_image')){
+            $post1_image = MediaHelper::upload($request->file('post1_image'));
+            $post_has_image = true;
+            $params1['source'] = $this->fb->fileToUpload(asset('uploads/'. $post1_image->getFileName()));
+            $post_img_url = asset('uploads/'. $post1_image->getFileName());
+        }
+
+        return array( $post_has_image, $post_img_url );
+    }
+
+    public function getAllPages( $massGroup ) {
+        $groups = !empty($massGroup['groups']) ? ($massGroup['groups']) : [];
+        $pages = !empty($massGroup['pages']) ? ($massGroup['pages']) : [];
+        foreach($groups as $group) {
+            $all_pages_selected[] = [
+                'id' => $group,
+                'type' => 'group'
+            ];
+        }
+        foreach($pages as $page) {
+            $all_pages_selected[] = [
+                'id' => $page,
+                'type' => 'page'
+            ];
+        }
+
+        return $all_pages_selected;
     }
 
     /**
