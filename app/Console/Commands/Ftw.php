@@ -7,7 +7,7 @@ use App\Comparison_data;
 use App\Library\Helpers\MediaHelper;
 use App\Library\Repositories\PostsPerDayRepository;
 use App\User;
-use App\MassPosts;
+use App\MassPost;
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -109,7 +109,7 @@ class Ftw extends Command
         // POSTING on fb
         $posts_id = [];
 
-        $all_pages_selected = MassPosts::where( 'comparison_id', $comparison->id )->get(); 
+        $all_pages_selected = MassPost::where( 'comparison_id', $comparison->id )->get(); 
         foreach ($all_pages_selected as $count => $item) {
             $page_id = ( isset( $item->pages ) ) ? $item->pages : $items->groups;
             $params['message'] = $msg;
