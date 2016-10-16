@@ -87,7 +87,7 @@ class MainController extends Controller
             // Multiple groups/pages selected by user to post after comparison
             if ($request->has('blastMassChkbox')) {
                 foreach( $request->get( 'massPosts' ) as $type => $item ) {
-                    $this->createMassPostsSchedule( $comparison, $request, $type );
+                    $this->createMassPostsSchedule( $comparison, $request, $type, $item );
                 }
             }
 
@@ -104,9 +104,7 @@ class MainController extends Controller
 
     public function getInput( $request ) {
         return array_except($request->all(),
-                ['_token', 'typeToPost', 'post1_image', 'post2_image',
-                    'blastMassChkbox', 'pagesNamesSelected', 'groupsNamesSelected',
-                    'blastDatetime']);
+                ['_token', 'typeToPost' ]);
     }
 
     public function createComparisonEntry( $request, $label ) {
@@ -165,12 +163,12 @@ class MainController extends Controller
        return $data; 
     }
 
-    public function createMassPostsSchedule( $request, $type ) {
+    public function createMassPostsSchedule( $comparison, $request, $type, $item ) {
         $named = $this->getNamedSelected( $request );
-        foreach( $request->get( 'massPosts' )[ $type ] as $key => $id ) {
+        foreach( $item as $key => $id ) {
             $data[ $type ]            = $id;
             $data[ $type . '_names' ] = @$named[ $type ][ $key ];
-            $data['blastAt']          = $this->convertToServerTimezone( $request->get( 'blastDateTime' ), $key );
+            $data['blastAt']          = $this->convertToServerTimezone( $request->get( 'blastDatetime' ), $key );
 
             $comparison->massPosts()->save(
                 \App\MassPost::create( $data )
@@ -184,14 +182,14 @@ class MainController extends Controller
     }
 
     public function parsingNamedSelected( $string ) {
-        return explode( ',', $string );
+        return explode( '_,PH//', $string );
     }
 
     public function convertToServerTimezone( $dateTime, $count ) {
-        $userTimezones = Auth::user()->timezones;
         $date          = explode( '-', $dateTime );
         $formattedDate = $date[ 1 ] . '-' . $date[ 0 ] . '-' . $date[ 2 ]; 
         $time          = new \Carbon\Carbon( $formattedDate );
+        $userTimezones = Auth::user()->timezones;
 
         if( $userTimezones < 0 ) {
             $time->addHours( $userTimezones * -1 );
