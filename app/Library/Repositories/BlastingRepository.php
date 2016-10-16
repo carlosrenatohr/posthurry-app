@@ -55,40 +55,30 @@ class BlastingRepository
             // first messages are post directly, so it was now()
             // second and next messages are post for interval 6 minutes
             $params[ 'blastAt' ] = $this->getBlastSchedulerTime( $count );
-            $params['message'] = $request->get('post1_text') . "\n\n[{$count}]";
+
+            // set the messages
+            $params[ 'message' ] = $request->get('post1_text') . "\n\n[{$count}]";
+
+            // set groups or pages id
+            if( $row[ 'type' ] == 'page' ) {
+                $params[ 'pages_id' ]  = $row[ 'id' ];
+                $params[ 'groups_id' ] = "";
+            } else {
+                $params[ 'pages_id' ]  = "";
+                $params[ 'groups_id' ] = $row[ 'id' ];
+            }
+            
             // Execute fileToUpload on every Page to post
-            if ($post_has_image)
+            if ($post_has_image) {
                 $params['source'] = $this->fb->fileToUpload($post_img_url);
-
-            // commmented out, 
-            // don;t publish it now, save it at table blasting
-            // then the scheduler will post it on there
-            // $post_return = $this->postOnFb($params, $row['id'], $token, $post_has_image);
-            // $this->postsPerDay->sumPost(\Auth::user()->id);
-
-            // Storing page/group
-            // if($row['type'] == 'page')
-            //     $pages__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
-            // elseif($row['type'] == 'group')
-            //     $groups__posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
-
-        // $pages__posts_id_string = implode('\,/', $pages__posts_id);
-        // $groups__posts_id_string = implode('\,/', $groups__posts_id);
-        // $groups__names = explode('_,PH//', $request->get('groupsNamesSelected'));
-        // $groups__names__string = implode('\,/', $groups__names);
-        // $pages__names = explode('_,PH//', $request->get('pagesNamesSelected'));
-        // $pages__names__string = implode('\,/', $pages__names);
+            }
 
         // Adding new row on blasting table
         $this->blasting->create([
             'post_text' => $request->get('post1_text'),
             'post_img_url' => $post_img_url,
-            'groups_id' => implode('\,/', $groups),
-           // 'groups_names' => $groups__names__string,
-           // 'groups_published_id' => $groups__posts_id_string,
-            'pages_id' => implode('\,/', $pages),
-           // 'pages_names' => $pages__names__string,
-           // 'pages_published_id' => $pages__posts_id_string,
+            'groups_id' => $params[ 'groups_id' ], 
+            'pages_id' => $params[ 'pages_id' ],
             'user_id' => \Auth::user()->id,
             'blastAt' => $params[ 'blastAt' ]
         ]);
