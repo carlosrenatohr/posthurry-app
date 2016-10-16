@@ -52,7 +52,8 @@ class BlastingRepository
                 'groups_id' => $params[ 'groups_id' ], 
                 'pages_id' => $params[ 'pages_id' ],
                 'user_id' => \Auth::user()->id,
-                'blastAt' => $params[ 'blastAt' ]
+                'blastAt' => $params[ 'blastAt' ],
+                'status' => 'waiting'
             ]);
         }
     }
