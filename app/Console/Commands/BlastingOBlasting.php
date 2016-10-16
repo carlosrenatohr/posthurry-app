@@ -29,9 +29,11 @@ class BlastingOBlasting extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( LaravelFacebookSdk $fb )
     {
         parent::__construct();
+
+        $this->fb = $fb;
     }
 
     /**
