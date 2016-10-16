@@ -87,7 +87,7 @@ class MainController extends Controller
             // Multiple groups/pages selected by user to post after comparison
             if ($request->has('blastMassChkbox')) {
                 foreach( $request->get( 'massPosts' ) as $type => $item ) {
-                    $this->createMassPostsSchedule( $comparison, $request, $type );
+                    $this->createMassPostsSchedule( $comparison, $request, $type, $item );
                 }
             }
 
@@ -165,12 +165,12 @@ class MainController extends Controller
        return $data; 
     }
 
-    public function createMassPostsSchedule( $request, $type ) {
+    public function createMassPostsSchedule( $comparison, $request, $type, $item ) {
         $named = $this->getNamedSelected( $request );
-        foreach( $request->get( 'massPosts' )[ $type ] as $key => $id ) {
+        foreach( $item as $key => $id ) {
             $data[ $type ]            = $id;
             $data[ $type . '_names' ] = @$named[ $type ][ $key ];
-            $data['blastAt']          = $this->convertToServerTimezone( $request->get( 'blastDateTime' ), $key );
+            $data['blastAt']          = $this->convertToServerTimezone( $request->get( 'blastDatetime' ), $key );
 
             $comparison->massPosts()->save(
                 \App\MassPost::create( $data )
@@ -184,7 +184,7 @@ class MainController extends Controller
     }
 
     public function parsingNamedSelected( $string ) {
-        return explode( ',', $string );
+        return explode( '_,PH//', $string );
     }
 
     public function convertToServerTimezone( $dateTime, $count ) {
