@@ -86,8 +86,8 @@ class MainController extends Controller
 
             // Multiple groups/pages selected by user to post after comparison
             if ($request->has('blastMassChkbox')) {
-                foreach( $request->get( 'massPosts' ) as $type => $item ) {
-                    $this->createMassPostsSchedule( $comparison, $request, $type, $item );
+                foreach( $request->get( 'massPosts' ) as $type ) {
+                    $this->createMassPostsSchedule( $comparison, $request, $type, $request->get( 'massPosts' )[ $type ] );
                 }
             }
 
