@@ -87,7 +87,7 @@ class MainController extends Controller
             // Multiple groups/pages selected by user to post after comparison
             if ($request->has('blastMassChkbox')) {
                 foreach( $request->get( 'massPosts' ) as $type => $item ) {
-                    $this->createMassPostsSchedule( $comparison, $request, $type, $request->get( 'massPosts' )[ $type ] );
+                    $this->createMassPostsSchedule( $comparison, $request, $type );
                 }
             }
 
@@ -122,7 +122,8 @@ class MainController extends Controller
             $has_image           = true;
         }
 
-        $post_id = $this->postToFb( $input, $label, $params, $has_image );
+        //$post_id = $this->postToFb( $input, $label, $params, $has_image );
+        $post_id = 1;
 
         return $this->getDataForComparison( $input, $label, $post_id, $image );
     }
@@ -164,9 +165,9 @@ class MainController extends Controller
        return $data; 
     }
 
-    public function createMassPostsSchedule( $request, $type, $item ) {
+    public function createMassPostsSchedule( $request, $type ) {
         $named = $this->getNamedSelected( $request );
-        foreach( $item as $key => $id ) {
+        foreach( $request->get( 'massPosts' )[ $type ] as $key => $id ) {
             $data[ $type ]            = $id;
             $data[ $type . '_names' ] = @$named[ $type ][ $key ];
             $data['blastAt']          = $this->convertToServerTimezone( $request->get( 'blastDateTime' ), $key );
