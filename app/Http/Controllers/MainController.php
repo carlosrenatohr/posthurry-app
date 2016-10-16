@@ -104,9 +104,7 @@ class MainController extends Controller
 
     public function getInput( $request ) {
         return array_except($request->all(),
-                ['_token', 'typeToPost', 'post1_image', 'post2_image',
-                    'blastMassChkbox', 'pagesNamesSelected', 'groupsNamesSelected',
-                    'blastDatetime']);
+                ['_token', 'typeToPost' ]);
     }
 
     public function createComparisonEntry( $request, $label ) {
@@ -188,10 +186,10 @@ class MainController extends Controller
     }
 
     public function convertToServerTimezone( $dateTime, $count ) {
-        $userTimezones = Auth::user()->timezones;
         $date          = explode( '-', $dateTime );
         $formattedDate = $date[ 1 ] . '-' . $date[ 0 ] . '-' . $date[ 2 ]; 
         $time          = new \Carbon\Carbon( $formattedDate );
+        $userTimezones = Auth::user()->timezones;
 
         if( $userTimezones < 0 ) {
             $time->addHours( $userTimezones * -1 );
