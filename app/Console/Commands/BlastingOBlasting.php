@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Blasting;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
