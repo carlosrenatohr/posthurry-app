@@ -22,7 +22,11 @@ class PostsPerDayRepository
 
     public function limitPerDayIsOver($user_id) {
         $this->hasPostToday($user_id);
-        return (User::find($user_id)->postsPerDay->posts) > 200;
+        return (User::find($user_id)
+                ->postsPerDay()
+                ->where('today', date('Y-m-d'))
+                ->first()
+                ->posts) > 200;
     }
 
     public function sumPost($user_id) {
