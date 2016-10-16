@@ -39,7 +39,7 @@
                 <tr>
                     <td class="text-left col-md-2">
                         <b>({{ $page->{'post'. $winner_n .'_sort'} == 1 ? "Page" : "Group" }})</b>
-                        <a href='http://fb.com/{{ $page->{'post'. $winner_n .'_page_id'} }}'>{{ $page->{'post'. $winner_n .'_page_name'} }}</a>
+                        <a href='http://fb.com/{{ $page->{'post'. $winner_n .'_page_id'} }}' target="_blank">{{ $page->{'post'. $winner_n .'_page_name'} }}</a>
                     </td>
                     <td class="text-left col-md-2">
                         {{ $page->{'post'. $winner_n .'_text'} }}

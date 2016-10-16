@@ -78,6 +78,8 @@ class MainController extends Controller
 
             $entry              = $a_entry + $b_entry;
             $entry['user_id']   = Auth::user()->id;
+
+            print_r( $entry ); exit;
             
             $comparison         = Comparison::create( $entry );
             
@@ -152,12 +154,12 @@ class MainController extends Controller
 
     public function getDataForComparison( $input, $label, $post_id, $image ) {
         $data = [];
-        $data[ $label . '_sort' ] = $input[ $label . '_sort' ];
-        $data[ $label . '_page_id' ] = $input[ $label . '_page_id' ];
-        $data[ $label . '_page_name' ] = $input[ $label . '_page_name' ];
-        $data[ $label . '_post_id' ] =  $post_id;
-        $data[ $label . '_text' ] = $input[ $label . '_text' ]; 
-        $data[ $label . '_img_url' ] = ( is_array( $image ) ) ? $image[ 'image_url' ] : '';
+        $data[ $label . '_sort' ]       = $input[ $label . '_sort' ];
+        $data[ $label . '_page_id' ]    = $input[ $label . '_page_id' ];
+        $data[ $label . '_page_name' ]  = $input[ $label . '_page_name' ];
+        $data[ $label . '_post_id' ]    =  $post_id;
+        $data[ $label . '_text' ]       = $input[ $label . '_text' ]; 
+        $data[ $label . '_img_url' ]    = ( is_array( $image ) ) ? $image[ 'image_url' ] : '';
 
        return $data; 
     }
