@@ -120,8 +120,7 @@ class MainController extends Controller
             $has_image           = true;
         }
 
-        //$post_id = $this->postToFb( $input, $label, $params, $has_image );
-        $post_id = 1;
+        $post_id = $this->postToFb( $input, $label, $params, $has_image );
 
         return $this->getDataForComparison( $input, $label, $post_id, $image );
     }
@@ -200,7 +199,7 @@ class MainController extends Controller
         }
 
         if( $count > 0 ) {
-            $time->addMinutes( ( $count + 1 ) * 6 ); 
+            $time->addMinutes( $count * 6 ); 
         }
 
         // because it's like server are on utc - 5

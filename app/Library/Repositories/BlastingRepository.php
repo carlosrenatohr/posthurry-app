@@ -103,7 +103,7 @@ class BlastingRepository
             return Carbon::now();
         }
 
-        return Carbon::now()->addMinutes( ( $count + 1 ) * 6 );
+        return Carbon::now()->addMinutes( $count * 6 );
     }
 
     /**
