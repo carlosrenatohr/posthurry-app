@@ -7,6 +7,7 @@ use App\Comparison_data;
 use App\Library\Helpers\MediaHelper;
 use App\Library\Repositories\PostsPerDayRepository;
 use App\User;
+use App\MassPosts;
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
