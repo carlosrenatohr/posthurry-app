@@ -60,6 +60,7 @@ class Ftw extends Command
 //                        if ($this->comparisonIsExpired($contest->created_at, $contest->limitDaysDuration)) {
                         $row_saved = $contest->data_row;
                         if (is_null($row_saved)) {
+                            $this->info( 'a' );
                             $collection = $this->getDetailsFromFB($fb, $contest, $token);
                             $row = new Comparison_data(
                                 [
@@ -111,10 +112,10 @@ class Ftw extends Command
 
         $all_pages_selected = MassPost::where( 'comparison_id', $comparison->id )->get(); 
         foreach ($all_pages_selected as $count => $item) {
-            $page_id = ( isset( $item->pages ) ) ? $item->pages : $items->groups;
+            $page_id = ( ! empty( $item->pages ) ) ? $item->pages : $item->groups;
             $params['message'] = $msg;
             // Execute fileToUpload on every Page to post
-            if (!is_null($comparison->{$post . '_img_url'})) {
+            if (! empty (trim( $comparison->{$post . '_img_url'}))) {
                 $post_has_image = true;
                 $params['source'] = $fb->fileToUpload($comparison->{$post . '_img_url'});
             }
@@ -125,10 +126,9 @@ class Ftw extends Command
                 $token
             )->getBody();
             $post_return = json_decode($post_return);
-            $posts_id[] = ($post_has_image) ? $post_return->post_id : $post_return->id;
+            $posts_id = ($post_has_image) ? $post_return->post_id : $post_return->id;
+            MassPost::where( 'id', $item->id )->update( [ 'posts_published' => $posts_id ] );
         }
-        $posts_id_string = implode(',', $posts_id);
-        $comparison->massPosts->fill(['posts_published' => $posts_id_string])->save();
     }
 
     private function getDetailsFromFB($fb, $comparison, $token)
