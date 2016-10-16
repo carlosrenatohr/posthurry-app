@@ -50,10 +50,12 @@ class BlastingOBlasting extends Command
                 if( !empty( $post ) && $token = $this->getUserToken( $post ) ) {
                     $params   = $this->getParams( $post );
                     $fbId     = $this->getFbId( $post );
-                    $hasImage = ( ! empty( $post->post_img_url ) ) ? true : false;
+                    $hasImage = $this->hasImage( $post );
 
                     $this->info( 'ready to post to fb for id ' . $post->id );
-                    $this->postOnFb( $params, $fbId, $token, $hasImage );
+                    $post_return = $this->postOnFb( $params, $fbId, $token, $hasImage );
+
+                    $this->updateBlastingStatus( $post, $post_return );
                 }
             }
         }
@@ -81,6 +83,18 @@ class BlastingOBlasting extends Command
         return $post->groups_id;
     }
 
+    public function hasImage( $post ) {
+        return ( ! empty( $post->post_img_url ) ) ? true : false;
+    }
+
+    public function isForPage( $post ) {
+        if( empty( $post->pages_id ) ) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function getUserToken( $post ) {
         $user = User::find( $post->user_id );
         if( !empty( $user ) ) {
@@ -98,5 +112,15 @@ class BlastingOBlasting extends Command
             $token
         )->getBody();
         return json_decode($request);
+    }
+
+    public function updateBlastingStatus( $post, $postReturn ) {
+        $postType = ( $this->isForPage( $post ) ) ? 'pages' : 'groups';
+        
+        $data = [];
+        $data[ 'status' ] = 'done';
+        $data[ $postType . '_published_id' ] = ( $this->hasImage( $post ) ) ? $postReturn->post_id : $postReturn->id;
+
+        Blasting::where( 'id', $post->id )->update( $data );
     }
 }
