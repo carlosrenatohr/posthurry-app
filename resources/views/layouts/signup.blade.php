@@ -15,7 +15,7 @@
                 <input type="password" placeholder="your password" name="password">
             </div>
             <div class="field">
-               <select class='form-control' name="timezones" placeholder="your timezones">
+               <select class='form-control' name="timezones" id="timezones_control" placeholder="your timezones">
                     <option value="">select your timezone</option>
                     <option value="-12">(GMT -12:00) Eniwetok, Kwajalein</option>
                     <option value="-11">(GMT -11:00) Midway Island, Samoa</option>

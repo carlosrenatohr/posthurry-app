@@ -4,6 +4,7 @@
     "gulp": "^3.8.8"
   },
   "dependencies": {
+    "jquery": "^2.1",
     "alertifyjs": "^1.7.1",
     "bootstrap-sass": "^3.0.0",
     "datetimepicker": "^0.1.30",

@@ -59,7 +59,7 @@ $(function() {
         buttonsToDisplay: ["HeaderCloseButton", "SetButton"] //, "ClearButton"
     });
     $("#blastDateTime").on('change', function(e){
-        console.log($(this).val());
+        // console.log($(this).val());
     });
 
     $('#createContestSubmitBtn, #blastingOutSubmitBtn').on('click', function(e) {
@@ -100,16 +100,6 @@ $(function() {
             $('#groupsNamesSelected').val(groupsNamesSelected.join("_,PH//"));
         }
     });
-
-
-    //$('#blastDate, #blastTime').on('change', function(){
-    //    var blastDate = $('#blastDate').val();
-    //    var blastTime = $('#blastTime').val();
-    //    var datetimeValue = (blastDate != '' && blastTime != '')
-    //                        ? blastDate + ' ' + blastTime + ':00'
-    //                        : null;
-    //    $('#blastTimeInput').val(datetimeValue);
-    //});
 
     var pagesNamesSelected = [], groupsNamesSelected = [];
     $('body').on('change', '.massCheckbox', function(e) {
@@ -237,6 +227,12 @@ $(function() {
 
     }
 
-
+    var getTimezone = function() {
+        if ($('#timezones_control').length) {
+            var tz = (new Date().getTimezoneOffset() / 60) * -1;
+            $('#timezones_control').val(tz.toString());
+        }
+    };
+    getTimezone();
 
 });
