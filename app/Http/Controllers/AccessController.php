@@ -93,6 +93,7 @@ class AccessController extends Controller
         $user->name              = $data[ 'name' ];
         $user->email             = $data[ 'email' ];
         $user->password          = Hash::make( $data[ 'password' ] );
+        $user->timezones         = $data[ 'timezones' ];
         $user->active_package    = $data[ 'package' ];
         $user->save();
 
