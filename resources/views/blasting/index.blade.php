@@ -50,7 +50,11 @@
                     <tr id="blasting-row-{{ $index }}" data-toggle="collapse" data-target="#collapse-{{$index}}"
                         class="clickable">
                         <td class="post">
-                            {{ $blasting->post_text }}
+                            @if( $blasting->groups_id )
+                            <a href='http://fb.com/{{ $blasting->groups_published_id }}' target='_blank'>{{ $blasting->post_text }}</a>
+                            @else 
+                            <a href='http://fb.com/{{ $blasting->pages_published_id }}' target='_blank'>{{ $blasting->post_text }}</a>
+                            @endif
                         </td>
                         <td>
                             @if( $blasting->groups_id ) Groups
@@ -58,8 +62,8 @@
                             @endif
                         </td>
                         <td>
-                            @if( $blasting->groups_id ) {{ $blasting->groups_names }}  
-                            @else {{ $blasting->pages_names }} 
+                            @if( $blasting->groups_id ) <a href='http://fb.com/{{ $blasting->groups_id }}' target=_blank>{{ $blasting->groups_names }}</a>
+                            @else <a href='http://fb.com/{{ $blasting->pages_id }}' target=_blank>{{ $blasting->pages_names }}</a> 
                             @endif
                         </td>
                     </tr>
