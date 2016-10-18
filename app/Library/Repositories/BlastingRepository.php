@@ -56,6 +56,8 @@ class BlastingRepository
                 'post_img_url' => $post_img_url,
                 'groups_id' => $params[ 'groups_id' ], 
                 'pages_id' => $params[ 'pages_id' ],
+                'groups_name' => $params[ 'groups_name' ],
+                'pages_name' => $params[ 'pages_name' ],
                 'user_id' => \Auth::user()->id,
                 'blastAt' => $params[ 'blastAt' ],
                 'status' => 'waiting'
