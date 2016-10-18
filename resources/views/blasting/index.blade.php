@@ -39,10 +39,9 @@
             <table class="table table-striped text-center" id="blasting-list-posts">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>Post</th>
-                    <th class="text-center"># of Pages posted</th>
-                    <th class="text-center"># of Groups posted</th>
+                    <th>Blast Type</th>
+                    <th>Name</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,19 +49,16 @@
                 @foreach($user->blastings as $index => $blasting)
                     <tr id="blasting-row-{{ $index }}" data-toggle="collapse" data-target="#collapse-{{$index}}"
                         class="clickable">
-                        <th scope="row">
-                            <button type="button" class="btn-warning groups-modal-btn"
-                                    data-id="{{ $index }}"
-                                >Links</button>
-                        </th>
                         <td class="post">
                             {{ $blasting->post_text }}
                         </td>
                         <td>
-                            {{ count($blasting->pages) }}
+                            @if( $blasting->groups_id ) Groups
+                            @else Pages
                         </td>
                         <td>
-                            {{ count($blasting->groups) }}
+                            @if( $blasting->groups_id ) {{ $blasting->groups_name }}  
+                            @else {{ $blasting->pages_name }} 
                         </td>
                     </tr>
                     <div class="groups-container-{{ $index }} hide">
