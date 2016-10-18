@@ -63,33 +63,6 @@
                             @endif
                         </td>
                     </tr>
-                    <div class="groups-container-{{ $index }} hide">
-                        @if(!empty($blasting->groups))
-                            <h3>Groups</h3>
-                            @foreach($blasting->groups as $idx => $group)
-                            <ul class="list-unstyled" id="">
-                                <li> {{ $group }}
-                                    <a href="https://fb.com/{{ $blasting->groups_posts[$idx] }}" target="_blank"
-                                       class="btn btn-success" style="background-color: #3B5998;">Check it</a>
-                                </li>
-                                <br>
-                            </ul>
-                            @endforeach
-                        @endif
-                        <div class="divider"></div>
-                        @if(!empty($blasting->pages))
-                            <h3>Pages</h3>
-                            @foreach($blasting->pages as $idx => $page)
-                            <ul class="list-unstyled" id="">
-                                <li> {{ $page }}
-                                    <a href="https://fb.com/{{ $blasting->pages_posts[$idx] }}" target="_blank"
-                                       class="btn btn-success" style="background-color: #3B5998;">Check it</a>
-                                </li>
-                                <br>
-                            </ul>
-                            @endforeach
-                        @endif
-                    </div>
                 @endforeach
                 @endif
                 </tbody>
