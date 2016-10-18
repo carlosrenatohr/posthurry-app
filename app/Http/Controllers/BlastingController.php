@@ -20,31 +20,34 @@ class BlastingController extends Controller
 
     protected $fb, $postsPerDay;
     public function __construct(LaravelFacebookSdk $fb,
-                                PostsPerDayRepository $postsperday,
-                                BlastingRepository $blast)
-    {
+        PostsPerDayRepository $postsperday,
+        BlastingRepository $blast
+    ) {
+    
         $this->fb = $fb;
         $this->postsPerDay = $postsperday;
         $this->blasting = $blast;
     }
 
-    public function index() {
+    public function index() 
+    {
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
 
         return view('blasting.index', ['user' => $user]);
     }
 
-    public function getBlastingOutForm( Request $request ) {
+    public function getBlastingOutForm( Request $request ) 
+    {
         $fb = true;
 
-        if( Auth::check() && !empty( Auth::user()->access_token ) ) {
-            $request->session()->put( 'fb_user_access_token', Auth::user()->access_token );
+        if (Auth::check() && !empty(Auth::user()->access_token) ) {
+            $request->session()->put('fb_user_access_token', Auth::user()->access_token);
         }
 
-        if( !$request->session()->has('fb_user_access_token')){
+        if(!$request->session()->has('fb_user_access_token')) {
              $fb_login_url = $this->fb->getLoginUrl();
-             $request->session()->flash( 'error-msg', 'Connect your Facebook account to view your Groups and Pages. <a href="'.$fb_login_url.'" class="btn btn-primary">Connect with facebook.</a>' );
+             $request->session()->flash('error-msg', 'Connect your Facebook account to view your Groups and Pages. <a href="'.$fb_login_url.'" class="btn btn-primary">Connect with facebook.</a>');
 
              $fb = false;
         }
@@ -58,7 +61,8 @@ class BlastingController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postBlastingOut(Request $request) {
+    public function postBlastingOut(Request $request) 
+    {
         if (!$this->postsPerDay->limitPerDayIsOver(Auth::user()->id)) {
             $massGroup = $request->get('massPosts');
             $token = $request->session()->get('fb_user_access_token');

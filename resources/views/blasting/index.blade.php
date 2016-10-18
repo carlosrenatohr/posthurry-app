@@ -36,7 +36,7 @@
 
     <section class="add">
         <div class="container">
-            <table class="table table-striped text-center" id="blasting-list-posts">
+            <table class="table table-striped" id="blasting-list-posts">
                 <thead>
                 <tr>
                     <th>Post</th>
