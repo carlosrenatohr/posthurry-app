@@ -99,13 +99,13 @@ class BlastingRepository
     }
 
     protected function getPagesName( $count, $request ) {
-        $names = $this->doExploding( $request->get( 'pagesNamesSelected' );
+        $names = $this->doExploding( $request->get( 'pagesNamesSelected' ) );
 
         return $names[ $count ];
     }
 
     protected function getGroupsName( $count, $request ) {
-        $names = $this->doExploding( $request->get( 'groupsNamesSelected' );
+        $names = $this->doExploding( $request->get( 'groupsNamesSelected' ) );
 
         return $names[ $count ];
     }
