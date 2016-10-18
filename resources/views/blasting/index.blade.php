@@ -58,8 +58,8 @@
                             @endif
                         </td>
                         <td>
-                            @if( $blasting->groups_id ) {{ $blasting->groups_name }}  
-                            @else {{ $blasting->pages_name }} 
+                            @if( $blasting->groups_id ) {{ $blasting->groups_names }}  
+                            @else {{ $blasting->pages_names }} 
                             @endif
                         </td>
                     </tr>
