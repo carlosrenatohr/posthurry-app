@@ -55,10 +55,12 @@
                         <td>
                             @if( $blasting->groups_id ) Groups
                             @else Pages
+                            @endif
                         </td>
                         <td>
                             @if( $blasting->groups_id ) {{ $blasting->groups_name }}  
                             @else {{ $blasting->pages_name }} 
+                            @endif
                         </td>
                     </tr>
                     <div class="groups-container-{{ $index }} hide">
