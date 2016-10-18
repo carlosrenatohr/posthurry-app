@@ -82,7 +82,10 @@ class BlastingOBlasting extends Command
     public function getParams( $post ) {
         $params = [];
         $params[ 'message' ] = $post->post_text;
-        $params[ 'source' ]  = $post->post_img_url;
+
+        if( $this->hasImage( $post ) ) { 
+            $params[ 'source' ]  = $this->fb->fileToUpload( $post->post_img_url );
+        }
 
         return $params;
     }
