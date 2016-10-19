@@ -42,7 +42,7 @@
                         <a href='http://fb.com/{{ $page->{'post'. $winner_n .'_page_id'} }}' target="_blank">{{ $page->{'post'. $winner_n .'_page_name'} }}</a>
                     </td>
                     <td class="text-left col-md-2">
-                        <a href='{{ $page->{'post'. $winner_n .'_post_id'} }}' target='_blank'>{{ $page->{'post'. $winner_n .'_text'} }}</a>
+                        <a href='http://fb.com/{{ $page->{'post'. $winner_n .'_post_id'} }}' target='_blank'>{{ $page->{'post'. $winner_n .'_text'} }}</a>
                     </td>
                     <td>
                         {{ date('m-d-Y', strtotime($page->created_at)) }}<br>
