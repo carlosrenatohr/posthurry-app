@@ -106,6 +106,8 @@ class BlastingRepository
         if( !empty( $names[ $count ] ) ) {
             return $names[ $count ];
         }
+
+        return '';
     }
 
     protected function getGroupsName( $count, $request ) {
@@ -114,6 +116,8 @@ class BlastingRepository
         if( !empty( $names[ $count ] ) ) {
             return $names[ $count ];
         }
+
+        return '';
     }
 
     protected function doExploding( $names ) {
