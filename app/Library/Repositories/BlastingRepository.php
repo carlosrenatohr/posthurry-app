@@ -26,9 +26,10 @@ class BlastingRepository
     {
         // Uploading image
         list( $post_has_image, $post_img_url ) = $this->imageHandler($request);
-
+        $groupsSelected = $request->get( 'massPosts' );
+        $groupsCount = (isset($groupsSelected['groups'])) ? count($groupsSelected['groups']) : 0;
         foreach ($this->getAllPages($massGroup) as $count => $row) {
-            // set time to scheduller. 
+            // set time to scheduler.
             // first messages are post directly, so it was now()
             // second and next messages are post for interval 6 minutes
             $params[ 'blastAt' ] = $this->getBlastSchedulerTime($count);
@@ -39,7 +40,7 @@ class BlastingRepository
             // set groups or pages id
             if($row[ 'type' ] == 'page' ) {
                 $params[ 'pages_id' ]       = $row[ 'id' ];
-                $params[ 'pages_name' ]     = $this->getPagesName( $count, $request );
+                $params[ 'pages_name' ]     = $this->getPagesName( $count - $groupsCount, $request );
                 $params[ 'groups_id' ]      = "";
                 $params[ 'groups_name' ]    = "";
             } else {
@@ -48,13 +49,13 @@ class BlastingRepository
                 $params[ 'groups_id' ]      = $row[ 'id' ];
                 $params[ 'groups_name' ]    = $this->getGroupsName( $count, $request );
             }
-            
+
             // Adding new row on blasting table
             $this->blasting->create(
                 [
                 'post_text' => $request->get('post1_text'),
                 'post_img_url' => $post_img_url,
-                'groups_id' => $params[ 'groups_id' ], 
+                'groups_id' => $params[ 'groups_id' ],
                 'pages_id' => $params[ 'pages_id' ],
                 'groups_names' => $params[ 'groups_name' ],
                 'pages_names' => $params[ 'pages_name' ],
