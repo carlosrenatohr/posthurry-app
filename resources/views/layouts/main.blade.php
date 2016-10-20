@@ -147,7 +147,7 @@
                     FB.init({
                         appId: '353859614689535',
                         xfbml: true,
-                        version: 'v2.0',
+                        version: 'v2.2',
                         cookie: true,
                         status: true
                     });

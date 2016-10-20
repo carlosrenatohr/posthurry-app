@@ -27,9 +27,9 @@ return [
      * POST HURRY
      */
     'facebook_config' => [
-        'app_id' => env('FACEBOOK_APP_ID', '353859614689535'),
-        'app_secret' => env('FACEBOOK_APP_SECRET', 'ed4e013338b91267bf4c6a43f1d23b3d'),
-        'default_graph_version' => 'v2.0', // v2.5
+        'app_id' => env('FACEBOOK_APP_ID', ''),
+        'app_secret' => env('FACEBOOK_APP_SECRET', ''),
+        'default_graph_version'     => 'v2.2',
         //'enable_beta_mode' => true,
         //'http_client_handler' => 'guzzle',
     ],
@@ -50,13 +50,10 @@ return [
     'default_scope' => [
         'email',
         'public_profile',
-        'user_groups',
-        'user_managed_groups',
+        'user_groups', // for v2.3 or older
+        // 'user_managed_groups', // higher than 2.3
         'publish_pages',
-        'user_likes',
         'manage_pages',
-        //'pages_show_list',
-        //'pages_manage_cta',
         'publish_actions',
     ],
     /*
