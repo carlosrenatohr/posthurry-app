@@ -50,8 +50,8 @@ return [
     'default_scope' => [
         'email',
         'public_profile',
-        'user_groups', // for v2.3 or older
-        // 'user_managed_groups', // higher than 2.3
+//        'user_groups', // for v2.3 or older
+         'user_managed_groups', // higher than 2.3
         'publish_pages',
         'manage_pages',
         'publish_actions',
