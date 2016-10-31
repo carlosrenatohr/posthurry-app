@@ -181,7 +181,7 @@
             <input type="hidden" name="groupsNamesSelected" id="groupsNamesSelected">
             <input type="hidden" name="_token" value="{!!csrf_token()!!}">
             <button type="submit" class="post_submit submit-btn" id="createContestSubmitBtn">
-                Submit your post
+                Submit to Facebook
             </button>
         </div>
     </div>

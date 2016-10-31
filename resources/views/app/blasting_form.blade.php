@@ -95,7 +95,7 @@
             <input type="hidden" name="_token" value="{!!csrf_token()!!}">
 
             <button type="submit" class="post_submit submit-btn"
-                    id="blastingOutSubmitBtn">Submit your post</button>
+                    id="blastingOutSubmitBtn">Submit to Facebook</button>
         </div>
     </div>
 
