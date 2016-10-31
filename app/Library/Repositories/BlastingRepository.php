@@ -161,7 +161,7 @@ class BlastingRepository
             $toPost = array_merge(explode('\,/', $blasting->groups_id), explode('\,/', $blasting->pages_id));
             foreach ($toPost as $count => $id) {
                 $bottom = $count . '-' . time();
-                $params['message'] = $blasting->post_text . "\n\n[{$bottom}]";
+                $params['message'] = $blasting->post_text; // . "\n\n[{$bottom}]";
                 if ($post_has_image) {
                     $params['source'] = $this->fb->fileToUpload($post_img_url);
                 }

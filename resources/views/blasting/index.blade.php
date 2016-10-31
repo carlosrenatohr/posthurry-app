@@ -51,9 +51,17 @@
                         class="clickable">
                         <td class="post">
                             @if( $blasting->groups_id )
-                            <a href='http://fb.com/{{ $blasting->groups_published_id }}' target='_blank'>{{ $blasting->post_text }}</a>
+                            <a href='http://fb.com/{{
+                                (!empty($blasting->groups_published_id)) ?
+                                $blasting->groups_published_id :
+                                $blasting->groups_id }}' target='_blank'
+                                >{{ $blasting->short_post_text }}</a>
                             @else 
-                            <a href='http://fb.com/{{ $blasting->pages_published_id }}' target='_blank'>{{ $blasting->post_text }}</a>
+                            <a href='http://fb.com/{{
+                                (!empty($blasting->groups_published_id)) ?
+                                $blasting->pages_published_id :
+                                $blasting->pages_id }}' target='_blank'
+                             >{{ $blasting->short_post_text }}</a>
                             @endif
                         </td>
                         <td>

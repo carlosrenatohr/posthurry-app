@@ -34,4 +34,10 @@ class Blasting extends Model
     public function getIsTodayAttribute() {
         return \Carbon\Carbon::parse($this->created_at)->isToday();
     }
+
+    public function getShortPostTextAttribute() {
+        return strlen($this->post_text) > 25
+                ? substr($this->post_text, 0, 25) . '...'
+                : $this->post_text;
+    }
 }
