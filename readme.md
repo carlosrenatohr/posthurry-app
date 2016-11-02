@@ -1,27 +1,38 @@
-## Laravel PHP Framework
+## PostHurry app
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](http://getposthurry.com/terms)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+PostHurry is an innovative way to get your message out there. Using your personal Facebook profile,
+PostHurry gives you the ability to schedule and post content on multiple groups and pages at once; we
+call them “blasts” because that’s exactly what they do! With PostHurry, the possibilities are endless - use
+them to promote yourself, your business or host a contest.
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Getting Started
 
-## Official Documentation
+### Installing
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+After download code from repository, to run project at your local follow next steps at terminal:
 
-## Contributing
+```
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Set your own configuration creating a new _.env_ fle based on _.env.example_ file. Then create a new database with name
+ you set at _.env_, after run at terminal:
 
-## Security Vulnerabilities
+ ```
+ php artisan migrate
+ ```
+ 
+ To run frontend dependencies, you need nodejs and npm to run:
+ 
+ ```
+ npm install
+ ```
+ Report any problem.
+ 
+## Deployment
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+You must be authorized to update your changes on live site. 
+ 
+ 
