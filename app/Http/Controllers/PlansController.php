@@ -33,7 +33,8 @@ class PlansController extends Controller
             'layouts.main-page',
             [
                 'withoutHeader' => true,
-                'custom_code' => Auth::check() ? Hashids::encode(Auth::user()->id) : 0
+                'custom_code' => Auth::check() ? Hashids::encode(Auth::user()->id) : 0,
+                'referral'=>null
             ]
         );
     }
@@ -43,18 +44,27 @@ class PlansController extends Controller
         return redirect(url('/blasting'));
     }
 
-    public function getMonthly(Request $request)
+    public function getMonthly(Request $request, $discount = null)
     {
         if( Auth::check() ) {
-            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', Auth::user()->id));
+            return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('monthly', Auth::user()->id, $discount));
         }
+
+//        $request->session()->put('referral', $discount);
+//        $request->session()->put('package_type', 'yearly');
+//        return redirect(url($this->fb->getLoginUrl().'&package=monthly'));
     }
 
-    public function getYearly(Request $request)
+    public function getYearly(Request $request, $discount = null)
     {
         if( Auth::check() ) {
             return redirect($this->getPaypalUrl() . "?" . $this->getPaypalParameters('yearly', Auth::user()->id));
         }
+
+//        $request->session()->put('referral', $discount);
+//        $request->session()->put('package_type', 'yearly');
+//        //return redirect(url('/login?package=yearly'));		          //return redirect(url('/login?package=yearly'));
+//        return redirect(url($this->fb->getLoginUrl().'&package=yearly'));
     }
 
    
@@ -69,13 +79,20 @@ class PlansController extends Controller
         }
     }
 
-    protected function getPaypalParameters($package, $user_facebook_id)
+    protected function getPaypalParameters($package, $user_facebook_id, $discount = null)
     {
         $package_id = env(strtoupper('PAYPAL_' . $package . '_' . env('PAYPAL_ENV')));
 
         $params['custom'] = Hashids::encode($user_facebook_id);
         $params['hosted_button_id'] = $package_id;
         $params['cmd'] = "_s-xclick";
+        if($discount){
+            // check if code is valid and is not his code then set discount_rate
+            $checkReferral = User::where('referral', $discount)->first();
+            if($checkReferral && !(session()->get('logged_in') === $checkReferral->id)){
+                $params['discount_rate'] = 25;
+            }
+         }
         $params['rm'] = 1;
 
         $params_string = http_build_query($params);

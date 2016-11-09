@@ -9,22 +9,37 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Vinkla\Hashids\HashidsManager;
 
 class AccessController extends Controller
 {
     use ResetsPasswords;
 
-    protected $fb;
+    protected $fb, $hashid;
 
-    public function __construct(LaravelFacebookSdk $fb)
+    public function __construct(LaravelFacebookSdk $fb, HashidsManager $hashid)
     {
         $this->fb = $fb;
+        $this->hashid = $hashid;
     }
 
     public function index(Request $request)
     {
-        return view('layouts.main-page', ['withoutHeader' => true]);
+        return view('layouts.main-page', ['withoutHeader' => true, 'referral' => null]);
     }
+
+    public function referral($referral=null)
+     {
+         if($referral){
+             $checkReferral = User::where('referral', $referral)->first();
+             if($checkReferral && !(session()->get('logged_in') === $checkReferral->id)){
+                 return view('layouts.main-page', ['withoutHeader' => true, 'referral'=>$referral]);
+             }
+            return view('layouts.main-page', ['withoutHeader' => true, 'referral'=>null]);
+         }
+ 
+         return view('layouts.main-page', ['withoutHeader' => true, 'referral'=>null]);
+      }
 
     public function getLogin(Request $request)
     {
@@ -72,7 +87,7 @@ class AccessController extends Controller
         if( ! $userFound->isEmpty() ){
             return redirect()->back()->with( 'error-msg', 'Your email has been registered, please do login instead' );
         }
-        
+
         $user =  $this->createUsers( $request->all() );
 
         Auth::loginUsingId( $user->id );
@@ -83,8 +98,19 @@ class AccessController extends Controller
     
             return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $user->name . "!");
         } else {
-
-            return redirect('/plans/' . $request->get( 'package' ) );
+            // check if user comes with referral code
+            if($request->session()->get('referral') && $request->session()->get('package_type')){
+                    $referral = $request->session()->get('referral');
+                    $package = $request->session()->get('package_type');
+                    $checkReferral = User::where('referral', $referral)->get();
+                    if(count($checkReferral)>0){
+                        return redirect('plans/'.$package.'/'.$referral);
+                    }
+             return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $user->name . "!");
+         }else{
+            return redirect('/blasting')->with('success-msg', "Your account was created successfully, Welcome " . $user->name . "!");
+         }
+//            return redirect('/plans/' . $request->get( 'package' ) );
         }
     }
 
@@ -95,7 +121,10 @@ class AccessController extends Controller
         $user->password          = Hash::make( $data[ 'password' ] );
         $user->timezones         = $data[ 'timezones' ];
         $user->active_package    = $data[ 'package' ];
+        $hashids = $this->hashid->encode(time());
+        $user->referral = str_random(10); // generate a referral code
         $user->save();
+
 
         return $user;
     }

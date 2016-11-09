@@ -62,6 +62,12 @@
         .navbar-nav li.active {
             background-color: #f5f5f5;
         }
+        .bg-info {
+            background-color: #d9edf7;
+        }
+        .bg-primary, .bg-info{
+            padding: 15px;
+         }
         .divider {
             height: 1px;
             width:100%;
