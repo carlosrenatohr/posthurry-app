@@ -3,6 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+// Need to migrate
 class ReferalCodeFieldToUsers extends Migration
 {
     /**
