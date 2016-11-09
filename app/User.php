@@ -2,6 +2,7 @@
 namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword;
+use Hashids\Hashids;
 
 class User extends Authenticatable implements CanResetPassword
 {
@@ -36,6 +37,9 @@ class User extends Authenticatable implements CanResetPassword
         if (!count($user)) {
             $new_user = (array)$data;
             $new_user['facebook_user_id'] = $new_user['id'];
+//            $hashids = new Hashids(time(), 15);  // generate a referral code
+//            $referral = $hashids->encode(time());
+//            $new_user['referral'] = $referral;
             $new_user['access_token'] = $token;
             $new_user = array_except($new_user, ['id']);
             $user = self::create($new_user);

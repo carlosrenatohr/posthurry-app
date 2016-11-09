@@ -43,6 +43,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/signup', 'AccessController@getSignup');
     Route::post('/signup', 'AccessController@postSignup');
     Route::get('/logout', 'AccessController@logout');
+    Route::get('/referral/{referral?}', 'AccessController@referral');
     Route::get('reset/{token?}', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@showResetForm']);
     Route::post('password/email', ['as' => 'auth.password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
     Route::post('password/reset', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@reset']);
@@ -88,8 +89,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'plans'], function () {
         Route::post('/ipn', ['as' => 'plans.ipn', 'uses' => 'PlansController@postIpn']);
-        Route::get('/monthly', ['as' => 'plans.monthly', 'uses' => 'PlansController@getMonthly']);
-        Route::get('/yearly', ['as' => 'plans.yearly', 'uses' => 'PlansController@getYearly']);
+        Route::get('/monthly/{discount?}', ['as' => 'plans.monthly', 'uses' => 'PlansController@getMonthly']);
+        Route::get('/yearly/{discount?}', ['as' => 'plans.yearly', 'uses' => 'PlansController@getYearly']);
         Route::get('/trial', ['as' => 'plans.trial', 'uses' => 'PlansController@getTrial']);
         Route::get('/', ['as' => 'plans', 'uses' => 'PlansController@getIndex']);
     });
