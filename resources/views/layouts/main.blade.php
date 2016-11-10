@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
+    <title>POST HURRY @yield('pageTitle', '')</title>
     <meta charset="UTF-8">
+    <meta name="author" content="Booth LLC.">
+    <meta name="description" content="PostHurry is an innovative way to get your message out there.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{!!csrf_token()!!}">
+    <link rel="author" href="https://plus.google.com/115128332816053821021">
+    <link rel="me" href="https://plus.google.com/115128332816053821021">
+    <meta property="og:url" content="https://www.getposthurry.com" />
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="PostHurry" />
+    <meta property="og:description" content="PostHurry is an innovative way to get your message out there." />
+    <meta property="og:image" content="https://getposthurry.com/img/logo-new.png" />
+    <meta property="fb:app_id" content="353859614689535" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,500,700" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-    <meta name="author" content="Syed Ammar Haider Rizvi">
     {{--CSS--}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.css') }}">
